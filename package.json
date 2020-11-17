@@ -1,0 +1,25 @@
+{
+  "name": "celp",
+  "version": "1.0.0",
+  "description": "CS 546 Web Programming I: Final Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sgao1202/celp.git"
+  },
+  "author": "Simon Gao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sgao1202/celp/issues"
+  },
+  "homepage": "https://github.com/sgao1202/celp#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "handlebars": "^4.7.6",
+    "mongodb": "^3.6.3"
+  }
+}
