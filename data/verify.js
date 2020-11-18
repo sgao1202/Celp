@@ -13,6 +13,6 @@ function convertId(doc) {
 }
 
 module.exports = {
-    valdiString,
+    validString,
     convertId
 };
