@@ -1,0 +1,1 @@
+const seed = require("./tasks/seed");
