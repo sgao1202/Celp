@@ -43,7 +43,9 @@ module.exports = {
             if (user.username == username) throw 'this username is already taken'
         })
 
+        //create hashed password
         const hashedPassword = await bcrypt.hash(password, saltRounds);
+        
         /* Add new user to DB */
         let newUser = {
             firstName: firstName, 
