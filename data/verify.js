@@ -12,6 +12,23 @@ function convertId(doc) {
     return doc;
 }
 
+// Takes in a number argument.
+// Return true if the argument is above 0 and is a positive integer
+function validAge(num){
+    if (!age || typeof age != 'number' || !Number.isInteger(age) || age < 1) return false;
+    return true;
+}
+
+// Takes in a string argument.
+// Return true if the argument is a valid email.
+
+function validEmail(email) {
+    if (!validString(email)) return false;
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+
 module.exports = {
     validString,
     convertId

@@ -20,10 +20,10 @@ module.exports = {
 
     async createUser(firstName, lastName, paramEmail, paramUsername, age, password) {
         if (!verify.validString(firstName)) throw 'firstName is not a valid string.';
-        if (!verify.validString(lastName))   throw 'lastName is not a valid string.';
-        if (!verify.validString(paramEmail))     throw 'email is not a valid string.';
+        if (!verify.validString(lastName))  throw 'lastName is not a valid string.';
+        if (!verify.validEmail(paramEmail))  throw 'email is not a valid string.';
         if (!verify.validString(paramUsername)) throw 'username is not a valid string.';
-        if (!age || typeof age != 'number' || !Number.isInteger(age) || age < 1) throw 'age must be a positive integer'
+        if (!verify.validAge(age)) throw 'age must be a positive integer'
         if (!verify.validString(password)) throw 'password is not a valid string';
 
         /*before storing email and username into DB, make sure there are no duplicate entries of email or username in DB */
@@ -67,8 +67,7 @@ module.exports = {
             id: parsedId,
             $set: updatedData
         });
-        if (updatedUser.modifiedCount === 0) throw 'none of the fields have changed'
-
+        if (updatedUser.modifiedCount === 0) throw 'none of the fields have changed';
         return this.getUserById(userId);
     },
 
