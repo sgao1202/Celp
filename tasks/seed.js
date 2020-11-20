@@ -20,10 +20,10 @@ async function main() {
     // Create users
     const user1 = await users.createUser('Simon', 'Smells', 'ss20@gmail.com', 'stinkyman20', 25, 'stonkystonk');
     const user2 = await users.createUser('Taquisha', 'Maramba', 'tmaram02@gmail.com', 'tqmaram095', 44, 'shakalaka');
-    // const user3 = await users.createUser('Brett', 'King', 'bretkingcrown@gmail.com', 'bigthrone39', 18, 'royaltyawaits');
-    // const user4 = await users.createUser('Marito', 'Carlito', 'mexicanoman@gmail.com', 'sombrerolegend', 30, 'stylePoetic');
-    // const user5 = await users.createUser('Annie', 'Patel', 'hehexd@gmail.com', 'secretlover21', 20, 'smoochcooch');
-    // const user6 = await users.createUser('Jon', 'Con', 'jancan99@gmail.com', 'ConBoy05', 10, 'robbinGbanks');
+    const user3 = await users.createUser('Brett', 'King', 'bretkingcrown@gmail.com', 'bigthrone39', 18, 'royaltyawaits');
+    const user4 = await users.createUser('Marito', 'Carlito', 'mexicanoman@gmail.com', 'sombrerolegend', 30, 'stylePoetic');
+    const user5 = await users.createUser('Annie', 'Patel', 'hehexd@gmail.com', 'secretlover21', 20, 'smoochcooch');
+    const user6 = await users.createUser('Jon', 'Con', 'jancan99@gmail.com', 'ConBoy05', 10, 'robbinGbanks');
 
     /* test for case sensitive username and email */
     // const user11 = await users.createUser('Simon', 'Smells', 'SS20@gMAil.COM', 'stinkyman20', 25, 'stonkystonk');
@@ -43,7 +43,7 @@ async function main() {
     } catch(e){
         console.log(e);
     }
-    
+
     // Test restaurants
     try {
         const newR1 = await restaurants.updateRestaurant(restaurant1._id.toString(), {name: 'Changed Name'});
