@@ -1,7 +1,7 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
 const verify = require('./verify');
-const bcrypt = require('./bcrypt');
+const bcrypt = require('bcrypt');
 const saltRounds = 16;
 let { ObjectId } = require('mongodb'); 
 
@@ -17,7 +17,15 @@ module.exports = {
         user._id = user._id.toString();
         return user;
     },
+    async getAllUsers(){
+        const userCollection = await users();
+        const allUsers = await userCollection.find({}).toArray();
+        for (let x of allUsers) {
+            x._id = x._id.toString();
+        }
 
+        return allUsers;
+    },
     async createUser(firstName, lastName, paramEmail, paramUsername, age, password) {
         if (!verify.validString(firstName)) throw 'firstName is not a valid string.';
         if (!verify.validString(lastName))  throw 'lastName is not a valid string.';
@@ -27,13 +35,19 @@ module.exports = {
         if (!verify.validString(password)) throw 'password is not a valid string';
 
         /*before storing email and username into DB, make sure there are no duplicate entries of email or username in DB */
-        const users = getAllUsers();
+        const allUsers = await this.getAllUsers();
         let email = paramEmail.toLowerCase();
         let username = paramUsername.toLowerCase();
-        for (user in users){
+        allUsers.forEach(user => {
             if (user.email == email) throw 'this email is already taken';
             if (user.username == username) throw 'this username is already taken'
-        }
+        })
+        // foreach(user in allUsers){
+        //     console.log(user);
+        //     console.log(user.email);
+        //     if (user.email == email) throw 'this email is already taken';
+        //     if (user.username == username) throw 'this username is already taken'
+        // }
 
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         /* Add new user to DB */
@@ -69,16 +83,5 @@ module.exports = {
         });
         if (updatedUser.modifiedCount === 0) throw 'none of the fields have changed';
         return this.getUserById(userId);
-    },
-
-    async getAllUsers(){
-        const userCollection = await users();
-        const users = await userCollection.findAll({}).toArray();
-        for (let x of users) {
-            x._id = x._id.toString();
-        }
-
-        return users;
     }
-
 }
