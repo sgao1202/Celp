@@ -18,13 +18,32 @@ async function main() {
     const restaurant6 = await restaurants.createRestaurant('Chicken Factory', '529 Washington St', 'Korean');
 
     // Create users
-    const user1 = await users.createUser('Simon', 'Smells', 'ss20@gmail.com', 'ss20', 25, 'stonkystonk');
+    const user1 = await users.createUser('Simon', 'Smells', 'ss20@gmail.com', 'stinkyman20', 25, 'stonkystonk');
     const user2 = await users.createUser('Taquisha', 'Maramba', 'tmaram02@gmail.com', 'tqmaram095', 44, 'shakalaka');
-    const user3 = await users.createUser('Brett', 'King', 'bretkingcrown@gmail.com', 'bigthrone39', 18, 'royaltyawaits');
-    const user4 = await users.createUser('Marito', 'Carlito', 'mexicanoman@gmail.com', 'sombrerolegend', 30, 'stylePoetic');
-    const user5 = await users.createUser('Annie', 'Patel', 'hehexd@gmail.com', 'secretlover21', 20, 'smoochcooch');
-    const user6 = await users.createUser('Jon', 'Con', 'jancan99@gmail.com', 'ConBoy05', 10, 'robbinGbanks');
+    // const user3 = await users.createUser('Brett', 'King', 'bretkingcrown@gmail.com', 'bigthrone39', 18, 'royaltyawaits');
+    // const user4 = await users.createUser('Marito', 'Carlito', 'mexicanoman@gmail.com', 'sombrerolegend', 30, 'stylePoetic');
+    // const user5 = await users.createUser('Annie', 'Patel', 'hehexd@gmail.com', 'secretlover21', 20, 'smoochcooch');
+    // const user6 = await users.createUser('Jon', 'Con', 'jancan99@gmail.com', 'ConBoy05', 10, 'robbinGbanks');
 
+    /* test for case sensitive username and email */
+    // const user11 = await users.createUser('Simon', 'Smells', 'SS20@gMAil.COM', 'stinkyman20', 25, 'stonkystonk');
+    // const user12 = await users.createUser('Simon', 'Smells', 'smmm20@gmail.com', 'stiNkyMan20', 25, 'stonkystonk');
+
+    //test getUserbyId
+    try{
+        console.log(await users.getUserById(user2._id.toString()));
+    }catch(e){
+        console.log(e);
+    }
+
+    //test updateUser
+    try{
+        const newUser1 = await users.updateUser(user1._id.toString(), {lastName: 'Stinks'});
+        console.log(newUser1);
+    } catch(e){
+        console.log(e);
+    }
+    
     // Test restaurants
     try {
         const newR1 = await restaurants.updateRestaurant(restaurant1._id.toString(), {name: 'Changed Name'});

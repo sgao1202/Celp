@@ -9,7 +9,7 @@ module.exports = {
     async getUserById(userId) {
         if (!verify.validString(userId)) throw 'userId is not a valid string.';
 
-        let parsedId = ObjectId(userId);
+        let parsedId = ObjectId(userId.trim());
 
         const userCollection = await users();
         let user = await userCollection.findOne({ _id: parsedId });
@@ -42,12 +42,6 @@ module.exports = {
             if (user.email == email) throw 'this email is already taken';
             if (user.username == username) throw 'this username is already taken'
         })
-        // foreach(user in allUsers){
-        //     console.log(user);
-        //     console.log(user.email);
-        //     if (user.email == email) throw 'this email is already taken';
-        //     if (user.username == username) throw 'this username is already taken'
-        // }
 
         const hashedPassword = await bcrypt.hash(password, saltRounds);
         /* Add new user to DB */
@@ -71,17 +65,19 @@ module.exports = {
 
         return finuser;
     },
-
-    async updateUser(userId, updatedData){
+    async updateUser(userId, updatedUser){
         if (!verify.validString(userId)) throw 'userId is not a valid string';
+        if (!updatedUser) throw 'must provide fields to update';
 
-        let parsedId = ObjectID(userId);
+        let parsedId = ObjectId(userId.trim());
+
         const userCollection = await users();
-        const updatedUser = await userCollection.update({
-            id: parsedId,
-            $set: updatedData
-        });
-        if (updatedUser.modifiedCount === 0) throw 'none of the fields have changed';
-        return this.getUserById(userId);
+        const changedUser = await userCollection.updateOne(
+            { _id: parsedId },
+            { $set: updatedUser }
+        );
+
+        if (changedUser.modifiedCount === 0) throw 'none of the fields have changed';
+        return await this.getUserById(userId);
     }
 }
