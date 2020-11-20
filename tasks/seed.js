@@ -9,6 +9,26 @@ async function main() {
     const db = await dbConnection();
     await db.dropDatabase();
 
+    // Create restaurants
+    const restaurant1 = await restaurants.createRestaurant('McDonalds', '234 Washington St', 'Fast Food');
+    const restaurant2 = await restaurants.createRestaurant('QDOBA Mexican Eats', '400 Washington St', 'Mexican');
+    const restaurant3 = await restaurants.createRestaurant('T Thai', '102 Hudson St', 'Thai');
+    const restaurant4 = await restaurants.createRestaurant('No. 1', '642 Washington St,', 'Chinese');
+    const restaurant5 = await restaurants.createRestaurant("O'Bagel", '600 Washington St, Hoboken', 'Breakfast');
+    const restaurant6 = await restaurants.createRestaurant('Chicken Factory', '529 Washington St', 'Korean');
+
+    // Test restaurants
+    try {
+        const newR1 = await restaurants.updateRestaurant(restaurant1._id.toString(), {name: 'Changed Name'});
+        console.log(newR1);
+        await restaurants.addReview(restaurant1._id.toString(), 'reviewA');
+        await restaurants.removeReview(restaurant1._id.toString(), 'reviewA');
+    } catch(e) {
+        console.log(e);
+        console.log('Error caught');
+        console.log();
+    }
+    // Create comments
     let cAu1 = await comments.createComment("reviewA", "user1", "hello a1");
     let cBu1 = await comments.createComment("reviewB", "user1", "hello b1");
     let cAu2 = await comments.createComment("reviewA", "user2", "hello a2");
@@ -25,7 +45,6 @@ async function main() {
     console.log(await comments.getAllCommentsOfUser("user1"));
 
     console.log('Done seeding database');
-
     await db.serverConfig.close();
 }
 
