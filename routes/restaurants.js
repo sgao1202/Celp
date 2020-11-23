@@ -42,7 +42,7 @@ router.post('/new', async (req, res) => {
 
     try {
         const newRestaurant = await restaurantData.createRestaurant(newRestaurantData.name, newRestaurantData.address, newRestaurantData.cuisine);
-        res.redirect(`/posts/${newRestaurant._id}`);
+        res.redirect(`/restaurants`);
     } catch(e) {
         res.status(500).json({error: e});
     }

@@ -81,7 +81,6 @@ module.exports = {
             address: newAddress,
             cuisine: newCuisine
         }
-    */
     async updateRestaurant(id, updatedRestaurant) {
         if (!verify.validString(id)) throw 'Restaurant Id is not valid string';
         if (!updatedRestaurant || typeof updatedRestaurant !== 'object') throw 'Must provide info to update';
@@ -107,8 +106,8 @@ module.exports = {
         const updateInfo = await restaurantCollection.updateOne({ _id: objId }, { $set: updateRestaurantData });
         if (!updateInfo.matchedCount || !updateInfo.modifiedCount) throw `Failed to update restaurant with id=${id}`;
         return await this.getRestaurantById(id);
-    },
-
+    },*/
+    /*
     async deleteRestaurant(id) {
         if (!verify.validString(id)) throw 'Restaurant Id must be a valid string';
         let trimmedId = id.trim();
@@ -119,7 +118,7 @@ module.exports = {
         const deleteInfo = await restaurantCollection.deleteOne({_id: objId});
         if (deleteInfo.deletedCount === 0) throw `Could not delete restaurant with id=${trimmedId}`;
         return `${name} has been successfully deleted.`;
-    },
+    },*/
 
     /* 
         Adding/removing a review should change the metric calculations and numbers
