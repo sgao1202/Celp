@@ -7,7 +7,10 @@ const constructorMethod = (app) => {
 
     // Landing page '/' route
     app.get('/', (req, res) => {
-        res.render('landing/landing');
+        // res.render('landing/landing', {
+        //     partial: 'landing-script'
+        // });
+        res.redirect('/restaurants')
     });
     app.use('/restaurants', restaurantRoutes);
     app.use('/users', userRoutes);

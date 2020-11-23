@@ -1,7 +1,7 @@
 (function ($) {
 
     // Make rows clickable
-    $(".clickable-row").click( (event) => {
+    $(".clickable-row").mouseup( (event) => {
         let href = event.currentTarget.getAttribute('data-href')
         console.log(href);
         console.log(window.location);
