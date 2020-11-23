@@ -1,0 +1,16 @@
+<table class="table table-hover mt-5">
+    <thead class="thead-light">
+        <th scope="col">Restaurant Name</th>
+        <th scope="col">Restaurant Address</th>
+        <th scope="col">Cuisine</th>
+    </thead>
+    <tbody>
+        {{#each restaurants}}
+            <tr class="clickable-row" id="{{this._id}}"data-href="/restaurants/{{this._id}}">
+                <td>{{this.name}}</td>
+                <td>{{this.address}}</td>
+                <td>{{this.cuisine}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
