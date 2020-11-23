@@ -5,6 +5,13 @@ function validString(str) {
     return true;
 }
 
+// Takes in a single argument.
+// Return true if the argument is a boolean; otherwise return false.
+function validBoolean(bool) {
+    if (typeof bool !== 'boolean') return false;
+    return true;
+}
+
 // Takes in a MongoDB document (JavaScript object).
 // Returns the same document with its _id field as a string.
 function convertId(doc) {
@@ -16,6 +23,11 @@ function convertId(doc) {
 // Return true if the argument is above 0 and is a positive integer, false otherwise.
 function validAge(age){
     if (!age || typeof age != 'number' || !Number.isInteger(age) || age < 1) return false;
+    return true;
+}
+
+function validRating(num){
+    if (!num || (typeof num != 'number') || !Number.isInteger(num) || num < 1 || num > 5) return false;
     return true;
 }
 
@@ -32,5 +44,7 @@ module.exports = {
     validString,
     convertId,
     validAge,
-    validEmail
+    validEmail,
+    validBoolean,
+    validRating
 };

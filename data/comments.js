@@ -32,19 +32,14 @@ module.exports = {
         const newId = insertInfo.insertedId;
         const finComment = await this.getCommentById(newId.toString());
 
-        /* Add comment Id to respective review 
-        const review = await reviews.getReviewById(reviewId);
-        let reviewArray = review.comments;
-        reviewArray.push(newId.toString());
-        await reviews.updateReview(reviewId, undefined, undefined, undefined, undefined, undefined,
-                reviewArray, undefined, undefined);*/
+        /* Add comment Id to respective review */
+        await reviews.updateReviewComment(reviewId, newId.toString(), true);
 
-        /* Add comment Id to respective user 
+        /* Add comment Id to respective user */
         const user = await users.getUserById(userId);
         let userArray = user.comments;
         userArray.push(newId.toString());
-        await users.updateUser(userId, undefined, undefined, undefined, undefined, undefined,
-                undefined, undefined, undefined, userArray);*/
+        await users.updateUser(userId, {'comments': userArray});
 
         return finComment;
     },
@@ -57,39 +52,21 @@ module.exports = {
         const commentCollection = await comments();
         const comment = await this.getCommentById(commentId);
 
-        /* Remove comment Id from respective review 
-        const review = await reviews.getReviewById(comment.reviewId);
-        let reviewArray = review.comments;
-        let reviewIndex = reviewArray.indexOf(commentId);
-        if (reviewIndex > -1) reviewArray.splice(reviewIndex, 1);
-        await reviews.updateReview(comment.reviewId, undefined, undefined, undefined, undefined,
-                undefined, reviewArray, undefined, undefined);*/
+        /* Remove comment Id from respective review */
+        await reviews.updateReviewComment(comment.reviewId, commentId, false);
     
-        /* Remove comment Id from respective user 
+        /* Remove comment Id from respective user */
         const user = await users.getUserById(comment.userId);
         let userArray = user.comments;
         let userIndex = userArray.indexOf(commentId);
         if (userIndex > -1) userArray.splice(userIndex, 1);
-        await users.updateUser(comment.userId, undefined, undefined, undefined, undefined,
-                undefined, undefined, undefined, undefined, userArray); */
+        await users.updateUser(comment.userId, {'comments': userArray});
 
         /* delete comment from DB */
         const deletionInfo = await commentCollection.deleteOne({ _id: parsedId });
         if (deletionInfo.deletedCount === 0) throw `Could not delete comment with id of ${commentId}`;
 
         return; 
-    },
-
-    async getAllCommentsOfUser(userId) {
-        if (!verify.validString(userId)) throw 'userId is not a valid string.';
-
-        const commentCollection = await comments();
-        const commentList = await commentCollection.find({'userId': { $eq: userId}}).toArray();
-        for (let x of commentList) {
-            x._id = x._id.toString();
-        }
-
-        return commentList;
     },
 
     async getAllCommentsOfReview(reviewId) {
