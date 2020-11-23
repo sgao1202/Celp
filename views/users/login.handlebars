@@ -1,3 +1,11 @@
-<form method="POST" action="/users/login" class=>
-
+<h1>Login</h1>
+<form method="POST" action="/users/login" onsubmit>
+    <label for = 'username'>Username: </label>
+    <input id = 'username' name = 'username'>
+    <br>
+    <label for = 'password'>Password:</label>
+    <input id = 'password' name = 'password' type = 'password'>
+    <button type = "submit" name = 'submitButton'>Log In</button>
+    
 </form>
+<div>{{error}}</div>
