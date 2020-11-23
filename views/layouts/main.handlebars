@@ -4,15 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href= "public/css/main.css">
     <title>Celp</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-end">
         <a class="navbar-brand h1" href="/">Celp</a>
-        <form action="" class="ml-auto">
-            <button type="button" class="btn btn-outline-light">Log In</button>
-            <button type="button" class="btn btn-outline-light">Sign Up</button>
-        </form>
+        {{#if authenticated}}
+            <div class="dropdown">
+                <button class="dropbtn">{{userName}}
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/private">User Profile</a>
+                    <a href="/users/logout">Logout</a>
+                </div>
+            </div>
+        {{/if}}
+        {{#unless log}}
+            <a href = '/users/login' class = 'button'>Login</a>
+            <a href = '/users/signup' class = 'button'>Signup</a>
+        {{/unless}}
+        
     </nav>
     {{{body}}}
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
