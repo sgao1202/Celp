@@ -14,6 +14,7 @@ module.exports = {
         let review = await reviewCollection.findOne({ _id: parsedId });
         if (review === null) throw 'No review with that id';
         review._id = review._id.toString();
+
         return review;
     },
 
@@ -48,7 +49,6 @@ module.exports = {
         const newId = insertInfo.insertedId;
 
         /* Add review Id to respective restaurant */
-        const restaurant = await restaurants.getRestaurantById(restaurantId);
         await restaurants.addReview(restaurantId, newId.toString());
 
         /* Add review Id to respective user */
@@ -116,12 +116,12 @@ module.exports = {
         if (review === null) throw 'No review with that id';
 
 	    if(toAdd){
-	    	const updateInfo = await reviewCollection.updateOne({_id: objReviewId},{$addToSet: {comments: objCommentId}});
+	    	const updateInfo = await reviewCollection.updateOne({_id: objReviewId},{$addToSet: {comments: commentId}});
 		    if (!updateInfo.matchedCount && !updateInfo.modifiedCount) return false;
 		    return true;
 
 	    }else{ // delete
-	    	const updateInfo = await reviewCollection.updateOne({_id: objReviewId},{$pull: {comments: objCommentId}});
+	    	const updateInfo = await reviewCollection.updateOne({_id: objReviewId},{$pull: {comments: commentId}});
 		    if (!updateInfo.matchedCount && !updateInfo.modifiedCount) return false;
 		    return true;
 	    }
@@ -166,18 +166,14 @@ module.exports = {
         const review = await this.getReviewById(reviewId);
 
         /* Remove review Id from respective restaurant */
-        const restaurant = await restaurant.getRestaurantById(review.restaurantId);
-        let restaurantArray = restaurant.reviews;
-        let restaurantIndex = restaurantArray.indexOf(reviewId);
-        if (restaurantIndex > -1) restaurantArray.splice(restaurantIndex, 1);
-        await restaurant.updateRestaurant(review.restaurantId, {'reviews': restaurantArray});
+        await restaurants.removeReview(review.restaurantId, reviewId);
 
         /* Remove review Id from respective user */
-        const user = await users.getUserById(review.userId);
+        const user = await users.getUserById(review.reviewerId);
         let userArray = user.reviews;
         let userIndex = userArray.indexOf(reviewId);
         if (userIndex > -1) userArray.splice(userIndex, 1);
-        await users.updateUser(review.userId, {'reviews': userArray});
+        await users.updateUser(review.reviewerId, {'reviews': userArray});
 
         /* Remove all comments on this review */
         for (let commentId of review.comments) {

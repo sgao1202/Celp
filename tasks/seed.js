@@ -25,8 +25,6 @@ async function main() {
     const user5 = await users.createUser('Annie', 'Patel', 'hehexd@gmail.com', 'secretlover21', 20, 'smoochcooch');
     const user6 = await users.createUser('Jon', 'Con', 'jancan99@gmail.com', 'ConBoy05', 10, 'robbinGbanks');
 
-    console.log(1);
-    
     // Create Reviews
     const r1u1 = await reviews.createReview(user1._id, restaurant1._id, "This restaurant is great", 5,
         {distancedTables: true, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
@@ -82,11 +80,9 @@ async function main() {
     }
     console.log(await comments.getCommentById(cAu1._id));
     console.log(await comments.getAllCommentsOfReview("reviewA"));
-    console.log(await comments.getAllCommentsOfUser("user1"));
     await comments.deleteComment(cAu1._id);
 
     console.log(await comments.getAllCommentsOfReview("reviewA"));
-    console.log(await comments.getAllCommentsOfUser("user1"));
     */
     console.log('Done seeding database');
     await db.serverConfig.close();
