@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const configRoutes = require('./routes');
+const seed = require("./tasks/seed");
 
-// const seed = require("./tasks/seed");
 app.use(express.json());
 configRoutes(app);
 
