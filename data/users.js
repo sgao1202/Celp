@@ -17,6 +17,7 @@ module.exports = {
         user._id = user._id.toString();
         return user;
     },
+
     async getAllUsers(){
         const userCollection = await users();
         const allUsers = await userCollection.find({}).toArray();
@@ -26,13 +27,14 @@ module.exports = {
 
         return allUsers;
     },
+
     async createUser(firstName, lastName, paramEmail, paramUsername, age, password) {
-        if (!verify.validString(firstName)) throw 'firstName is not a valid string.';
-        if (!verify.validString(lastName))  throw 'lastName is not a valid string.';
-        if (!verify.validEmail(paramEmail))  throw 'email is not a valid string.';
+        if (!verify.validString(firstName))     throw 'firstName is not a valid string.';
+        if (!verify.validString(lastName))      throw 'lastName is not a valid string.';
+        if (!verify.validEmail(paramEmail))     throw 'email is not a valid string.';
         if (!verify.validString(paramUsername)) throw 'username is not a valid string.';
-        if (!verify.validAge(age)) throw 'age must be a positive integer'
-        if (!verify.validString(password)) throw 'password is not a valid string';
+        if (!verify.validAge(age))              throw 'age must be a positive integer'
+        if (!verify.validString(password))      throw 'password is not a valid string';
 
         /*before storing email and username into DB, make sure there are no duplicate entries of email or username in DB */
         const allUsers = await this.getAllUsers();
@@ -54,10 +56,9 @@ module.exports = {
             username: username, 
             age: age, 
             hashedPassword: hashedPassword, 
-            favoritedRestaurants: [],
-            reviews: [],
-            comments: []
+            favoritedRestaurants: []
         };
+        
         const userCollection = await users();
         const insertInfo = await userCollection.insertOne(newUser);
         if (insertInfo.insertedCount === 0) throw 'Could not add user';
@@ -67,6 +68,7 @@ module.exports = {
 
         return finuser;
     },
+
     async updateUser(userId, updatedUser){
         if (!verify.validString(userId)) throw 'userId is not a valid string';
         if (!updatedUser) throw 'must provide fields to update';

@@ -11,14 +11,10 @@ let { ObjectId } = require('mongodb');
 //     "address": "123 Washington St",
 //     "cuisine": "American",
 //     "rating": 2.3,
-//     "distancedTablesPerc": 88,
-//     "maskedEmployeesPerc": 12,
+//     "distancedTables": 88,
+//     "maskedEmployees": 12,
 //     "noTouchPayment": 100,
 //     "outdoorSeating": 0,
-//     "reviews": [
-//         "7b7997a2-c0d2-4f8c-b27a-6a1d4e9b7832",
-//         "7b7997a2-c0d2-4f8c-b27a-6a1d4e9c0234"
-//     ]
 // }
 
 module.exports = {
@@ -61,10 +57,10 @@ module.exports = {
             address: address.trim(),
             cuisine: cuisine.trim(),
             rating: 0,
-            distancedTablesPerc: 0,
-            maskedEmployeesPerc: 0,
-            noTouchPaymentPerc: 0,
-            outdoorSeatingPerc: 0,
+            distancedTables: 0,
+            maskedEmployees: 0,
+            noTouchPayment: 0,
+            outdoorSeating: 0,
             reviews: []
         };
         
@@ -119,29 +115,4 @@ module.exports = {
         if (deleteInfo.deletedCount === 0) throw `Could not delete restaurant with id=${trimmedId}`;
         return `${name} has been successfully deleted.`;
     },*/
-
-    /* 
-        Adding/removing a review should change the metric calculations and numbers
-    */
-    async addReview(restaurantId, reviewId) {
-        if (!verify.validString(restaurantId)) throw 'Restaurant Id is not a valid string';
-        if (!verify.validString(reviewId)) throw 'Review Id is not a valid string';
-        let objId = ObjectId(restaurantId.trim());
-        
-        const restaurantCollection = await restaurants();
-        const updateInfo = await restaurantCollection.updateOne({ _id: objId }, { $push: {reviews: reviewId } });
-        if (!updateInfo.matchedCount || !updateInfo.modifiedCount) throw `Failed to add review to restaurant with id=${restaurantId}`;
-        return true;
-    },
-    
-    async removeReview(restaurantId, reviewId) {
-        if (!verify.validString(restaurantId)) throw 'Restaurant Id is not a valid string';
-        if (!verify.validString(reviewId)) throw 'Review Id is not a valid string';
-        let objId = ObjectId(restaurantId.trim());
-
-        const restaurantCollection = await restaurants();
-        const updateInfo = await restaurantCollection.updateOne({ _id: objId }, { $pull: {reviews: reviewId } });
-        if (!updateInfo.matchedCount || !updateInfo.modifiedCount) throw `Failed to remove review from restaurant with id=${restaurantId}`;
-        return true;
-    }
 }
