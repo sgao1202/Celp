@@ -8,9 +8,11 @@
     <title>Celp</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-end">
-        <a class="navbar-brand h1" href="/">Celp</a>
-        {{#if authenticated}}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-color border-bottom">
+        <span>
+            <a class="navbar-brand h1" href="/">Celp</a>
+        </span>
+        {{!-- {{#if authenticated}}
             <div class="dropdown">
                 <button class="dropbtn">{{userName}}
                     <i class="fa fa-caret-down"></i>
@@ -24,13 +26,28 @@
         {{#unless log}}
             <a href = '/users/login' class = 'button'>Login</a>
             <a href = '/users/signup' class = 'button'>Signup</a>
+        {{/unless}} --}}
+        {{#if authenticated}}
+            <div class="dropdown">
+                <button class="dropbtn">{{userName}}
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="/private">User Profile</a>
+                    <a href="/users/logout">Logout</a>
+                </div>
+            </div>
+        {{/if}}
+        {{#unless log}}
+            <span >
+                <a href="/users/login" class="btn btn-light px-3 mx-1 border">Login</a>
+                <a href="/users/signup" class="btn btn-primary px-3 mx-1">Sign Up</a>
+            </span>
         {{/unless}}
         
     </nav>
     {{{body}}}
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-        crossorigin="anonymous"></script>
-    {{!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> --}}
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     {{> (lookup . 'partial') }}
 </body>
 </html>
