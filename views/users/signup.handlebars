@@ -1,0 +1,23 @@
+<h1>Signup Form</h1>
+<form method="POST" action="/users/signup" onsubmit = 'submit-button.disabled = true; return true;'>
+    <label for = 'firstName'>First Name:</label>
+    <input id = 'firstName' name = 'firstName'>
+    <br>
+    <label for = 'lastName'>Last Name:</label>
+    <input id = 'lastName' name = 'lastName'>
+    <br> 
+    <label for = 'username'>Username:</label>
+    <input id = 'username' name = 'username'>
+    <br>
+    <label for = 'password'>Password:</label>
+    <input id = 'password' name = 'password' type = 'password'>
+    <br>
+    <label for = 'email'>Email:</label>
+    <input id = 'email' name = 'email'>
+    <br>
+    <label for = 'age'>Age:</label>
+    <input id = 'age' name = 'age'>
+    <br>
+    <button type = "submit" name = 'submit-button'>Sign up!</button>
+</form>
+<div>{{error}}</div>

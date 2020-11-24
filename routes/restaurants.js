@@ -8,11 +8,25 @@ const verify = require('../data/verify');
 // Route for the page of all restaurants
 router.get('/', async (req, res) => {
     const restaurants = await restaurantData.getAllRestaurants();
-    // console.log(restaurants);
-    res.render('restaurants/list', { 
-        partial: 'restaurants-list-script', 
-        restaurants: restaurants
-    });
+    if (req.session.user){
+        const myUser = req.session.user;
+        res.render('restaurants/list', { 
+            log: true,
+            authenticated: true,
+            userName: myUser.username,
+            partial: 'restaurants-list-script', 
+            restaurants: restaurants
+        });
+    }
+    else{
+        res.render('restaurants/list', { 
+            log: false,
+            authenticated: false,
+            partial: 'restaurants-list-script', 
+            restaurants: restaurants
+        });
+    }
+    
 });
 
 // Get create a restaurant page
