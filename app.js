@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const static = express.static(__dirname + '/public');
 const configRoutes = require('./routes');
+const session = require('express-session');
 const exphbs = require('express-handlebars');
 const Handlebars = require('handlebars');
 
@@ -25,6 +26,26 @@ app.use(express.urlencoded({ extended: true }));
 
 app.engine('handlebars', handlebarsInstance.engine);
 app.set('view engine', 'handlebars');
+
+app.use(
+  session({
+      name: "AuthCookie",
+      secret: 'some secret string',
+      resave: false,
+      saveUninitialized: true
+  })
+);
+
+//if user attempts to access private route without being authenicated, redirect them to the "main" page
+app.use('/private', async(req, res, next) =>{
+    if (!req.session.user){
+      //should call error for this instead?
+      res.redirect('/restaurants');
+    }
+    else{
+      next();
+    }
+})
 
 configRoutes(app);
 
