@@ -26,10 +26,12 @@ async function main() {
     const user6 = await users.createUser('Jon', 'Con', 'jancan99@gmail.com', 'ConBoy05', 10, 'robbinGbanks');
 
     // Create Reviews
-    const r1u1 = await reviews.createReview(user1._id, restaurant1._id, "This restaurant is great", 5,
+    const r1u1 = await reviews.createReview(user1._id, restaurant1._id, "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum", 5,
         {distancedTables: true, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
-    const r1u2 = await reviews.createReview(user2._id, restaurant1._id, "This restaurant was okay", 3,
+    const r1u2 = await reviews.createReview(user2._id, restaurant1._id, "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum", 3,
         {distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
+    const r1u3 = await reviews.createReview(user2._id, restaurant1._id, "This is a very short description.", 3,
+    {distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
     const r2u1 = await reviews.createReview(user1._id, restaurant2._id, "This restaurant is terrible", 1,
         {distancedTables: false, maskedEmployees: false, noTouchPayment: false, outdoorSeating: true});
     const r2u2 = await reviews.createReview(user2._id, restaurant2._id, "This restaurant was not great", 2,

@@ -1,0 +1,123 @@
+<div class="container ">
+    <div class="row">
+        <div class="col">
+            <div class="border-bottom mt-3">
+                <h1 class="display-4 font-weight-bold">{{restaurant.name}}</h1>
+                <h5 class="font-italic">{{restaurant.address}}</h5>
+                <h5 class="text-secondary">{{restaurant.cuisine}}</h5>
+            </div>
+                
+            <div class="border-bottom mt-3">
+                <h3 class="font-weight-bold">Reviews</h3>
+                <ul class="list-group">
+                    {{#each reviews}}
+                    <li class="list-group-item">
+                        <div class="row border-bottom py-5 bg-primary">
+                            <div class="col col-3 bg-dark text-wrap">
+                            <span>
+                                {{this.reviewerId}}
+                            </span>
+                        </div>
+                        <div class="col bg-light">
+                            <p class="text-left">
+                                <span>
+                                    {{this.reviewText}}
+                                </span>
+                            </p>
+                        </div>
+                        </div>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <div class="col col-sm-4 mt-3 ml-5 border border-light rounded shadow-sm h-50">
+            <div class="m-3">
+                {{!-- Header for COVID-19 Metrics --}}
+                <div class="row">
+                    <h3 class="font-weight-bold">COVID-19 Safety Metrics</h3>
+                </div>
+                <div class="row mt-3">
+                    <div class="col col-10">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                            </svg>
+                            <span class="ml-2">
+                                Rating
+                            </span>
+                    </div>
+                    <div class="col">
+                        <span>
+                            {{restaurant.rating}}
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col col-10">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-square-fill text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 8.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"/>
+                        </svg>
+                        <span class="ml-2">
+                            Socially Distanced Tables
+                        </span>
+                    </div>
+                    <div class="col">
+                        <span>
+                            {{restaurant.distancedTablesPerc}}
+                        </span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col col-10">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-emoji-laughing-fill text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5c0 .501-.164.396-.415.235C6.42 6.629 6.218 6.5 6 6.5c-.218 0-.42.13-.585.235C5.164 6.896 5 7 5 6.5 5 5.672 5.448 5 6 5s1 .672 1 1.5zm5.331 3a1 1 0 0 1 0 1A4.998 4.998 0 0 1 8 13a4.998 4.998 0 0 1-4.33-2.5A1 1 0 0 1 4.535 9h6.93a1 1 0 0 1 .866.5zm-1.746-2.765C10.836 6.896 11 7 11 6.5c0-.828-.448-1.5-1-1.5s-1 .672-1 1.5c0 .501.164.396.415.235.165-.106.367-.235.585-.235.218 0 .42.13.585.235z"/>
+                            </svg>
+                            <span class="ml-2">Masked Employees</span>
+                        </span>
+                    </div>
+
+                    <div class="col">
+                        <span>
+                            {{restaurant.maskedEmployeesPerc}}
+                        </span>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col col-10">
+                        <span>
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-credit-card-fill text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0V4z"/>
+                                <path fill-rule="evenodd" d="M0 7v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7H0zm3 2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H3z"/>
+                            </svg>
+                            <span class="ml-2">
+                                No Touch Payment
+                            </span>
+                        </span>
+                    </div>
+                    <div class="col">
+                        {{restaurant.noTouchPaymentPerc}}
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col col-10">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-signpost-2-fill text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 1.414V16h2V1.414a1 1 0 0 0-2 0z"/>
+                            <path d="M1 3a1 1 0 0 1 1-1h11.5a1 1 0 0 1 .8.4l.975 1.3a.5.5 0 0 1 0 .6L14.3 5.6a1 1 0 0 1-.8.4H2a1 1 0 0 1-1-1V3zm14 5a1 1 0 0 0-1-1H2.5a1 1 0 0 0-.8.4L.725 8.7a.5.5 0 0 0 0 .6l.975 1.3a1 1 0 0 0 .8.4H14a1 1 0 0 0 1-1V8z"/>
+                        </svg>
+                        <span class="ml-2">
+                            Outdoor Seating
+                        </span>
+                    </div>
+
+                    <div class="col">
+                        <span>
+                            {{restaurant.outdoorSeatingPerc}}    
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
