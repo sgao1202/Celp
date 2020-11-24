@@ -55,10 +55,12 @@ router.get('/:id', async (req, res) => {
     
     try {
         const restaurant = await restaurantData.getRestaurantById(id);
+        const reviews = await reviewData.getAllReviewsOfRestaurant(id);
         // Retreive all the reviews for that restaurant
-        res.render('restaurants/individual', {
+        res.render('restaurants/single', {
             partial: 'restaurants-single-script',
-            restaurant: restaurant
+            restaurant: restaurant,
+            reviews: reviews
         });
     } catch(e) {
         res.status(500).render('errors/error', {errorMessage: e});
