@@ -1,23 +1,35 @@
-<h1>Signup Form</h1>
-<form method="POST" action="/users/signup" onsubmit = 'submit-button.disabled = true; return true;'>
-    <label for = 'firstName'>First Name:</label>
-    <input id = 'firstName' name = 'firstName'>
-    <br>
-    <label for = 'lastName'>Last Name:</label>
-    <input id = 'lastName' name = 'lastName'>
-    <br> 
-    <label for = 'username'>Username:</label>
-    <input id = 'username' name = 'username'>
-    <br>
-    <label for = 'password'>Password:</label>
-    <input id = 'password' name = 'password' type = 'password'>
-    <br>
-    <label for = 'email'>Email:</label>
-    <input id = 'email' name = 'email'>
-    <br>
-    <label for = 'age'>Age:</label>
-    <input id = 'age' name = 'age'>
-    <br>
-    <button type = "submit" name = 'submit-button'>Sign up!</button>
-</form>
-<div>{{error}}</div>
+<div class="container mt-3 col-4">
+    <h1>Signup Form</h1>
+    <form method="POST" action="/users/signup" onsubmit="submit-button.disabled = true; return true;">
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name">
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name">
+        </div>
+    
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" id="password" name="password" type="password" placeholder="Enter password">
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address">
+        </div>
+        
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" id="age" name="age" placeholder="Enter your age">
+        </div>
+        <button class="btn btn-primary" type="submit" name="submit-button">Create an account</button>
+    </form>
+    <div>{{error}}</div>
+</div>
