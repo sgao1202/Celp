@@ -18,28 +18,22 @@ module.exports = {
         return review;
     },
 
-    async createReview(reviewerId, restaurantId, reviewText, rating, metrics){
+    async createReview(reviewerId, restaurantId, reviewText, metrics){
     	if (!verify.validString(reviewerId))   throw 'reviewerId is not a valid string.';
         if (!verify.validString(restaurantId)) throw 'restaurantId is not a valid string.';
         if (!verify.validString(reviewText))   throw 'reviewText is not a valid string.';
-        if (!verify.validRating(rating))       throw 'rating is not a valid number';
-        if (!metrics || typeof(metrics)!=='object') throw 'metrics is not an object';
-        if((!verify.validBoolean(metrics.distancedTables)) || 
-           (!verify.validBoolean(metrics.maskedEmployees)) || 
-           (!verify.validBoolean(metrics.noTouchPayment))  || 
-           (!verify.validBoolean(metrics.outdoorSeating))) {
-        	throw 'some fields of metrics are not boolean.'
-        }
+        if (!verify.validMetrics(metrics))     throw 'invalid metrics';
 
         let newReview = {
         	reviewerId: reviewerId,
         	restaurantId: restaurantId,
         	reviewText: reviewText,
-        	rating: rating,
         	metrics: metrics,
         	likes: [],
         	dislikes: []
         };
+
+        restaurants.updateMetrics(restaurantId, metrics, true);
         
         const reviewCollection = await reviews();
         const insertInfo = await reviewCollection.insertOne(newReview);
@@ -99,7 +93,6 @@ module.exports = {
     	if (!verify.validString(userId)) throw 'cid is not a valid string.';
         
         const objReviewId = ObjectId(reviewId);
-	    const objUserId = ObjectId(userId);
 
 	    const reviewCollection = await reviews();
     	let review = await reviewCollection.findOne({ _id: objReviewId });
@@ -127,26 +120,17 @@ module.exports = {
     async deleteReview(reviewId){
     	if (!verify.validString(reviewId)) throw 'reviewId is not a valid string.';
 
-        let parsedId = ObjectId(reviewId);
-        
-        const reviewCollection = await reviews();
-        const review = await this.getReviewById(reviewId);
-
-        /* Remove review Id from respective user */
-        const user = await users.getUserById(review.reviewerId);
-        let userArray = user.reviews;
-        let userIndex = userArray.indexOf(reviewId);
-        if (userIndex > -1) userArray.splice(userIndex, 1);
-        await users.updateUser(review.reviewerId, {'reviews': userArray});
-
         /* Remove all comments on this review */
         let commentList = comments.getAllCommentsOfReview(reviewId);
         for (let commentId of commentList) {
             await comments.deleteComment(commentId);
         }
 
+        restaurants.updateMetrics(restaurantId, metrics, false);
+
         /* delete review from DB */
-        const deletionInfo = await reviewCollection.deleteOne({ _id: parsedId });
+        const reviewCollection = await reviews();
+        const deletionInfo = await reviewCollection.deleteOne({ _id: ObjectId(reviewId) });
         if (deletionInfo.deletedCount === 0) throw `Could not delete review with id of ${reviewId}`;
 
         return; 
@@ -177,5 +161,5 @@ module.exports = {
     }
 }
 
-const users = require('./users');
+const restaurants = require('./restaurants');
 const comments = require('./comments');

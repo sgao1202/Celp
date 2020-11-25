@@ -39,6 +39,15 @@ function validEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
+function validMetrics(metrics) {
+    if ((!metrics || typeof(metrics)!=='object') || (!validBoolean(metrics.distancedTables)) ||
+        (!validBoolean(metrics.maskedEmployees)) || (!validBoolean(metrics.noTouchPayment))  ||
+        (!validBoolean(metrics.outdoorSeating))  || (!validRating(metrics.price)) ||
+        (!validRating(metrics.rating))) return false;
+
+    return true;
+}
+
 
 module.exports = {
     validString,
@@ -46,5 +55,6 @@ module.exports = {
     validAge,
     validEmail,
     validBoolean,
-    validRating
+    validRating,
+    validMetrics
 };

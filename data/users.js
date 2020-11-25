@@ -9,12 +9,11 @@ module.exports = {
     async getUserById(userId) {
         if (!verify.validString(userId)) throw 'userId is not a valid string.';
 
-        let parsedId = ObjectId(userId.trim());
-
         const userCollection = await users();
-        let user = await userCollection.findOne({ _id: parsedId });
+        let user = await userCollection.findOne({ _id: ObjectId(userId.trim()) });
         if (user === null) throw 'No user with that id';
         user._id = user._id.toString();
+        
         return user;
     },
 
@@ -58,7 +57,7 @@ module.exports = {
             hashedPassword: hashedPassword, 
             favoritedRestaurants: []
         };
-        
+
         const userCollection = await users();
         const insertInfo = await userCollection.insertOne(newUser);
         if (insertInfo.insertedCount === 0) throw 'Could not add user';
@@ -69,19 +68,16 @@ module.exports = {
         return finuser;
     },
 
-    async updateUser(userId, updatedUser){
-        if (!verify.validString(userId)) throw 'userId is not a valid string';
-        if (!updatedUser) throw 'must provide fields to update';
+    async toggleFavoriteRestaurant(userId, restaurantId) {
+        if (!verify.validString(userId))       throw 'userId is not a valid string';
+        if (!verify.validString(restaurantId)) throw 'restaurantId is not a valid string';
 
-        let parsedId = ObjectId(userId.trim());
+        const objUserId = ObjectId(userId);
+        const restaurantObj = {favoritedRestaurants: restaurantId};
 
         const userCollection = await users();
-        const changedUser = await userCollection.updateOne(
-            { _id: parsedId },
-            { $set: updatedUser }
-        );
-
-        if (changedUser.modifiedCount === 0) throw 'none of the fields have changed';
-        return await this.getUserById(userId);
+        const remRestaurant = await userCollection.updateOne({_id: objUserId},{$pull: restaurantObj});
+        if (remRestaurant.modifiedCount === 0) await userCollection.updateOne({_id: objUserId},{$addToSet: restaurantObj});
+        return true;
     }
 }
