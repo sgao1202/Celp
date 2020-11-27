@@ -1,4 +1,6 @@
 <div class="container m-5 col-2">
+	<input type="text" id="myInput" onkeyup="fName('myInput',0)" placeholder="Search Restaurant Name">
+	<input type="text" id="myInput_2" onkeyup="fName('myInput_2',2)" placeholder="Search Cuisine Type">
     <ul class="list-group">
         <li class="list-group-item"><a href="/restaurants/new">Create a new restaurant</a></li>
     </ul>
@@ -24,3 +26,32 @@
     </tbody>
 </table>
 </div>
+<script>
+function fName(id,col) {
+    let input, filter, table, row, i, txtValue;
+    input = document.getElementById(id);
+    filter = input.value.toUpperCase();
+    rows = document.getElementsByClassName("clickable-row");
+    for (i = 0; i < rows.length; i++) {
+        row = rows[i];
+        txtValue = row.cells[col].innerHTML;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    }
+}
+</script>
+<style>
+#myInput,
+#myInput_2 {
+  background-repeat: no-repeat;
+  width: 640;
+  font-size: 16px;
+  padding: 12px 20px 12px 20px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  display:block;
+}
+</style>
