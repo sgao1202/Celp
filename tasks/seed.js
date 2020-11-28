@@ -9,41 +9,71 @@ async function main() {
     const db = await dbConnection();
     await db.dropDatabase();
 
-    // Create Restaurants
-    const restaurant1 = await restaurants.createRestaurant('McDonalds', '234 Washington St', 'Fast Food');
-    const restaurant2 = await restaurants.createRestaurant('QDOBA Mexican Eats', '400 Washington St', 'Mexican');
-    const restaurant3 = await restaurants.createRestaurant('T Thai', '102 Hudson St', 'Thai');
-    const restaurant4 = await restaurants.createRestaurant('No. 1', '642 Washington St,', 'Chinese');
-    const restaurant5 = await restaurants.createRestaurant("O'Bagel", '600 Washington St, Hoboken', 'Breakfast');
-    const restaurant6 = await restaurants.createRestaurant('Chicken Factory', '529 Washington St', 'Korean');
+    // Restaurants
+    const mcDonalds      = await restaurants.createRestaurant('McDonalds',          '234 Washington St',  'Fast Food');
+    const qdoba          = await restaurants.createRestaurant('QDOBA Mexican Eats', '400 Washington St',  'Mexican');
+    const tThai          = await restaurants.createRestaurant('T Thai',             '102 Hudson St',      'Thai');
+    const noOne          = await restaurants.createRestaurant('No. 1',              '642 Washington St',  'Chinese');
+    const oBagel         = await restaurants.createRestaurant("O'Bagel",            '600 Washington St',  'Breakfast');
+    const chickenFactory = await restaurants.createRestaurant('Chicken Factory',    '529 Washington St',  'Korean');
+    const chipotle       = await restaurants.createRestaurant("Chipotle",           '229 Washington St',  'Mexican');
+    const brassRail      = await restaurants.createRestaurant("Brass Rail",         '135 Washington St',  'American');
+    const pizzaRepublic  = await restaurants.createRestaurant("Pizza Republic",     '406 Washington St',  'Italian');
+    /*
+    const vitosDeli      = await restaurants.createRestaurant("Vitos Deli",         '806 Washington St',  'Italian');
+    const midtownPhilly  = await restaurants.createRestaurant("Midtown Philly",     '523 Washington St',  'American');
+    const cluckUChicken  = await restaurants.createRestaurant("Chipotle",           '229 Washington St',  'Mexican');
+    const amandas        = await restaurants.createRestaurant('Amandas',            '908 Washington St',  'American');
+    const theCuban       = await restaurants.createRestaurant('The Cuban',          '333 Washington St',  'Cuban');
+    const turningPoint   = await restaurants.createRestaurant('Turning Point',      '1420 Sinatra Dr N',  'Brunch');
+    const elysianCafe    = await restaurants.createRestaurant('Elysian Cafe',       '1001 Washington St', 'French');
+    const unionHall      = await restaurants.createRestaurant('Union Hall',         '306 Sinatra Dr',     'American');
+    const mamounsFalafel = await restaurants.createRestaurant('Mamouns Falafel',    '300 Washington St',  'Mediterranean');
+    const augustinos     = await restaurants.createRestaurant('Augustinos',         '1104 Washington St', 'Italian');
+    */
 
-    // Create Users
-    const user1 = await users.createUser('Simon', 'Smells', 'ss20@gmail.com', 'stinkyman20', 25, 'stonkystonk');
-    const user2 = await users.createUser('Taquisha', 'Maramba', 'tmaram02@gmail.com', 'tqmaram095', 44, 'shakalaka');
-    const user3 = await users.createUser('Brett', 'King', 'bretkingcrown@gmail.com', 'bigthrone39', 18, 'royaltyawaits');
-    const user4 = await users.createUser('Marito', 'Carlito', 'mexicanoman@gmail.com', 'sombrerolegend', 30, 'stylePoetic');
-    const user5 = await users.createUser('Annie', 'Patel', 'hehexd@gmail.com', 'secretlover21', 20, 'smoochcooch');
-    const user6 = await users.createUser('Jon', 'Con', 'jancan99@gmail.com', 'ConBoy05', 10, 'robbinGbanks');
+    // Users
+    const Smells    = await users.createUser('Simon',    'Smells',    'ss20@gmail.com',           'stinkyman20',    25, 'stonkystonk');
+    const Maramba   = await users.createUser('Taquisha', 'Maramba',   'tmaram02@gmail.com',       'tqmaram095',     44, 'shakalaka');
+    const King      = await users.createUser('Brett',    'King',      'bretkingcrown@gmail.com',  'bigthrone39',    18, 'royaltyawaits');
+    const Carlito   = await users.createUser('Marito',   'Carlito',   'mexicanoman@gmail.com',    'sombrerolegend', 30, 'stylePoetic');
+    const Patel     = await users.createUser('Annie',    'Patel',     'hehexd@gmail.com',         'secretlover21',  20, 'smoochcooch');
+    const Con       = await users.createUser('Jon',      'Con',       'jancan99@gmail.com',       'ConBoy05',       10, 'robbinGbanks');
+    const Reelaks   = await users.createUser('Bo',       'Reelaks',   'bigBo@yahoo.com',          'bigBadBo',       21, 'abc123');
+    const Nekoui    = await users.createUser('Matthew',  'Nekoui',    'flyeaglesfly@gmail.com',   'Mnmoney17',      22, 'carsonWentzGod');
+    const Burkart   = await users.createUser('Ryan',     'Burkart',   'cmonBurk@hotmail.com',     'BigBurk',        14, 'bemyfriend');
+    const Basilone  = await users.createUser('Mark',     'Basilone',  'basilone@gmail.com',       'MarktheShark',   93, 'sharkrally');
+    const Gheesling = await users.createUser('Dan',      'Gheesling', 'dan@dangheesling.com',     'teamGheese',     37, 'cantStopMe');
+    const Taylor    = await users.createUser('Susan',    'Taylor',    'soccerLegend@yahoo.com',   'SusanTaylor',    30, 'beststriker123');
+    const Curau     = await users.createUser('Jason',    'Curau',     'liverpoolfan@hotmail.com', 'ChillxFusionz',  21, 'theEgyptianKing');
+    const Abell     = await users.createUser('Dani',     'Abell',     'ihatejason@gmail.com',     'Abell1111',      10, 'abell1111');
 
-    // Create Reviews
-    const r1u1 = await reviews.createReview(user1._id, restaurant1._id, "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum", 5,
-        {distancedTables: true, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
-    const r1u2 = await reviews.createReview(user2._id, restaurant1._id, "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum", 3,
-        {distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
-    const r1u3 = await reviews.createReview(user2._id, restaurant1._id, "This is a very short description.", 3,
-    {distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
-    const r2u1 = await reviews.createReview(user1._id, restaurant2._id, "This restaurant is terrible", 1,
-        {distancedTables: false, maskedEmployees: false, noTouchPayment: false, outdoorSeating: true});
-    const r2u2 = await reviews.createReview(user2._id, restaurant2._id, "This restaurant was not great", 2,
-        {distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: true});
+    const mcD1 = await reviews.createReview(Smells._id, mcDonalds._id, "Im Lovin It",
+        {rating: 5, price: 1, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
+    await comments.createComment(mcD1._id, Taylor._id, "I agree. Felt perfectly safe.");
+    await comments.createComment(mcD1._id, Burkart._id, "I see what you did there, very funny.");
 
-    // Create Comments
-    let cAu1 = await comments.createComment(r1u1._id, user1._id, "Hello myself");
-    let cBu1 = await comments.createComment(r1u2._id, user1._id, "I agree");
-    let cAu2 = await comments.createComment(r1u1._id, user2._id, "completely wrong");
-    let cBu2 = await comments.createComment(r1u2._id, user2._id, "This is my review");
-    let cAu3 = await comments.createComment(r1u1._id, user3._id, "how safe did you feel?");
-    let cBu3 = await comments.createComment(r1u2._id, user3._id, "great review");
+    const mcD2 = await reviews.createReview(Maramba._id, mcDonalds._id, "NO MASKS!!!! I am never going back. Happened multiple times!!!", {rating: 2, price: 1, distancedTables: true, maskedEmployees: false, noTouchPayment: false, outdoorSeating: false});
+    await comments.createComment(mcD2._id, Gheesling._id, "Your are crazy, they had masks on all the time.");
+
+    const qdoba1 = await reviews.createReview(Curau._id, qdoba._id, "Everything was great except you have to pay by cash :(", {rating: 4, price: 2, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: true});
+    await comments.createComment(qdoba1._id, Abell._id, "I could not disagree more");
+
+    const tThai1 = await reviews.createReview(King._id, tThai._id, "Perfect Experience", {rating: 5, price: 3, distancedTables: true, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
+    
+    const tThai2 = await reviews.createReview(Nekoui._id, tThai._id, "Terrible, never coming back.", {rating: 1, price: 5, distancedTables: false, maskedEmployees: false, noTouchPayment: false, outdoorSeating: false});
+    await comments.createComment(tThai2._id, Reelaks._id, "This review is slander to the highest degree. Completely false.");
+    await comments.createComment(tThai2._id, Basilone._id, "No one listen to this guy!");
+
+    const noOne1 = await reviews.createReview(Nekoui._id, noOne._id, "AWFUL AWFUL AWFUL", {rating: 1, price: 1, distancedTables: false, maskedEmployees: false, noTouchPayment: false, outdoorSeating: false});
+    await comments.createComment(noOne1._id, Nekoui._id, "STILL AWFUL");
+    await comments.createComment(noOne1._id, Gheesling._id, "Someone needs to get this guy off this site.");
+    await comments.createComment(noOne1._id, Curau._id, "This guy is crazy");
+
+    const rail = await reviews.createReview(Burkart._id, brassRail._id, "Not great but not terrible.", {rating: 3, price: 5, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
+
+    const repub = await reviews.createReview(Smells._id, pizzaRepublic._id, "Felt safe the entire time", {rating: 5, price: 2, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: true});
+    await comments.createComment(repub._id, Patel._id, 'Shame they dont have no touch payment.')
 
     /* test for case sensitive username and email */
     // const user11 = await users.createUser('Simon', 'Smells', 'SS20@gMAil.COM', 'stinkyman20', 25, 'stonkystonk');

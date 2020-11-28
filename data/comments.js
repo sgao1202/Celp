@@ -32,38 +32,14 @@ module.exports = {
         const newId = insertInfo.insertedId;
         const finComment = await this.getCommentById(newId.toString());
 
-        /* Add comment Id to respective review */
-        await reviews.updateReviewComment(reviewId, newId.toString(), true);
-
-        /* Add comment Id to respective user */
-        const user = await users.getUserById(userId);
-        let userArray = user.comments;
-        userArray.push(newId.toString());
-        await users.updateUser(userId, {'comments': userArray});
-
         return finComment;
     },
 
     async deleteComment(commentId) {
         if (!verify.validString(commentId)) throw 'commentId is not a valid string.';
-
-        let parsedId = ObjectId(commentId);
         
         const commentCollection = await comments();
-        const comment = await this.getCommentById(commentId);
-
-        /* Remove comment Id from respective review */
-        await reviews.updateReviewComment(comment.reviewId, commentId, false);
-    
-        /* Remove comment Id from respective user */
-        const user = await users.getUserById(comment.userId);
-        let userArray = user.comments;
-        let userIndex = userArray.indexOf(commentId);
-        if (userIndex > -1) userArray.splice(userIndex, 1);
-        await users.updateUser(comment.userId, {'comments': userArray});
-
-        /* delete comment from DB */
-        const deletionInfo = await commentCollection.deleteOne({ _id: parsedId });
+        const deletionInfo = await commentCollection.deleteOne({ _id: ObjectId(commentId) });
         if (deletionInfo.deletedCount === 0) throw `Could not delete comment with id of ${commentId}`;
 
         return; 
@@ -82,6 +58,3 @@ module.exports = {
     },
 
 }
-
-const reviews = require('./reviews');
-const users = require('./users');
