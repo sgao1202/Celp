@@ -56,8 +56,8 @@ async function main() {
     const mcD2 = await reviews.createReview(Maramba._id, mcDonalds._id, "NO MASKS!!!! I am never going back. Happened multiple times!!!", {rating: 2, price: 1, distancedTables: true, maskedEmployees: false, noTouchPayment: false, outdoorSeating: false});
     await comments.createComment(mcD2._id, Gheesling._id, "Your are crazy, they had masks on all the time.");
 
-    const qdoba = await reviews.createReview(Curau._id, qdoba._id, "Everything was great except you have to pay by cash :(", {rating: 4, price: 2, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: true});
-    await comments.createComment(qdoba._id, Abell._id, "I could not disagree more");
+    const qdoba1 = await reviews.createReview(Curau._id, qdoba._id, "Everything was great except you have to pay by cash :(", {rating: 4, price: 2, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: true});
+    await comments.createComment(qdoba1._id, Abell._id, "I could not disagree more");
 
     const tThai1 = await reviews.createReview(King._id, tThai._id, "Perfect Experience", {rating: 5, price: 3, distancedTables: true, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
     
@@ -65,35 +65,15 @@ async function main() {
     await comments.createComment(tThai2._id, Reelaks._id, "This review is slander to the highest degree. Completely false.");
     await comments.createComment(tThai2._id, Basilone._id, "No one listen to this guy!");
 
-    const noOne = await reviews.createReview(Nekoui._id, noOne._id, "AWFUL AWFUL AWFUL", {rating: 1, price: 1, distancedTables: false, maskedEmployees: false, noTouchPayment: false, outdoorSeating: false});
-    await comments.createComment(noOne._id, Nekoui._id, "STILL AWFUL");
-    await comments.createComment(noOne._id, Gheesling._id, "Someone needs to get this guy off this site.");
-    await comments.createComment(noOne._id, Curau._id, "This guy is crazy");
+    const noOne1 = await reviews.createReview(Nekoui._id, noOne._id, "AWFUL AWFUL AWFUL", {rating: 1, price: 1, distancedTables: false, maskedEmployees: false, noTouchPayment: false, outdoorSeating: false});
+    await comments.createComment(noOne1._id, Nekoui._id, "STILL AWFUL");
+    await comments.createComment(noOne1._id, Gheesling._id, "Someone needs to get this guy off this site.");
+    await comments.createComment(noOne1._id, Curau._id, "This guy is crazy");
 
     const rail = await reviews.createReview(Burkart._id, brassRail._id, "Not great but not terrible.", {rating: 3, price: 5, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
 
     const repub = await reviews.createReview(Smells._id, pizzaRepublic._id, "Felt safe the entire time", {rating: 5, price: 2, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: true});
     await comments.createComment(repub._id, Patel._id, 'Shame they dont have no touch payment.')
-
-
-    // Create Reviews
-    const r1u1 = await reviews.createReview(user1._id, restaurant1._id, "Lorem Ipsum is simply dummy text of the printing industry.",
-        {rating: 5, price: 1, distancedTables: true, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
-    const r1u2 = await reviews.createReview(user2._id, restaurant1._id, "Lorem Ipsum is simply dummy text of the printing industry.",
-        {rating: 3, price: 3, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
-
-    const r2u1 = await reviews.createReview(user1._id, restaurant2._id, "This restaurant is terrible",
-        {rating: 1, price: 1, distancedTables: false, maskedEmployees: false, noTouchPayment: false, outdoorSeating: true});
-    const r2u2 = await reviews.createReview(user2._id, restaurant2._id, "This restaurant was not great",
-        {rating: 1, price: 1, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: true});
-
-    // Create Comments
-    let cAu1 = await comments.createComment(r1u1._id, user1._id, "Hello myself");
-    let cBu1 = await comments.createComment(r1u2._id, user1._id, "I agree");
-    let cAu2 = await comments.createComment(r1u1._id, user2._id, "completely wrong");
-    let cBu2 = await comments.createComment(r1u2._id, user2._id, "This is my review");
-    let cAu3 = await comments.createComment(r1u1._id, user3._id, "how safe did you feel?");
-    let cBu3 = await comments.createComment(r1u2._id, user3._id, "great review");
 
     /* test for case sensitive username and email */
     // const user11 = await users.createUser('Simon', 'Smells', 'SS20@gMAil.COM', 'stinkyman20', 25, 'stonkystonk');
