@@ -26,32 +26,3 @@
     </tbody>
 </table>
 </div>
-<script>
-function fName(id,col) {
-    let input, filter, table, row, i, txtValue;
-    input = document.getElementById(id);
-    filter = input.value.toUpperCase();
-    rows = document.getElementsByClassName("clickable-row");
-    for (i = 0; i < rows.length; i++) {
-        row = rows[i];
-        txtValue = row.cells[col].innerHTML;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
-    }
-}
-</script>
-<style>
-#myInput,
-#myInput_2 {
-  background-repeat: no-repeat;
-  width: 640;
-  font-size: 16px;
-  padding: 12px 20px 12px 20px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-  display:block;
-}
-</style>
