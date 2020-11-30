@@ -3,6 +3,8 @@ const router = express.Router();
 const data = require('../data');
 const restaurantData = data.restaurants;
 const reviewData = data.reviews;
+const commentData = data.comments;
+const userData = data.users;
 const verify = require('../data/verify');
 
 // Route for the page of all restaurants
@@ -69,7 +71,29 @@ router.get('/:id', async (req, res) => {
     
     try {
         const restaurant = await restaurantData.getRestaurantById(id);
-        const reviews = await reviewData.getAllReviewsOfRestaurant(id);
+        const allReviews = await reviewData.getAllReviewsOfRestaurant(id);
+        
+        // Reviews will be a list of objects s.t. each object will hold all the info for a single review
+        /*
+            {
+                username: "sgao",
+                age: 20,
+                text: "Oh wow this is a great restaurant",
+                metrics : {subdocument of metrics}
+            }
+        */
+        const reviews = [];
+        for (const review of allReviews) {
+            let current = {};
+            const { username, age } = await userData.getUserById(review.reviewerId);
+            current.username = username;
+            current.age = age;
+            current.text = review.reviewText
+            current.metrics = review.metrics;
+            current.comments = await commentData.getAllCommentsOfReview(review._id);
+            reviews.push(current);
+        }
+        console.log(reviews);
         // Retreive all the reviews for that restaurant
         res.render('restaurants/single', {
             partial: 'restaurants-single-script',

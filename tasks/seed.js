@@ -56,6 +56,9 @@ async function main() {
     const mcD2 = await reviews.createReview(Maramba._id, mcDonalds._id, "NO MASKS!!!! I am never going back. Happened multiple times!!!", {rating: 2, price: 1, distancedTables: true, maskedEmployees: false, noTouchPayment: false, outdoorSeating: false});
     await comments.createComment(mcD2._id, Gheesling._id, "Your are crazy, they had masks on all the time.");
 
+    const mcD3 = await reviews.createReview(Maramba._id, mcDonalds._id, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed leo at lectus hendrerit venenatis. Quisque id mauris sed ipsum sodales convallis vel in mi. Duis quis arcu ac mauris auctor sollicitudin. Aenean maximus elit ac cursus vestibulum. Duis pulvinar odio vitae ultrices ullamcorper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed in urna sit amet quam varius auctor sit amet sit amet risus. Quisque mollis mollis ex non maximus.", {rating: 2, price: 1, distancedTables: true, maskedEmployees: false, noTouchPayment: false, outdoorSeating: false});
+    await comments.createComment(mcD3._id, Gheesling._id, "Wow this is such a long review.");
+
     const qdoba1 = await reviews.createReview(Curau._id, qdoba._id, "Everything was great except you have to pay by cash :(", {rating: 4, price: 2, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: true});
     await comments.createComment(qdoba1._id, Abell._id, "I could not disagree more");
 
