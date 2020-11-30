@@ -48,8 +48,7 @@ async function main() {
     const Curau     = await users.createUser('Jason',    'Curau',     'liverpoolfan@hotmail.com', 'ChillxFusionz',  21, 'theEgyptianKing');
     const Abell     = await users.createUser('Dani',     'Abell',     'ihatejason@gmail.com',     'Abell1111',      10, 'abell1111');
 
-    const mcD1 = await reviews.createReview(Smells._id, mcDonalds._id, "Im Lovin It",
-        {rating: 5, price: 1, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
+    const mcD1 = await reviews.createReview(Smells._id, mcDonalds._id, "Im Lovin It", {rating: 5, price: 1, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
     await comments.createComment(mcD1._id, Taylor._id, "I agree. Felt perfectly safe.");
     await comments.createComment(mcD1._id, Burkart._id, "I see what you did there, very funny.");
 
