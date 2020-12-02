@@ -61,7 +61,6 @@ module.exports = {
             maskedEmployees: 0,
             noTouchPayment: 0,
             outdoorSeating: 0,
-            reviews: []
         };
         
         const insertInfo = await restaurantCollection.insertOne(newRestaurant);

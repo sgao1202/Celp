@@ -70,7 +70,15 @@ router.get('/:id', async (req, res) => {
     try {
         const restaurant = await restaurantData.getRestaurantById(id);
         const reviews = await reviewData.getAllReviewsOfRestaurant(id);
-        // Retreive all the reviews for that restaurant
+        const numReviews = reviews.length;
+
+        restaurant.rating = restaurant.rating / numReviews;
+        restaurant.price = restaurant.price / numReviews;
+        restaurant.distancedTables = (restaurant.distancedTables / numReviews) * 100;
+        restaurant.maskedEmployees = (restaurant.maskedEmployees / numReviews) * 100;
+        restaurant.noTouchPayment = (restaurant.noTouchPayment / numReviews) * 100;
+        restaurant.outdoorSeating = (restaurant.outdoorSeating / numReviews) * 100;
+
         res.render('restaurants/single', {
             partial: 'restaurants-single-script',
             restaurant: restaurant,
