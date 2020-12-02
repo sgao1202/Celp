@@ -3,6 +3,7 @@ const restaurantRoutes = require('./restaurants');
 const reviewRoutes = require('./reviews');
 const userRoutes = require('./users');
 const privateRoutes = require('./private');
+const apiRoutes = require('./api');
 
 const data = require('../data');
 const { getAllUsers } = require('../data/users');
@@ -99,6 +100,7 @@ const constructorMethod = (app) => {
     app.use('/users', userRoutes);
     app.use('/reviews', reviewRoutes);
     app.use('/private', privateRoutes);
+    app.use('/api', apiRoutes)
 
     app.use('*', (req, res) => {
         res.sendStatus(404);
