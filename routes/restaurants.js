@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
+const comments = require('../data/comments');
 const restaurantData = data.restaurants;
 const reviewData = data.reviews;
 const commentData = data.comments;
@@ -79,22 +80,43 @@ router.get('/:id', async (req, res) => {
                 username: "sgao",
                 age: 20,
                 text: "Oh wow this is a great restaurant",
-                metrics : {subdocument of metrics}
+                metrics : {subdocument of metrics},
+                comments: []
             }
         */
         const reviews = [];
         for (const review of allReviews) {
             let current = {};
-            const { username, age } = await userData.getUserById(review.reviewerId);
+            let { username, age } = await userData.getUserById(review.reviewerId);
             current.username = username;
             current.age = age;
-            current.text = review.reviewText
+            current.text = review.reviewText;
             current.metrics = review.metrics;
-            current.comments = await commentData.getAllCommentsOfReview(review._id);
+
+            let allComments = await commentData.getAllCommentsOfReview(review._id);
+            let comments = [];
+            for (const comment of allComments) {
+                let currentComment = {};
+                let {username, age} = await userData.getUserById(comment.userId);
+                currentComment.username = username;
+                currentComment.age = age;
+                currentComment.text = comment.text
+                comments.push(currentComment);
+            }
+            current.comments = comments;
             reviews.push(current);
         }
         console.log(reviews);
-        // Retreive all the reviews for that restaurant
+
+        // Calculate percentages for ratings based off of reviews
+        const numReviews = allReviews.length;
+        restaurant.rating = (restaurant.rating / numReviews).toFixed(2);
+        restaurant.price = (restaurant.price / numReviews).toFixed(2);
+        restaurant.distancedTables = ((restaurant.distancedTables / numReviews) * 100).toFixed(2);
+        restaurant.maskedEmployees = ((restaurant.maskedEmployees / numReviews) * 100).toFixed(2);
+        restaurant.noTouchPayment = ((restaurant.noTouchPayment / numReviews) * 100).toFixed(2);
+        restaurant.outdoorSeating = ((restaurant.outdoorSeating / numReviews) * 100).toFixed(2);
+
         res.render('restaurants/single', {
             partial: 'restaurants-single-script',
             restaurant: restaurant,
