@@ -29,7 +29,7 @@ app.set('view engine', 'handlebars');
 
 app.use(
   session({
-      name: "AuthCookie",
+      name: "Celp",
       secret: 'some secret string',
       resave: false,
       saveUninitialized: true

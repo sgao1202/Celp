@@ -93,12 +93,12 @@ module.exports = {
             if (updatedInfo.modifiedCount === 0) throw 'could not update movie successfully';
         } else {
             updatedMetrics = {
-                rating:          currentMetrics.rating - metrics.rating,
-                price:           currentMetrics.price - metrics.price,
-                distancedTables: currentMetrics.distancedTables - metrics.distancedTables,
-                maskedEmployees: currentMetrics.maskedEmployees - metrics.maskedEmployees,
-                noTouchPayment:  currentMetrics.noTouchPayment - metrics.noTouchPayment,
-                outdoorSeating:  currentMetrics.outdoorSeating - metrics.outdoorSeating
+                rating:          currentRestaurant.rating - metrics.rating,
+                price:           currentRestaurant.price - metrics.price,
+                distancedTables: currentRestaurant.distancedTables - metrics.distancedTables,
+                maskedEmployees: currentRestaurant.maskedEmployees - metrics.maskedEmployees,
+                noTouchPayment:  currentRestaurant.noTouchPayment - metrics.noTouchPayment,
+                outdoorSeating:  currentRestaurant.outdoorSeating - metrics.outdoorSeating
             }
 
             const updatedInfo = await restaurantCollection.updateOne({_id: ObjectId(restaurantId)}, {$set: updatedMetrics});

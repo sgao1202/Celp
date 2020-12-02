@@ -1,4 +1,4 @@
-.button {
+#profile {
     font-size: 14px;
     font-style: Helvetica;
     text-decoration: none;
@@ -33,4 +33,15 @@
 
 .dropdown:hover .dropdown-content{
   display: block;
+}
+
+.btnContainer{
+    text-align: right;
+}
+
+.delbtn{
+  font-size: 30px;
+  cursor: pointer;
+  position: absolute;
+  transform: translate(0%, -50%);
 }
