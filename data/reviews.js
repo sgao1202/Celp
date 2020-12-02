@@ -122,11 +122,15 @@ module.exports = {
 
         /* Remove all comments on this review */
         let commentList = comments.getAllCommentsOfReview(reviewId);
-        for (let commentId of commentList) {
-            await comments.deleteComment(commentId);
+        if (commentList.length > 0){
+            for (let commentId of commentList) {
+                await comments.deleteComment(commentId);
+            }
         }
-
-        restaurants.updateMetrics(restaurantId, metrics, false);
+        
+        let review = await this.getReviewById(reviewId);
+        
+        restaurants.updateMetrics(review.restaurantId, review.metrics, false);
 
         /* delete review from DB */
         const reviewCollection = await reviews();
