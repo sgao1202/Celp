@@ -14,10 +14,8 @@
         </span>
         {{#if authenticated}}
             <div class="dropdown">
-                <button class="dropbtn">{{userName}}
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-content">
+                <button id = "profile" class = "dropbtn">{{userName}}</button>
+                <div class = "dropdown-content">
                     <a href="/private">User Profile</a>
                     <a href="/users/logout">Logout</a>
                 </div>

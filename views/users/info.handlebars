@@ -1,9 +1,71 @@
 <h1>User Info:</h1>
 <br>
-<div>First Name: {{firstName}}</div>
-<div>Last Name: {{lastName}}</div>
-<div>Username: {{userName}}</div>
-<div>Email: {{email}}</div>
-<div>Age: {{age}}</div>
+<div class = "container m-5 col-sm-4">
+    <dl>
+        <dt>First Name:</dt>
+        <dd>{{firstName}}</dd>
+        <dt>Last Name: </dt>
+        <dd>{{lastName}}</dd>
+        <dt>Username:</dt>
+        <dd>{{userName}}</dd>
+        <dt>Email:</dt>
+        <dd>{{email}}</dd>
+        <dt>Age:<dt>
+        <dd>{{age}}</dd>
+    </dl>
+</div>
 <br>
-<div>(((Reviews go here)))</div>
+<h2>Favorited Restaurants:</h2>
+<ul class = "list-group">
+    {{#each favRestaurants}}
+    <li class = "list-group-item list-group-item info">{{this}}</li>
+    {{/each}}
+</ul>
+<h2>Your Reviews:</h2>
+<ul class = "list-group">
+    {{#each reviews}}
+    <li class="list-group-item">
+        <div class = "container m-5 col-sm-4">
+            <dl>
+                <div class = 'btnContainer'>
+                    <span class = 'delbtn' type = "button" data-id="{{this.review._id}}">&times;</span> 
+                </div>
+                <h3>{{this.restaurant}}</h3>
+                <dt>Review:</dt> 
+                <dd>{{this.review.reviewText}}</dd>
+                <dt>Rating: 
+                <dd>{{this.review.metrics.rating}}</dd>
+                <dt>Price:</dt> 
+                <dd>{{this.review.metrics.price}}</dd>
+                <dt>Distanced Tables:<dt>
+                {{#if this.review.metrics.distancedTables}}
+                    <dd>&#10004;</dd>
+                {{else}}
+                    <dd>&#10060;</dd>
+                {{/if}}
+                
+                <dt>Masked Employees:<dt> 
+                {{#if this.review.metrics.maskedEmployees}}
+                    <dd>&#10004;</dd>
+                {{else}}
+                    <dd>&#10060;</dd>
+                {{/if}}
+
+                <dt>No Touch Payment:<dt> 
+                {{#if this.review.metrics.noTouchPayment}}
+                    <dd>&#10004;</dd>
+                {{else}}
+                    <dd>&#10060;</dd>
+                {{/if}}
+
+                <dt>Outdoor Seating:</dt>
+                {{#if this.review.metrics.outdoorSeating}}
+                    <dd>&#10004;</dd>
+                {{else}}
+                    <dd>&#10060;</dd>
+                {{/if}}
+            </dl>
+        </div>
+    </li>
+    {{/each}}
+</ul>
