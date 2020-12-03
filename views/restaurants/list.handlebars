@@ -12,6 +12,8 @@
         <th scope="col">Restaurant Name</th>
         <th scope="col">Restaurant Address</th>
         <th scope="col">Cuisine</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Price Level</th>
     </thead>
     <tbody>
         {{#each restaurants}}
@@ -20,6 +22,8 @@
                 <td>{{this.name}}</td>
                 <td>{{this.address}}</td>
                 <td>{{this.cuisine}}</td>
+                <td>{{this.rating}}</td>
+                <td>{{this.price}}</td>
             </tr>
         </a>
         {{/each}}

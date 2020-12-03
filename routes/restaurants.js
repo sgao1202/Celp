@@ -11,6 +11,12 @@ const verify = require('../data/verify');
 // Route for the page of all restaurants
 router.get('/', async (req, res) => {
     const restaurants = await restaurantData.getAllRestaurants();
+    restaurants.forEach(async (restaurant)=>{
+        allReviews = await reviewData.getAllReviewsOfRestaurant(restaurant._id);
+        numReviews = allReviews.length;
+        restaurant.rating = (restaurant.rating / numReviews).toFixed(2);
+        restaurant.price = (restaurant.price / numReviews).toFixed(2);
+    });
     if (req.session.user){
         const myUser = req.session.user;
         res.render('restaurants/list', { 
