@@ -29,15 +29,9 @@ router.get('/', async(req, res) =>{
     }
 
     return res.render('users/info', {
-        log: true,
         authenticated: true,
         partial: 'user-info-script',
-        // user: userData,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        userName: userData.username,
-        email: userData.email,
-        age: userData.age,
+        user: userData,
         favRestaurants: favRestaurants,
         reviews: reviewRest
     });

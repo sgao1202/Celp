@@ -15,8 +15,11 @@ const constructorMethod = (app) => {
 
     // Landing page '/' route
     app.get('/', (req, res) => {
-        res.render('landing/landing', {partial: 'landing-script'});
-    });
+        return res.render('landing/landing', {
+            authenticated: req.session.user ? true : false,
+            user: req.session.user,
+            partial: 'landing-script'});
+        })
 
     app.get('/statistics', async (req, res) => {
         let safest = [];
@@ -82,9 +85,10 @@ const constructorMethod = (app) => {
                 highestUserReviews = numUserReviews;
             }
         }
-
         res.render('statistics/statistics', {
             partial: 'statistics-script',
+            authenticated: req.session.user? true : false,
+            user: req.session.user,
             safest: safest,
             safestRating: safestRating,
             mostReviewed: mostReviewed,

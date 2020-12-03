@@ -11,31 +11,21 @@ const verify = require('../data/verify');
 // Route for the page of all restaurants
 router.get('/', async (req, res) => {
     const restaurants = await restaurantData.getAllRestaurants();
-    if (req.session.user){
-        const myUser = req.session.user;
-        res.render('restaurants/list', { 
-            log: true,
-            authenticated: true,
-            userName: myUser.username,
-            partial: 'restaurants-list-script', 
-            restaurants: restaurants
-        });
-    }
-    else{
-        res.render('restaurants/list', { 
-            log: false,
-            authenticated: false,
-            partial: 'restaurants-list-script', 
-            restaurants: restaurants
-        });
-    }
     
+    return res.render('restaurants/list', { 
+            authenticated: req.session.user? true : false,
+            user: req.session.user,
+            partial: 'restaurants-list-script', 
+            restaurants: restaurants
+    });
 });
 
 // Get create a restaurant page
 router.get('/new', async (req, res) => {
-    res.render('restaurants/new', {
-        partial: 'restaurants-form-script'
+    return res.render('restaurants/new', { 
+            authenticated: req.session.user? true : false,
+            user: req.session.user,
+            partial: 'restaurants-form-script'
     });
 });
 
