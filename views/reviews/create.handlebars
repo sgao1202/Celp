@@ -1,0 +1,18 @@
+<div class="container col-5 mt-5">
+    <div class="container mb-4">
+        <a href="/restaurants/{{restaurant._id}}" class="text-decoration-none text-dark font-weight-bold">
+            <h2>{{restaurant.name}}</h2>
+        </a>
+    </div>
+    <div class="container review-input-box">
+        <form method="POST" action="/reviews/writeareview/{{restaurant._id}}">
+            <div class="form-group mb-4 h-100">
+                {{!-- <input type="text" class="form-control form-control-lg" id="review-text-input" name="review_text" placeholder="This spot is serving meal kits, as well as offering delivery during COVID. I’m so glad! Of course nothing beats the in-person experience, but delivery is a great second option right now. The food was a little cold, but I understand this is a new operation for them..."> --}}
+                <textarea name="review_text" class="form-control form-control-lg" id="review-text-input" cols="30" rows="10" placeholder="This spot is serving meal kits, as well as offering delivery during COVID. I’m so glad! Of course nothing beats the in-person experience, but delivery is a great second option right now. The food was a little cold, but I understand this is a new operation for them..."></textarea>
+            </div>
+            <div class="">
+                <button type="submit" class="btn btn-primary">Post Review</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -106,7 +106,6 @@ router.get('/:id', async (req, res) => {
             current.comments = comments;
             reviews.push(current);
         }
-        console.log(reviews);
 
         // Calculate percentages for ratings based off of reviews
         const numReviews = allReviews.length;
