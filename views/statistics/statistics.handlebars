@@ -1,0 +1,30 @@
+<div>
+    Safest Restaurant (Highest Overall Safety Rating): {{safestRating}} Safety Rating
+    <ul class="list-group">
+        {{#each safest}}
+        <li class="list-group-item">{{this.name}}</li>
+        {{/each}}
+    </ul>
+</div>
+<div>
+    Most Reviewed Restaurant: {{numReviews}} Reviews
+    <ul class="list-group">
+        {{#each mostReviewed}}
+        <li class="list-group-item">{{this.name}}</li>
+        {{/each}}
+    </ul>
+</div>
+<div>
+    Most Active User (User with the Most Reviews): {{highestUserReviews}} Reviews
+    <ul class="list-group">
+        {{#each mostActive}}
+        <li class="list-group-item">{{this.username}}</li>
+        {{/each}}
+    </ul>
+</div>
+<div>
+    Total Number of Reviews on Celp: {{totalReviews}} Reviews
+</div>
+<div>
+    Total Number of Restaurants on Celp: {{totalRestaurants}} Restaurants
+</div>
