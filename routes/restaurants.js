@@ -34,9 +34,21 @@ router.get('/', async (req, res) => {
 
 // Get create a restaurant page
 router.get('/new', async (req, res) => {
-    res.render('restaurants/new', {
-        partial: 'restaurants-form-script'
-    });
+        if (req.session.user){
+        const myUser = req.session.user;
+        res.render('restaurants/new', {
+            log: true,
+            authenticated: true,
+            userName: myUser.username,
+            partial: 'restaurants-form-script'
+        });
+    }
+    else{
+        res.render('restaurants/new', {
+            partial: 'restaurants-form-script'
+        });
+    }
+
 });
 
 // Route to create a restaurant
@@ -116,12 +128,24 @@ router.get('/:id', async (req, res) => {
         restaurant.maskedEmployees = ((restaurant.maskedEmployees / numReviews) * 100).toFixed(2);
         restaurant.noTouchPayment = ((restaurant.noTouchPayment / numReviews) * 100).toFixed(2);
         restaurant.outdoorSeating = ((restaurant.outdoorSeating / numReviews) * 100).toFixed(2);
+        if (req.session.user) {
+            const myUser = req.session.user;
+            res.render('restaurants/single', { 
+                log: true,
+                authenticated: true,
+                userName: myUser.username,
+                partial: 'restaurants-single-script',
+                restaurant: restaurant,
+                reviews: reviews
+            });
+        } else {
+            res.render('restaurants/single', {
+                partial: 'restaurants-single-script',
+                restaurant: restaurant,
+                reviews: reviews
+            });
+        }
 
-        res.render('restaurants/single', {
-            partial: 'restaurants-single-script',
-            restaurant: restaurant,
-            reviews: reviews
-        });
     } catch(e) {
         res.status(500).render('errors/error', {errorMessage: e});
     }
