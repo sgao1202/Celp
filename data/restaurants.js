@@ -57,6 +57,7 @@ module.exports = {
             address: address.trim(),
             cuisine: cuisine.trim(),
             rating: 0,
+            price: 0,
             distancedTables: 0,
             maskedEmployees: 0,
             noTouchPayment: 0,
