@@ -42,6 +42,8 @@ router.post('/new', async (req, res) => {
     if (errors.length > 0) {
         res.render('restaurants/new', {
             partial: 'restaurants-form-script',
+            authenticated: req.session.user? true : false,
+            user: req.session.user,
             hasErrors: true,
             errors: errors
         });
@@ -109,6 +111,8 @@ router.get('/:id', async (req, res) => {
 
         res.render('restaurants/single', {
             partial: 'restaurants-single-script',
+            authenticated: req.session.user? true : false,
+            user: req.session.user,
             restaurant: restaurant,
             reviews: reviews
         });

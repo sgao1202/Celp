@@ -10,8 +10,8 @@ router.post('/delete/:id', async function (req,res){
     const id = ObjectId(xss(req.params.id))
     //const review = await reviews.deleteReview(req.params.id);
     //console.log(review);
-    console.log("hello");
-    return res.status(200).json({
+
+    res.status(200).json({
         success: true
     });
     
