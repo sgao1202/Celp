@@ -38,3 +38,14 @@
 .btnContainer{
     text-align: right;
 }
+
+#myInput,
+#myInput_2 {
+  background-repeat: no-repeat;
+  width: 640;
+  font-size: 16px;
+  padding: 12px 20px 12px 20px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  display:block;
+}

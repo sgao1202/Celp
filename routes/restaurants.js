@@ -11,10 +11,15 @@ const verify = require('../data/verify');
 // Route for the page of all restaurants
 router.get('/', async (req, res) => {
     const restaurants = await restaurantData.getAllRestaurants();
-    
+    restaurants.forEach(async (restaurant)=>{
+        allReviews = await reviewData.getAllReviewsOfRestaurant(restaurant._id);
+        numReviews = allReviews.length;
+        restaurant.rating = (restaurant.rating / numReviews).toFixed(2);
+        restaurant.price = (restaurant.price / numReviews).toFixed(2);
+    });
     return res.render('restaurants/list', { 
-            authenticated: req.session.user? true : false,
-            user: req.session.user,
+        authenticated: req.session.user? true : false,
+        user: req.session.user,
             partial: 'restaurants-list-script', 
             restaurants: restaurants
     });
@@ -108,8 +113,7 @@ router.get('/:id', async (req, res) => {
         restaurant.maskedEmployees = ((restaurant.maskedEmployees / numReviews) * 100).toFixed(2);
         restaurant.noTouchPayment = ((restaurant.noTouchPayment / numReviews) * 100).toFixed(2);
         restaurant.outdoorSeating = ((restaurant.outdoorSeating / numReviews) * 100).toFixed(2);
-
-        res.render('restaurants/single', {
+        return res.render('restaurants/single', {
             partial: 'restaurants-single-script',
             authenticated: req.session.user? true : false,
             user: req.session.user,

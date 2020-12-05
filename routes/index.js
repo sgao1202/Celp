@@ -85,7 +85,7 @@ const constructorMethod = (app) => {
                 highestUserReviews = numUserReviews;
             }
         }
-        res.render('statistics/statistics', {
+        return res.render('statistics/statistics', {
             partial: 'statistics-script',
             authenticated: req.session.user? true : false,
             user: req.session.user,
