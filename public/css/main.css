@@ -38,10 +38,3 @@
 .btnContainer{
     text-align: right;
 }
-
-.delbtn{
-  font-size: 30px;
-  cursor: pointer;
-  position: absolute;
-  transform: translate(0%, -50%);
-}
