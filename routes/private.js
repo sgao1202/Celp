@@ -25,7 +25,10 @@ router.get('/', async(req, res) =>{
     let favRestaurants = [];
     for (let restaurantId of userData.favoritedRestaurants){
         let rest = await restaurants.getRestaurantById(restaurantId);
-        favRestaurants.push(rest.name);
+        favRestaurants.push({
+            id: restaurantId, 
+            name: rest.name
+        });
     }
 
     return res.render('users/info', {

@@ -20,7 +20,9 @@
     <div class = "container m-5 col-sm-4">
         <ul class = "list-group list-group-horizontal-md">
             {{#each favRestaurants}}
-            <li class = "list-group-item">&starf; {{this}}</li>
+            <li class = "list-group-item">
+                <a href = "/restaurants/{{this.id}}">&starf;{{this.name}}</a>
+            </li>
             {{/each}}
         </ul>
     </div>
