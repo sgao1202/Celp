@@ -19,6 +19,9 @@ const handlebarsInstance = exphbs.create({
     checkUser: function(userId, reviewArr){
       if (userId) return reviewArr.includes(userId);
       else return false;
+    },
+    checkListLengthZero: function(arr){
+      return arr.length == 0;
     }
   },
   partialsDir: ['views/partials/']
