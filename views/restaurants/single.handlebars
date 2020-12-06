@@ -10,7 +10,7 @@
             <div class="border-bottom mt-3">
                 <h3 class="font-weight-bold">Reviews</h3>
                 {{!-- All reviews for the restaurant --}}
-                <ul class="list-grou">
+                <ul class="list-group">
                     {{#each reviews}}
                     {{!-- Each review is a list item --}}
                     <li class="list-group-item">
@@ -128,6 +128,13 @@
                                     </span>
                                 </p>
                             </div>
+                            <!-- likes/dislikes -->
+                            <p>{{this.id}}</p>
+                            <p>{{user._id}}</p>
+                            <i data-revId = "{{this.id}}" data-userId = "{{user._id}}" class = "likebtn fa fa-thumbs-up"></i>
+                            <span>{{this.likes.length}} </span>
+                            <i data-revId = "{{this.id}}" data-userId = "{{user._id}}" class = "dislikebtn fa fa-thumbs-down"></i>
+                            <span>{{this.dislikes.length}} </span>
                         </div>
                         <div class="container">
                             <h5 class="font-weight-bold">Comments</h5>

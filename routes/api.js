@@ -16,4 +16,9 @@ router.post('/delete/:id', async function (req,res){
     
 })
 
+router.post('/like/:id', async function (req,res){
+    const id = ObjectId(req.params.id)
+    const update = await reviews.updateReviewLike(req.params.id, )
+})
+
 module.exports = router;

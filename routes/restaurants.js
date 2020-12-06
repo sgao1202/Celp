@@ -106,10 +106,13 @@ router.get('/:id', async (req, res) => {
         for (const review of allReviews) {
             let current = {};
             let { username, age } = await userData.getUserById(review.reviewerId);
+            current.id = review._id;
             current.username = username;
             current.age = age;
             current.text = review.reviewText;
             current.metrics = review.metrics;
+            current.likes = review.likes;
+            current.dislikes = review.dislikes;
 
             let allComments = await commentData.getAllCommentsOfReview(review._id);
             let comments = [];
@@ -124,7 +127,7 @@ router.get('/:id', async (req, res) => {
             current.comments = comments;
             reviews.push(current);
         }
-        console.log(reviews);
+        //console.log(reviews);
 
         // Calculate percentages for ratings based off of reviews
         const numReviews = allReviews.length;
@@ -136,6 +139,7 @@ router.get('/:id', async (req, res) => {
         restaurant.outdoorSeating = ((restaurant.outdoorSeating / numReviews) * 100).toFixed(2);
         if (req.session.user) {
             const myUser = req.session.user;
+            console.log(myUser);
             res.render('restaurants/single', { 
                 log: true,
                 authenticated: true,
