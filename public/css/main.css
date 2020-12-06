@@ -39,13 +39,6 @@
     text-align: right;
 }
 
-.delbtn{
-  font-size: 30px;
-  cursor: pointer;
-  position: absolute;
-  transform: translate(0%, -50%);
-}
-
 #myInput,
 #myInput_2 {
   background-repeat: no-repeat;

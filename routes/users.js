@@ -6,7 +6,6 @@ const userData = data.users;
 
 // Redirect if user is logged in and authenticated
 router.get('/', async (req, res) => {
-    console.log(req.session.user);
     if (req.session.user){
         res.redirect("/restaurants");
     }
@@ -18,7 +17,6 @@ router.get('/login', async (req, res) => {
         res.redirect('/private');
     }else{
         res.render('users/login', {
-            log: true,
             authenticated: false,
             partial: 'login-script'
         });
@@ -31,7 +29,6 @@ router.get('/signup', async (req, res) => {
         res.redirect('/private');
     }else{
         res.render('users/signup', {
-            log: true,
             authenticated: false,
             partial: 'signup-script'
         })
@@ -77,11 +74,10 @@ router.post('/signup', async(req, res) => {
     try{
         age = parseInt(age);
         const user = await userData.createUser(firstName, lastName, email, username, age, password);
-        console.log(user);
         res.redirect("/restaurants");
     }catch(e){
         return res.status(401).render('users/signup',{
-            log: true,
+            authenticated: false,
             title: "Login",
             partial: "login-script",
             error: e

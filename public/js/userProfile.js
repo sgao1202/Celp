@@ -9,9 +9,7 @@
             method: "POST",
             url: '/api/delete/' + reviewId
         }
-
-        $.ajax(requestConfig).then(async function(responseMessage){
-            console.log(responseMessage);
+        $.ajax(requestConfig).then(function(responseMessage){
             button.closest('li').remove();
         })
     }))
