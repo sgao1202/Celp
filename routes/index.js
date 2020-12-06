@@ -15,17 +15,11 @@ const constructorMethod = (app) => {
 
     // Landing page '/' route
     app.get('/', (req, res) => {
-        if (req.session.user) {
-            const myUser = req.session.user;
-            res.render('landing/landing', {
-                log: true,
-                authenticated: true,
-                userName: myUser.username,
-                partial: 'landing-script'});
-        }else{
-            res.render('landing/landing', {partial: 'landing-script'});
-        }  
-    });
+        return res.render('landing/landing', {
+            authenticated: req.session.user ? true : false,
+            user: req.session.user,
+            partial: 'landing-script'});
+        })
 
     app.get('/statistics', async (req, res) => {
         let safest = [];
@@ -91,36 +85,19 @@ const constructorMethod = (app) => {
                 highestUserReviews = numUserReviews;
             }
         }
-        if (req.session.user) {
-            const myUser = req.session.user;
-            res.render('statistics/statistics', {
-                log: true,
-                authenticated: true,
-                userName: myUser.username,
-                partial: 'statistics-script',
-                safest: safest,
-                safestRating: safestRating,
-                mostReviewed: mostReviewed,
-                numReviews: numReviews,
-                mostActive: mostUserReviews,
-                highestUserReviews: highestUserReviews,
-                totalReviews: totalReviews,
-                totalRestaurants: numRestaurants
-            });
-        } else {
-            res.render('statistics/statistics', {
-                partial: 'statistics-script',
-                safest: safest,
-                safestRating: safestRating,
-                mostReviewed: mostReviewed,
-                numReviews: numReviews,
-                mostActive: mostUserReviews,
-                highestUserReviews: highestUserReviews,
-                totalReviews: totalReviews,
-                totalRestaurants: numRestaurants
-            });
-        }
-
+        return res.render('statistics/statistics', {
+            partial: 'statistics-script',
+            authenticated: req.session.user? true : false,
+            user: req.session.user,
+            safest: safest,
+            safestRating: safestRating,
+            mostReviewed: mostReviewed,
+            numReviews: numReviews,
+            mostActive: mostUserReviews,
+            highestUserReviews: highestUserReviews,
+            totalReviews: totalReviews,
+            totalRestaurants: numRestaurants
+        });
     });
 
     app.use('/restaurants', restaurantRoutes);

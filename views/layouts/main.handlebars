@@ -15,25 +15,25 @@
         </span>
         {{#if authenticated}}
             <div class="dropdown">
-                <button id = "profile" class = "dropbtn">{{userName}}</button>
+                <button id = "profile" class = "dropbtn">{{user.username}}</button>
                 <div class = "dropdown-content">
                     <a href="/private">User Profile</a>
                     <a href="/users/logout">Logout</a>
                 </div>
             </div>
+        {{else}}
+            <div class="container justify-content-end mw-100">
+                <span>
+                    <a href="/users/login" class="btn btn-light px-3 mx-1 border">Login</a>
+                    <a href="/users/signup" class="btn btn-primary px-3 mx-1">Sign Up</a>
+                </span>
+            </div>
         {{/if}}
-        {{#unless log}}
-        <div class="container justify-content-end mw-100">
-            <span>
-                <a href="/users/login" class="btn btn-light px-3 mx-1 border">Login</a>
-                <a href="/users/signup" class="btn btn-primary px-3 mx-1">Sign Up</a>
-            </span>
-        </div>
-        {{/unless}}
         
     </nav>
     {{{body}}}
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     {{> (lookup . 'partial') }}
 </body>
 </html>
