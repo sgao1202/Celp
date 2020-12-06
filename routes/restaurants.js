@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
-const comments = require('../data/comments');
 const restaurantData = data.restaurants;
 const reviewData = data.reviews;
 const commentData = data.comments;

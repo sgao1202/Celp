@@ -5,13 +5,44 @@
         </a>
     </div>
     <div class="container review-input-box">
-        <form method="POST" action="/reviews/writeareview/{{restaurant._id}}">
-            <div class="form-group mb-4 h-100">
-                {{!-- <input type="text" class="form-control form-control-lg" id="review-text-input" name="review_text" placeholder="This spot is serving meal kits, as well as offering delivery during COVID. I’m so glad! Of course nothing beats the in-person experience, but delivery is a great second option right now. The food was a little cold, but I understand this is a new operation for them..."> --}}
-                <textarea name="review_text" class="form-control form-control-lg" id="review-text-input" cols="30" rows="10" placeholder="This spot is serving meal kits, as well as offering delivery during COVID. I’m so glad! Of course nothing beats the in-person experience, but delivery is a great second option right now. The food was a little cold, but I understand this is a new operation for them..."></textarea>
-            </div>
-            <div class="">
-                <button type="submit" class="btn btn-primary">Post Review</button>
+        <form method="POST" action="/reviews/writeareview/{{restaurant._id}}" id="review-form">
+            <div class="container">
+                <div class="row">
+                    <div class="col form-group">
+                        <label for="review-rating">Rating</label>
+                        <input type="number" class="form-control" id="review-rating" name="reviewRating" min="1" max="5">
+                    </div>
+                    <div class="col form-group">
+                        <label for="review-price">Price</label>
+                        <input type="number" class="form-control" id="review-price" name="reviewPrice" min="1" max="5">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check form-check-inline">
+                        <label for="distanced-table">Socially Distanced Tables</label>
+                        <input type="checkbox" class="form-control" id="distanced-tables" name="distancedTables">
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label for="masked-employees">Masked Employees</label>
+                        <input type="checkbox" class="form-control" id="masked-employees" name="maskedEmployees">
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label for="no-touch-payment">No-Touch Payment</label>
+                        <input type="checkbox" class="form-control" id="no-touch-payment" name="noTouchPayment">
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label for="outdoor-dining">Outdoor Dining</label>
+                        <input type="checkbox" class="form-control" id="outdoor-dining" name="outdoorDining">
+                    </div>
+                </div>
+                <div class="form-group mw-100%">
+                    <label for="review-text-input"></label>
+                    <textarea name="reviewText" class="form-control form-control-lg" id="review-text-input" cols="30" rows="10" placeholder="This spot is serving meal kits, as well as offering delivery during COVID. I’m so glad! Of course nothing beats the in-person experience, but delivery is a great second option right now. The food was a little cold, but I understand this is a new operation for them..."></textarea>
+                </div>
+                
+                <div id="review-submit-button">
+                    <button type="submit" class="btn btn-primary">Post Review</button>
+                </div>
             </div>
         </form>
     </div>
