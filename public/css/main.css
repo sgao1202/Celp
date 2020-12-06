@@ -51,6 +51,22 @@
 }
 
 .fa {
-  font-size: 25px;
+  font-size: 28px;
   margin: 10px;
+}
+
+.fa.filled{
+  color: blue;
+}
+
+.fa:hover{
+  background-color: lightgray;
+}
+
+.dblclick{
+  user-select: none;
+}
+
+.error.font-italic{
+  color: red;
 }

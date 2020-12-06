@@ -15,6 +15,10 @@ const handlebarsInstance = exphbs.create({
         return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
 
       return new Handlebars.SafeString(JSON.stringify(obj));
+    },
+    checkUser: function(userId, reviewArr){
+      if (userId) return reviewArr.includes(userId);
+      else return false;
     }
   },
   partialsDir: ['views/partials/']

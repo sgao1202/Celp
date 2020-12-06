@@ -1,4 +1,4 @@
-<div class="container ">
+<div class="container">
     <div class="row">
         <div class="col">
             <div class="border-bottom mt-3">
@@ -129,12 +129,23 @@
                                 </p>
                             </div>
                             <!-- likes/dislikes -->
-                            <p>{{this.id}}</p>
-                            <p>{{user._id}}</p>
-                            <i data-revId = "{{this.id}}" data-userId = "{{user._id}}" class = "likebtn fa fa-thumbs-up"></i>
-                            <span>{{this.likes.length}} </span>
-                            <i data-revId = "{{this.id}}" data-userId = "{{user._id}}" class = "dislikebtn fa fa-thumbs-down"></i>
-                            <span>{{this.dislikes.length}} </span>
+                            <div class = "dblclick container">
+                                {{#if (checkUser ../user._id this.likes)}}
+                                <i class = "likebtn fa fa-thumbs-up filled" data-rid = "{{this.id}}" data-uid = "{{../user._id}}"></i>
+                                {{else}}
+                                <i class = "likebtn fa fa-thumbs-up" data-rid = "{{this.id}}" data-uid = "{{../user._id}}"></i>
+                                {{/if}}
+                                <span class = "likes">{{this.likes.length}}</span>
+
+                                {{#if (checkUser ../user._id this.dislikes)}}
+                                <i class = "dislikebtn fa fa-thumbs-down filled" data-rid = "{{this.id}}" data-uid = "{{../user._id}}"></i>
+                                {{else}}
+                                <i class = "dislikebtn fa fa-thumbs-down" data-rid = "{{this.id}}" data-uid = "{{../user._id}}"></i>
+                                {{/if}}
+                                <span class = "dislikes">{{this.dislikes.length}}</span>
+                                <p hidden = "true" class = "error font-italic"></p>
+                            </div>
+                            
                         </div>
                         <div class="container">
                             <h5 class="font-weight-bold">Comments</h5>
