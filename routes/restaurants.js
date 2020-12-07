@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
-const comments = require('../data/comments');
 const restaurantData = data.restaurants;
 const reviewData = data.reviews;
 const commentData = data.comments;
@@ -103,7 +102,6 @@ router.get('/:id', async (req, res) => {
             current.comments = comments;
             reviews.push(current);
         }
-        console.log(reviews);
 
         // Calculate percentages for ratings based off of reviews
         const numReviews = allReviews.length;
