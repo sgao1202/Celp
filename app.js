@@ -16,8 +16,8 @@ const handlebarsInstance = exphbs.create({
 
       return new Handlebars.SafeString(JSON.stringify(obj));
     },
-    checkUser: function(userId, reviewArr){
-      if (userId) return reviewArr.includes(userId);
+    checkListMem: function(elem, target){
+      if (elem) return target.includes(elem);
       else return false;
     },
     checkListLengthZero: function(arr){

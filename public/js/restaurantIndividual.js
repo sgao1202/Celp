@@ -12,7 +12,38 @@
         error.html("You must be logged in to like/dislike");
         error.removeAttr('hidden');
     }
+    function showFavError(btn){
+        var error = btn.closest('.border-bottom').find('.error');
+        error.html("You must be logged in to favorite restaurants");
+        error.removeAttr('hidden');
+    }
+    
+    $('.favbtn').on('click', function(event){
+        event.preventDefault();
+        var btn = $(this);
+        var restId = btn.data('rid');
+        var userId = btn.data('uid');
+        if (userId){
+            var requestConfig = {
+                method : "POST",
+                url: '/api/favorite/' + restId + '/' + userId,
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    rid: restId,
+                    uid: userId
+                })
+            }
+            $.ajax(requestConfig).then(function(responseMessage){
+                //toggle icon color
+                btn.toggleClass('fa-star-o')
+                btn.toggleClass('fa-star')
+                btn.toggleClass('filled');
+            })
+        }else{
+            showFavError(btn);
+        }
 
+    })
     $('.likebtn').on('click', function(event){
         event.preventDefault();
         var btn = $(this);

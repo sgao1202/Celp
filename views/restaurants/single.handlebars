@@ -2,7 +2,15 @@
     <div class="row">
         <div class="col">
             <div class="border-bottom mt-3">
-                <h1 class="display-4 font-weight-bold">{{restaurant.name}}</h1>
+                <h1 class="display-4 font-weight-bold">{{restaurant.name}} 
+                    {{#if (checkListMem restaurant_id user.favoritedRestaurants)}}
+                    <i class = "favbtn fa fa-star filled" data-rid = "{{restaurant._id}}" data-uid = "{{user._id}}"></i>
+                    {{else}}
+                    <i class = "favbtn fa fa-star-o" data-rid = "{{restaurant._id}}" data-uid = "{{user._id}}"></i>
+                    {{/if}}
+                </h1>
+
+                <span hidden = "true" class = "error font-italic"></span>
                 <h5 class="font-italic">{{restaurant.address}}</h5>
                 <h5 class="text-secondary">{{restaurant.cuisine}}</h5>
             </div>
@@ -130,14 +138,14 @@
                             </div>
                             <!-- likes/dislikes -->
                             <div class = "dblclick container">
-                                {{#if (checkUser ../user._id this.likes)}}
+                                {{#if (checkListMem ../user._id this.likes)}}
                                 <i class = "likebtn fa fa-thumbs-up filled" data-rid = "{{this.id}}" data-uid = "{{../user._id}}"></i>
                                 {{else}}
                                 <i class = "likebtn fa fa-thumbs-up" data-rid = "{{this.id}}" data-uid = "{{../user._id}}"></i>
                                 {{/if}}
                                 <span class = "likes">{{this.likes.length}}</span>
 
-                                {{#if (checkUser ../user._id this.dislikes)}}
+                                {{#if (checkListMem ../user._id this.dislikes)}}
                                 <i class = "dislikebtn fa fa-thumbs-down filled" data-rid = "{{this.id}}" data-uid = "{{../user._id}}"></i>
                                 {{else}}
                                 <i class = "dislikebtn fa fa-thumbs-down" data-rid = "{{this.id}}" data-uid = "{{../user._id}}"></i>
