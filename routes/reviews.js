@@ -32,8 +32,9 @@ router.post('/writeareview/:id', async (req, res) => {
 
     let newReviewData = req.body;
     let errors = [];
-    console.log(typeof newReviewData.reviewRating);
-    console.log(typeof newReviewData.distancedTables);
+    for (let key in newReviewData) {
+        console.log(`${key} : ${typeof newReviewData[key]}`);
+    }
 
     if (!verifier.validRating(newReviewData.reviewRating)) errors.push('Invalid review rating');
     if (!verifier.validRating(newReviewData.reviewPricing)) errors.push('Invalid review price');
