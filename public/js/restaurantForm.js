@@ -1,33 +1,46 @@
 (function ($) {
     // Returns
-    function validInput(info) {
-        if (!info || !info.name || !info.address || !info.cuisine) return false;
+    let noErrors = true;
+    function validString(str) {
+        if (!str || !isNaN(str)) {
+            noErrors = false;
+            return false;
+        }
         return true;
     }
 
+    // form.removeClass('was-validated');
     let form = $('#restaurant-form');
     let nameInput = $('#restaurant-name-input');
     let addressInput = $('#restaurant-address-input');
     let cuisineInput = $('#restaurant-cuisine-input');
-    console.log(nameInput);
-    console.log(addressInput);
-    console.log(cuisineInput);
 
     form.submit((event) => {
-        // Validate user input
+        // Prevent default form submission
+        noErrors = true;
         event.preventDefault();
+        nameInput.removeClass('is-invalid is-valid');
+        addressInput.removeClass('is-invalid is-valid');
+        cuisineInput.removeClass('is-invalid is-valid');
+
         let info = {
             name: nameInput.val().trim(),
             address: addressInput.val().trim(),
             cuisine: cuisineInput.val().trim()
         };
-        console.log(info);
         /*
             Make POST request to server if input is valid, 
             otherwise reload the form with errors attached
             to corresponding input boxes.
         */
-        // if (validInput) form.submit();
+        
+        // Validate user input and reload the page with proper errors attached
+        if (!validString(info.name)) nameInput.addClass('is-invalid');
+        if (!validString(info.address)) addressInput.addClass('is-invalid');
+        if (!validString(info.cuisine)) cuisineInput.addClass('is-invalid');
+
+        // Unbind submit event to avoid an infinite loop
+        if (noErrors) form.unbind().submit();
     });
     
 })(jQuery);
