@@ -15,6 +15,10 @@ router.get('/', async (req, res) => {
         numReviews = allReviews.length;
         restaurant.rating = (restaurant.rating / numReviews).toFixed(2);
         restaurant.price = (restaurant.price / numReviews).toFixed(2);
+        if (numReviews === 0) {
+            restaurant.rating = 'No Reviews';
+            restaurant.price = 'No Reviews';
+        }
     });
     return res.render('restaurants/list', { 
         authenticated: req.session.user? true : false,
@@ -114,6 +118,7 @@ router.get('/:id', async (req, res) => {
         restaurant.maskedEmployees = ((restaurant.maskedEmployees / numReviews) * 100).toFixed(2);
         restaurant.noTouchPayment = ((restaurant.noTouchPayment / numReviews) * 100).toFixed(2);
         restaurant.outdoorSeating = ((restaurant.outdoorSeating / numReviews) * 100).toFixed(2);
+
         return res.render('restaurants/single', {
             partial: 'restaurants-single-script',
             authenticated: req.session.user? true : false,
