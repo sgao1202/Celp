@@ -77,6 +77,8 @@ async function main() {
     const repub = await reviews.createReview(Smells._id, pizzaRepublic._id, "Felt safe the entire time", {rating: 5, price: 2, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: true});
     await comments.createComment(repub._id, Patel._id, 'Shame they dont have no touch payment.')
 
+    await users.toggleFavoriteRestaurant(Smells._id, mcDonalds._id)
+    await users.toggleFavoriteRestaurant(Smells._id, qdoba._id)
     /* test for case sensitive username and email */
     // const user11 = await users.createUser('Simon', 'Smells', 'SS20@gMAil.COM', 'stinkyman20', 25, 'stonkystonk');
     // const user12 = await users.createUser('Simon', 'Smells', 'smmm20@gmail.com', 'stiNkyMan20', 25, 'stonkystonk');

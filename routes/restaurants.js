@@ -10,31 +10,26 @@ const verify = require('../data/verify');
 // Route for the page of all restaurants
 router.get('/', async (req, res) => {
     const restaurants = await restaurantData.getAllRestaurants();
-    if (req.session.user){
-        const myUser = req.session.user;
-        res.render('restaurants/list', { 
-            log: true,
-            authenticated: true,
-            userName: myUser.username,
+    restaurants.forEach(async (restaurant)=>{
+        allReviews = await reviewData.getAllReviewsOfRestaurant(restaurant._id);
+        numReviews = allReviews.length;
+        restaurant.rating = (restaurant.rating / numReviews).toFixed(2);
+        restaurant.price = (restaurant.price / numReviews).toFixed(2);
+    });
+    return res.render('restaurants/list', { 
+        authenticated: req.session.user? true : false,
+        user: req.session.user,
             partial: 'restaurants-list-script', 
             restaurants: restaurants
-        });
-    }
-    else{
-        res.render('restaurants/list', { 
-            log: false,
-            authenticated: false,
-            partial: 'restaurants-list-script', 
-            restaurants: restaurants
-        });
-    }
-    
+    });
 });
 
 // Get create a restaurant page
 router.get('/new', async (req, res) => {
-    res.render('restaurants/new', {
-        partial: 'restaurants-form-script'
+    return res.render('restaurants/new', { 
+            authenticated: req.session.user? true : false,
+            user: req.session.user,
+            partial: 'restaurants-form-script'
     });
 });
 
@@ -51,6 +46,8 @@ router.post('/new', async (req, res) => {
     if (errors.length > 0) {
         res.render('restaurants/new', {
             partial: 'restaurants-form-script',
+            authenticated: req.session.user? true : false,
+            user: req.session.user,
             hasErrors: true,
             errors: errors
         });
@@ -114,9 +111,10 @@ router.get('/:id', async (req, res) => {
         restaurant.maskedEmployees = ((restaurant.maskedEmployees / numReviews) * 100).toFixed(2);
         restaurant.noTouchPayment = ((restaurant.noTouchPayment / numReviews) * 100).toFixed(2);
         restaurant.outdoorSeating = ((restaurant.outdoorSeating / numReviews) * 100).toFixed(2);
-
-        res.render('restaurants/single', {
+        return res.render('restaurants/single', {
             partial: 'restaurants-single-script',
+            authenticated: req.session.user? true : false,
+            user: req.session.user,
             restaurant: restaurant,
             reviews: reviews
         });
