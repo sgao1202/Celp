@@ -84,10 +84,13 @@ router.get('/:id', async (req, res) => {
         for (const review of allReviews) {
             let current = {};
             let { username, age } = await userData.getUserById(review.reviewerId);
+            current.id = review._id;
             current.username = username;
             current.age = age;
             current.text = review.reviewText;
             current.metrics = review.metrics;
+            current.likes = review.likes;
+            current.dislikes = review.dislikes;
 
             let allComments = await commentData.getAllCommentsOfReview(review._id);
             let comments = [];

@@ -1,6 +1,6 @@
-<h1>User Info:</h1>
-<br>
 <div class = "container m-5 col-sm-4">
+    <h1>User Info:</h1>
+    <br>
     <dl>
         <dt>First Name:</dt>
         <dd>{{user.firstName}}</dd>
@@ -14,23 +14,31 @@
         <dd>{{user.age}}</dd>
     </dl>
 </div>
-<br><br>
+<br>
 
-<h2>Favorited Restaurants:</h2>
-    <div class = "container m-5 col-sm-4">
-        <ul class = "list-group list-group-horizontal-md">
+<div class = "container m-5 col-sm-4">
+        <h2>Favorited Restaurants:</h2>
+        <br>
+        {{#if (checkListLengthZero favRestaurants)}}
+            <p class = "font-italic">None, go favorite some restaurants!</p>
+        {{else}}
+            <ul class = "list-group list-group-horizontal-md">  
             {{#each favRestaurants}}
             <li class = "list-group-item">
                 <a href = "/restaurants/{{this.id}}">&starf;{{this.name}}</a>
             </li>
             {{/each}}
-        </ul>
+            </ul>
+        {{/if}}
     </div>
-<br><br>
+<br>
 
 <!-- table data instead of description list?-->
-<h2>Your Reviews:</h2>
 <div class = "container m-5 col-sm-4">
+    <h2>Your Reviews:</h2>
+    {{#if (checkListLengthZero reviews)}}
+        <p class = "font-italic">None, go write some reviews!</p>
+    {{else}}
     <ul class = "list-group">
         {{#each reviews}}
         <li class="list-group-item">
@@ -95,4 +103,5 @@
         </li>
         {{/each}}
     </ul>
+    {{/if}}
 </div>

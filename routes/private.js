@@ -30,6 +30,7 @@ router.get('/', async(req, res) =>{
             name: rest.name
         });
     }
+    console.log(favRestaurants);
 
     return res.render('users/info', {
         authenticated: true,

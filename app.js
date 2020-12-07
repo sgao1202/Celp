@@ -15,6 +15,13 @@ const handlebarsInstance = exphbs.create({
         return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
 
       return new Handlebars.SafeString(JSON.stringify(obj));
+    },
+    checkListMem: function(elem, target){
+      if (elem) return target.includes(elem);
+      else return false;
+    },
+    checkListLengthZero: function(arr){
+      return arr.length == 0;
     }
   },
   partialsDir: ['views/partials/']

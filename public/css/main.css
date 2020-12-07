@@ -56,3 +56,24 @@
   margin-bottom: 12px;
   display:block;
 }
+
+.fa {
+  font-size: 28px;
+  margin: 10px;
+}
+
+.fa.filled{
+  color: blue;
+}
+
+.fa:hover{
+  background-color: lightgray;
+}
+
+.dblclick{
+  user-select: none;
+}
+
+.error.font-italic{
+  color: red;
+}
