@@ -62,8 +62,10 @@ router.post('/login', async (req, res) => {
         req.session.user = myUser;
         // Redirect the user to their previous route after they login if it exists
         // Otherwise, bring them to the restaurants list page
-        if (req.session.previousRoute) {
-            res.redirect(req.session.previousRoute);
+        let temp = req.session.previousRoute;
+        if (temp) {
+            req.session.previousRoute = '';
+            res.redirect(temp);
         } else {
             res.redirect('/restaurants');
         }

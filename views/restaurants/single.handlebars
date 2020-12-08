@@ -162,21 +162,25 @@
                             
                         </div>
                         <div class="container">
-                            <h5 class="font-weight-bold">Comments:</h5>
-                            <ul class="list-group">
-                                {{#each this.comments}}
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <span class="font-weight-bold">
-                                                {{this.username}}
-                                            </span>
-                                        </div>
-                                        <div class="row ml-2 mt-2">
-                                            {{this.text}}
-                                        </div>  
-                                    </li> 
-                                {{/each}}
-                            </ul>
+                            <div class="card">
+                                <div class="card-header">
+                                    Comments
+                                </div>
+                                <ul class="list-group">
+                                    {{#each this.comments}}
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <span class="font-weight-bold">
+                                                    {{this.username}}
+                                                </span>
+                                            </div>
+                                            <div class="row ml-2 mt-2">
+                                                {{this.text}}
+                                            </div>  
+                                        </li> 
+                                    {{/each}}
+                                </ul>
+                            </div>
                         </div>
                     </li>
                     {{/each}}
