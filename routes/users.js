@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 router.get('/login', async (req, res) => {
     if (req.session.user){
         res.redirect('/private');
-    }else{
+    } else{
         res.render('users/login', {
             authenticated: false,
             partial: 'login-script'
@@ -27,7 +27,7 @@ router.get('/login', async (req, res) => {
 router.get('/signup', async (req, res) => {
     if (req.session.user){
         res.redirect('/private');
-    }else{
+    } else{
         res.render('users/signup', {
             authenticated: false,
             partial: 'signup-script'
@@ -39,6 +39,10 @@ router.get('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
     const {username, password} = req.body;
     let myUser;
+
+    /*
+        Why not create a function in users to query by username since each username should be unique?
+    */
     const users = await userData.getAllUsers();
     for (let i = 0; i < users.length; i++){
         if (users[i].username == username){
@@ -56,10 +60,16 @@ router.post('/login', async (req, res) => {
 
     if (match){
         req.session.user = myUser;
-        res.redirect('/restaurants');
+        // Redirect the user to their previous route after they login if it exists
+        // Otherwise, bring them to the restaurants list page
+        if (req.session.previousRoute) {
+            res.redirect(req.session.previousRoute);
+        } else {
+            res.redirect('/restaurants');
+        }
     }
 
-    else{
+    else {
         return res.status(401).render('users/login', 
         {   title: "Login",
             partial: "login-script",
@@ -71,11 +81,11 @@ router.post('/login', async (req, res) => {
 router.post('/signup', async(req, res) => {
     const {firstName, lastName, username, password, email} = req.body;
     let age = req.body.age;
-    try{
+    try {
         age = parseInt(age);
         const user = await userData.createUser(firstName, lastName, email, username, age, password);
         res.redirect("/restaurants");
-    }catch(e){
+    } catch(e){
         return res.status(401).render('users/signup',{
             authenticated: false,
             title: "Login",
