@@ -5,7 +5,7 @@
         </a>
     </div>
     <div class="container review-input-box">
-        <form method="POST" action="/reviews/writeareview/{{restaurant._id}}" id="review-form" novalidate>
+        <form method="POST" action="/reviews/writeareview/{{restaurant._id}}" id="review-form" onsubmit="submitButton.disabled = true; return true" novalidate>
             <div class="container">
                 <div class="row">
                     <div class="col form-group">
@@ -50,7 +50,7 @@
                 </div>
                 
                 <div id="review-submit-button">
-                    <button type="submit" class="btn btn-primary">Post Review</button>
+                    <button type="submit" class="btn btn-primary" name="submitButton">Post Review</button>
                 </div>
             </div>
         </form>
