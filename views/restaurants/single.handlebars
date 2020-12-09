@@ -167,18 +167,17 @@
                                     Comments
                                 </div>
                                 <ul class="list-group">
-                                    {{#each this.comments}}
-                                        <li class="list-group-item">
-                                            <div class="row">
+                                    {{#each comments}} {{> comment_item}} {{/each}}
+                                        {{!-- <li class="list-group-item">
+                                            <div class="container">
                                                 <span class="font-weight-bold">
                                                     {{this.username}}
                                                 </span>
                                             </div>
-                                            <div class="row ml-2 mt-2">
+                                            <div class="container ml-2 mt-2">
                                                 {{this.text}}
                                             </div>  
-                                        </li> 
-                                    {{/each}}
+                                        </li>  --}}
                                 </ul>
                             </div>
                         </div>

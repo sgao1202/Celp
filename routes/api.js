@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const reviews = require('../data/reviews');
+const data = require('../data');
+const reviews = data.reviews;
+const comments = data.comments;
 const xss = require('xss');
 
 let { ObjectId } = require('mongodb');
@@ -56,5 +58,13 @@ router.post('/favorite/:rid/:uid', async function (req, res){
         success: true
     });
 })
+
+router.get('/comment/new', async (req, res) => {
+
+});
+
+router.post('/comment/new', async (req, res) => {
+    
+});
 
 module.exports = router;
