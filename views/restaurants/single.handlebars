@@ -3,7 +3,7 @@
         <div class="col">
             <div class="border-bottom mt-3">
                 <h1 class="display-4 font-weight-bold">{{restaurant.name}} 
-                    {{#if (checkListMem restaurant_id user.favoritedRestaurants)}}
+                    {{#if (checkListMem restaurant._id user.favoritedRestaurants)}}
                     <i class = "favbtn fa fa-star filled" data-rid = "{{restaurant._id}}" data-uid = "{{user._id}}"></i>
                     {{else}}
                     <i class = "favbtn fa fa-star-o" data-rid = "{{restaurant._id}}" data-uid = "{{user._id}}"></i>
