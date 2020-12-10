@@ -147,6 +147,7 @@
                         commentList.append(response);
                     });
                 }
+                commentInput.val('');
             });
         });
     }
