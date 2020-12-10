@@ -11,11 +11,12 @@ let { ObjectId } = require('mongodb');
 //     "address": "123 Washington St",
 //     "cuisine": "American",
 //     "rating": 2.3,
-//     "price": 1
+//     "price": 1,
 //     "distancedTables": 88,
 //     "maskedEmployees": 12,
 //     "noTouchPayment": 100,
 //     "outdoorSeating": 0,
+//     "link": "https://www.yelp.com/biz/bobs-burgers-hoboken"
 // }
 
 module.exports = {
@@ -46,10 +47,12 @@ module.exports = {
         Creating a new restaurant should only take in 3 string arguments: name, address, and cusine.
         The rest of the fields will be initialized upon creation, but updated later on with additional data.
     */
-    async createRestaurant(name, address, cuisine) {
+    async createRestaurant(name, address, cuisine, link) {
         if (!verify.validString(name))    throw 'Restaurant name must be a valid string';
         if (!verify.validString(address)) throw 'Restaurant adddress must be a valid string';
         if (!verify.validString(cuisine)) throw 'Restaurant cuisine must be a valid string';
+        if (!verify.validLink(link)) throw 'Restaurant external link must be a valid yelp link.';
+
 
         const restaurantCollection = await restaurants();
         const newRestaurant = {
@@ -62,6 +65,7 @@ module.exports = {
             maskedEmployees: 0,
             noTouchPayment: 0,
             outdoorSeating: 0,
+            link: link.trim(),
         };
         
         const insertInfo = await restaurantCollection.insertOne(newRestaurant);
