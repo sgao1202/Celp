@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const reviews = data.reviews;
-const comments = data.comments;
+const commentData = data.comments;
+const userData = data.users;
+const verifier = require('../data/verify');
 const xss = require('xss');
 
 let { ObjectId } = require('mongodb');
@@ -52,19 +54,55 @@ router.post('/favorite/:rid/:uid', async function (req, res){
 
     //update session user to display on user page
     req.session.user = await users.getUserById(xss(req.body.uid));
-    console.log(req.session.user)
+    // console.log(req.session.user);
 
     res.status(200).json({
         success: true
     });
 })
 
-router.get('/comment/new', async (req, res) => {
+router.post('/comment/new', async (req, res) => {   
+    let errors = [];
+    let reviewId = req.body.reviewId.trim();
+    let text = req.body.text.trim();
 
-});
+    if (!req.session.user) errors.push('Must log in to comment');
+    let userId = req.session.user._id;
+    if (!verifier.validString(reviewId)) errors.push('Invalid comment reviewId');
+    if (!verifier.validString(userId)) errors.push('Invalid comment userId');
+    if (!verifier.validString(text)) errors.push('Invalid comment textt');
 
-router.post('/comment/new', async (req, res) => {
-    
+    if (errors.length > 0) {
+        res.status(500).json({
+            success: false,
+            errors: errors,
+            message: 'Errors encountered'
+        });
+    }
+
+    try {
+        const comment = await commentData.createComment(reviewId, userId, text);
+        // Get user info
+        let {username, age, firstName, lastName} = await userData.getUserById(userId);
+        let commentLayout = {
+            username: username,
+            text: comment.text
+        };
+        res.render('partials/comment_item', { layout: null, ...commentLayout});
+        // res.json({
+        //     success: true,
+        //     text: comment.text,
+        //     username: username,
+        //     firstName: firstName,
+        //     lastName: lastName
+        // });
+    } catch (e) {
+        errors.push(e);
+        res.status(500).json({
+            success: false,
+            errors: errors
+        });
+    }
 });
 
 module.exports = router;
