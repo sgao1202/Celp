@@ -105,5 +105,50 @@
             showLikeError(btn);
         }
     })
-        
+    
+
+    /*
+        AJAX for adding a comment
+    */ 
+    let commentForms = $('.comment-form');
+    console.log(commentForms);
+    if (commentForms.length > 0) {
+        commentForms.each((index) => {
+            let currentForm = $(commentForms[index]);
+            console.log(currentForm);
+            currentForm.submit((event) => {
+                event.preventDefault();
+
+                let commentInput = currentForm.find('.form-group').find('input');
+                commentInput.removeClass('is-invalid is-valid');
+
+                let commentText = commentInput.val().trim();
+                let reviewId = currentForm.data('review');
+                let hasErrors = false;
+                
+                if (!commentText) {
+                    commentInput.addClass('is-invalid');
+                    hasErrors = true;
+                }
+                
+                if (!hasErrors) {
+                    let requestConfig = {
+                        method: 'POST',
+                        url: '/api/comment/new',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            reviewId: currentForm.data('review'),
+                            text: commentText
+                        })
+                    }
+                    
+                    $.ajax(requestConfig).then((response) => {
+                        let commentList = $(`#comment-list-${reviewId}`);
+                        commentList.append(response);
+                    });
+                }
+                commentInput.val('');
+            });
+        });
+    }
 })(jQuery);

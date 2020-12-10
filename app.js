@@ -52,7 +52,7 @@ app.use('/private', async(req, res, next) =>{
     else{
       next();
     }
-})
+});
 
 configRoutes(app);
 
