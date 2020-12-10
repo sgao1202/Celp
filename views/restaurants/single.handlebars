@@ -161,22 +161,33 @@
                             </div>
                             
                         </div>
+                        {{!-- Commment Section --}}
                         <div class="container">
-                            <h5 class="font-weight-bold">Comments:</h5>
-                            <ul class="list-group">
-                                {{#each this.comments}}
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <span class="font-weight-bold">
-                                                {{this.username}}
-                                            </span>
-                                        </div>
-                                        <div class="row ml-2 mt-2">
-                                            {{this.text}}
-                                        </div>  
-                                    </li> 
-                                {{/each}}
-                            </ul>
+                            <div class="card">
+                                <div class="card-header">
+                                    Comments
+                                </div>
+                                <ul class="list-group" id="comment-list-{{this.id}}">
+                                    {{#each comments}} {{> comment_item}} {{/each}}
+                                </ul>
+                                <div class="card-footer">
+                                    {{#if ../authenticated}}
+                                        <form class="comment-form" data-review="{{this.id}}">
+                                            <div class="form-group">
+                                                <label for="comment-input-{{this.id}}"></label>
+                                                <input type="text" class="form-control" id="comment-input-{{this.id}}" name="comment" placeholder="Enter a comment here" >
+                                                <div class="invalid-feedback">
+                                                    Enter a comment
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary">Add a Comment</button>
+                                        </form>
+                                    {{else}}
+                                        <p class="text-muted">Log in to comment</p>
+                                    {{/if}}
+                                </div>
+                                
+                            </div>
                         </div>
                     </li>
                     {{/each}}
