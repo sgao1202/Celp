@@ -48,6 +48,11 @@ function validMetrics(metrics) {
     return true;
 }
 
+function validLink(link) {
+    if (!validString(link)) return false;
+    const re = /^https:\/\/www\.yelp\.com\/biz\/((\w+)-)*\w+/;
+    return re.test(String(link).toLowerCase());
+}
 
 module.exports = {
     validString,
@@ -56,5 +61,6 @@ module.exports = {
     validEmail,
     validBoolean,
     validRating,
-    validMetrics
+    validMetrics,
+    validLink
 };
