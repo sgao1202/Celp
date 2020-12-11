@@ -45,6 +45,7 @@ router.post('/new', async (req, res) => {
     if (!verify.validString(newRestaurantData.name)) errors.push('Invalid restaurant name');
     if (!verify.validString(newRestaurantData.address)) errors.push('Invalid restaurat address');
     if (!verify.validString(newRestaurantData.cuisine)) errors.push('Invalid cuisine');
+    if (!verify.validLink(newRestaurantData.link)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant');
 
     // Do not submit if there are errors in the form
     if (errors.length > 0) {
@@ -58,7 +59,7 @@ router.post('/new', async (req, res) => {
     }
 
     try {
-        const newRestaurant = await restaurantData.createRestaurant(newRestaurantData.name, newRestaurantData.address, newRestaurantData.cuisine);
+        const newRestaurant = await restaurantData.createRestaurant(newRestaurantData.name, newRestaurantData.address, newRestaurantData.cuisine, newRestaurantData.link);
         res.redirect(`/restaurants`);
     } catch(e) {
         res.status(500).json({error: e});
@@ -119,9 +120,10 @@ router.get('/:id', async (req, res) => {
         restaurant.maskedEmployees = ((restaurant.maskedEmployees / numReviews) * 100).toFixed(2);
         restaurant.noTouchPayment = ((restaurant.noTouchPayment / numReviews) * 100).toFixed(2);
         restaurant.outdoorSeating = ((restaurant.outdoorSeating / numReviews) * 100).toFixed(2);
-        return res.render('restaurants/single', {
+
+        res.render('restaurants/single', {
             partial: 'restaurants-single-script',
-            authenticated: req.session.user? true : false,
+            authenticated: req.session.user ? true : false,
             user: req.session.user,
             restaurant: restaurant,
             reviews: reviews

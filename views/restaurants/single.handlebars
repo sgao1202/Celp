@@ -13,6 +13,7 @@
                 <span hidden = "true" class = "error font-italic"></span>
                 <h5 class="font-italic">{{restaurant.address}}</h5>
                 <h5 class="text-secondary">{{restaurant.cuisine}}</h5>
+                <h5 class="text-secondary"><a href={{restaurant.link}}>Link to Yelp</a></h5>
             </div>
                 
             <div class="border-bottom mt-3">
@@ -34,9 +35,6 @@
                             <div class="row">
                                 <div class="col col-3 p-0">
                                     <div class="">
-                                        {{!-- <p class="font-weight-bold">
-                                            {{this.username}}
-                                        </p> --}}
                                         <h5 class="font-weight-bold">{{this.username}}</h5>
                                     </div>
                                 </div>
@@ -175,29 +173,40 @@
                             </div>
                             
                         </div>
+                        {{!-- Commment Section --}}
                         <div class="container">
-                            <h5 class="font-weight-bold">Comments:</h5>
-                            <ul class="list-group">
-                                {{#each this.comments}}
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <span class="font-weight-bold">
-                                                {{this.username}}
-                                            </span>
-                                        </div>
-                                        <div class="row ml-2 mt-2">
-                                            {{this.text}}
-                                        </div>  
-                                    </li> 
-                                {{/each}}
-                            </ul>
+                            <div class="card">
+                                <div class="card-header">
+                                    Comments
+                                </div>
+                                <ul class="list-group" id="comment-list-{{this.id}}">
+                                    {{#each comments}} {{> comment_item}} {{/each}}
+                                </ul>
+                                <div class="card-footer">
+                                    {{#if ../authenticated}}
+                                        <form class="comment-form" data-review="{{this.id}}">
+                                            <div class="form-group">
+                                                <label for="comment-input-{{this.id}}"></label>
+                                                <input type="text" class="form-control" id="comment-input-{{this.id}}" name="comment" placeholder="Enter a comment here" >
+                                                <div class="invalid-feedback">
+                                                    Enter a comment
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary">Add a Comment</button>
+                                        </form>
+                                    {{else}}
+                                        <p class="text-muted">Log in to comment</p>
+                                    {{/if}}
+                                </div>
+                                
+                            </div>
                         </div>
                     </li>
                     {{/each}}
                 </ul>
             </div>
         </div>
-        {{#if reviews}}
+        {{!-- {{#if reviews}} --}}
         <div class="col col-4 mt-3 ml-5 border border-light rounded shadow-sm h-50">
             <div class="m-3">
                 {{!-- Header for COVID-19 Metrics --}}
@@ -288,6 +297,6 @@
                 </div>
             </div>
         </div>
-        {{/if}}
+        {{!-- {{/if}} --}}
     </div>
 </div>

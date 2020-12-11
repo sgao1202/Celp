@@ -1,6 +1,6 @@
 <div class="container mt-3 col-4">
     <h1>Signup Form</h1>
-    <form method="POST" action="/users/signup" onsubmit="submit-button.disabled = true; return true;">
+    <form method="POST" action="/users/signup" onsubmit="submitButton.disabled = true; return true;">
         <div class="form-group">
             <label for="firstName">First Name</label>
             <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name">
@@ -29,7 +29,7 @@
             <label for="age">Age</label>
             <input type="number" class="form-control" id="age" name="age" placeholder="Enter your age">
         </div>
-        <button class="btn btn-primary" type="submit" name="submit-button">Create an account</button>
+        <button class="btn btn-primary" type="submit" name="submitButton" id="submitbutton">Create an account</button>
     </form>
     <div>{{error}}</div>
 </div>

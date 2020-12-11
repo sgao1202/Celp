@@ -10,15 +10,15 @@ async function main() {
     await db.dropDatabase();
 
     // Restaurants
-    const mcDonalds      = await restaurants.createRestaurant('McDonalds',          '234 Washington St',  'Fast Food');
-    const qdoba          = await restaurants.createRestaurant('QDOBA Mexican Eats', '400 Washington St',  'Mexican');
-    const tThai          = await restaurants.createRestaurant('T Thai',             '102 Hudson St',      'Thai');
-    const noOne          = await restaurants.createRestaurant('No. 1',              '642 Washington St',  'Chinese');
-    const oBagel         = await restaurants.createRestaurant("O'Bagel",            '600 Washington St',  'Breakfast');
-    const chickenFactory = await restaurants.createRestaurant('Chicken Factory',    '529 Washington St',  'Korean');
-    const chipotle       = await restaurants.createRestaurant("Chipotle",           '229 Washington St',  'Mexican');
-    const brassRail      = await restaurants.createRestaurant("Brass Rail",         '135 Washington St',  'American');
-    const pizzaRepublic  = await restaurants.createRestaurant("Pizza Republic",     '406 Washington St',  'Italian');
+    const mcDonalds      = await restaurants.createRestaurant('McDonalds',          '234 Washington St',  'Fast Food', 'https://www.yelp.com/biz/mcdonalds-hoboken');
+    const qdoba          = await restaurants.createRestaurant('QDOBA Mexican Eats', '400 Washington St',  'Mexican', 'https://www.yelp.com/biz/qdoba-mexican-eats-jersey-city');
+    const tThai          = await restaurants.createRestaurant('T Thai',             '102 Hudson St',      'Thai', 'https://www.yelp.com/biz/t-thai-hoboken');
+    const noOne          = await restaurants.createRestaurant('No. 1',              '642 Washington St',  'Chinese', 'https://www.yelp.com/biz/number-1-chinese-kitchen-hoboken');
+    const oBagel         = await restaurants.createRestaurant("O'Bagel",            '600 Washington St',  'Breakfast', 'https://www.yelp.com/biz/o-bagel-hoboken');
+    const chickenFactory = await restaurants.createRestaurant('Chicken Factory',    '529 Washington St',  'Korean', 'https://www.yelp.com/biz/chicken-factory-hoboken');
+    const chipotle       = await restaurants.createRestaurant("Chipotle",           '229 Washington St',  'Mexican', 'https://www.yelp.com/biz/chipotle-mexican-grill-hoboken');
+    const brassRail      = await restaurants.createRestaurant("Brass Rail",         '135 Washington St',  'American','https://www.yelp.com/biz/the-brass-rail-hoboken-hoboken');
+    const pizzaRepublic  = await restaurants.createRestaurant("Pizza Republic",     '406 Washington St',  'Italian', 'https://www.yelp.com/biz/pizza-republic-hoboken');
     /*
     const vitosDeli      = await restaurants.createRestaurant("Vitos Deli",         '806 Washington St',  'Italian');
     const midtownPhilly  = await restaurants.createRestaurant("Midtown Philly",     '523 Washington St',  'American');

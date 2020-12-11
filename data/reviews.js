@@ -22,7 +22,7 @@ module.exports = {
     	if (!verify.validString(reviewerId))   throw 'reviewerId is not a valid string.';
         if (!verify.validString(restaurantId)) throw 'restaurantId is not a valid string.';
         if (!verify.validString(reviewText))   throw 'reviewText is not a valid string.';
-        if (!verify.validMetrics(metrics))     throw 'invalid metrics';
+        if (!verify.validMetrics(metrics))     throw 'metrics is not valid';
 
         let newReview = {
         	reviewerId: reviewerId,
