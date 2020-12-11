@@ -58,7 +58,7 @@
 }
 
 .fa {
-  font-size: 28px;
+  font-size: 24px;
   margin: 10px;
 }
 
@@ -76,4 +76,17 @@
 
 .error.font-italic{
   color: red;
+}
+
+.reportbtn{
+  display: inline-block;
+}
+
+.reportbtn.rfilled{
+  color: red;
+}
+
+.float-right{
+  overflow: auto;
+  display: inline-block;
 }

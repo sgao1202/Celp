@@ -17,7 +17,12 @@
         error.html("You must be logged in to favorite restaurants");
         error.removeAttr('hidden');
     }
-    
+    function showRepError(btn){
+        var error = btn.closest('.container').find('.error');
+        error.html("You must be logged in to report reviews");
+        error.removeAttr('hidden');
+    }
+
     $('.favbtn').on('click', function(event){
         event.preventDefault();
         var btn = $(this);
@@ -44,6 +49,49 @@
         }
 
     })
+    $('.reportbtn').on('click', function(event){
+        event.preventDefault();
+        var btn = $(this);
+        var revId = btn.data('rid');
+        var userId = btn.data('uid');
+        var restId = btn.data('restid');
+        if (userId){
+            var requestConfig = {
+                method : "POST",
+                url: '/api/report/' + revId + '/' + userId + '/' + restId,
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    rid: revId,
+                    uid: userId,
+                    restId: restId
+                })
+            }
+            $.ajax(requestConfig).then(function(responseMessage){
+                console.log(responseMessage)
+                var restaurant = responseMessage.restaurant;
+                if (responseMessage.deleted){
+                    let li = "<li class = 'list-group-item error font-italic'>This review has been deleted due to multiple reports</li>"
+                    btn.closest('.list-group-item').replaceWith(li);
+
+                    $('#rating').text(restaurant.rating + "%")
+                    $('#distanced').text(restaurant.distancedTables + "%");
+                    $('#masked').text(restaurant.maskedEmployees + "%");
+                    $('#noTouch').text(restaurant.noTouchPayment + "%");
+                    $('#outdoor').text(restaurant.outdoorSeating + "%");
+                }
+
+                //toggle icon color and text
+                var reportText = $('.report-text').first().text();
+                $('.report-text').text(reportText == "Report" ? "Unreport": "Report")
+
+                btn.toggleClass('rfilled');
+            })
+        }else{
+            showRepError(btn);
+        }
+
+    })
+
     $('.likebtn').on('click', function(event){
         event.preventDefault();
         var btn = $(this);

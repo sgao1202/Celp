@@ -17,7 +17,9 @@ const handlebarsInstance = exphbs.create({
       return new Handlebars.SafeString(JSON.stringify(obj));
     },
     checkListMem: function(elem, target){
-      if (elem && target) return target.includes(elem);
+      if (elem && target) {
+        return target.includes(elem);
+      }
       else return false;
     },
     checkListLengthZero: function(arr){

@@ -95,6 +95,7 @@ router.get('/:id', async (req, res) => {
             current.metrics = review.metrics;
             current.likes = review.likes;
             current.dislikes = review.dislikes;
+            current.reported = review.reported;
 
             let allComments = await commentData.getAllCommentsOfReview(review._id);
             let comments = [];
@@ -118,7 +119,6 @@ router.get('/:id', async (req, res) => {
         restaurant.maskedEmployees = ((restaurant.maskedEmployees / numReviews) * 100).toFixed(2);
         restaurant.noTouchPayment = ((restaurant.noTouchPayment / numReviews) * 100).toFixed(2);
         restaurant.outdoorSeating = ((restaurant.outdoorSeating / numReviews) * 100).toFixed(2);
-
         return res.render('restaurants/single', {
             partial: 'restaurants-single-script',
             authenticated: req.session.user? true : false,

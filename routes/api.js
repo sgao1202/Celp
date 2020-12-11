@@ -2,6 +2,7 @@ const { response } = require('express');
 const express = require('express');
 const router = express.Router();
 const reviews = require('../data/reviews');
+const restaurants = require('../data/restaurants');
 const xss = require('xss');
 
 let { ObjectId } = require('mongodb');
@@ -51,11 +52,33 @@ router.post('/favorite/:rid/:uid', async function (req, res){
 
     //update session user to display on user page
     req.session.user = await users.getUserById(xss(req.body.uid));
-    console.log(req.session.user)
 
     res.status(200).json({
         success: true
     });
+
+})
+
+router.post('/report/:rid/:uid/:restid', async function (req, res){
+    const rid = ObjectId(xss(req.body.rid));
+    const uid = ObjectId(xss(req.body.uid));
+    const restid = ObjectId(xss(req.body.restId))
+    const deleted = await reviews.updateReviewReport(xss(req.body.rid), xss(req.body.uid));
+    const restaurant = await restaurants.getRestaurantById(xss(req.body.restId));
+    const allReviews = await reviews.getAllReviewsOfRestaurant(xss(req.body.restId));
+    const numReviews = allReviews.length;
+    restaurant.rating = (restaurant.rating / numReviews).toFixed(2);
+    restaurant.price = (restaurant.price / numReviews).toFixed(2);
+    restaurant.distancedTables = ((restaurant.distancedTables / numReviews) * 100).toFixed(2);
+    restaurant.maskedEmployees = ((restaurant.maskedEmployees / numReviews) * 100).toFixed(2);
+    restaurant.noTouchPayment = ((restaurant.noTouchPayment / numReviews) * 100).toFixed(2);
+    restaurant.outdoorSeating = ((restaurant.outdoorSeating / numReviews) * 100).toFixed(2);
+    res.status(200).json({
+        success: true,
+        deleted: deleted,
+        restaurant: restaurant
+    });
+    
 })
 
 module.exports = router;
