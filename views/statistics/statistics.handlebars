@@ -1,30 +1,36 @@
-<div>
-    Safest Restaurant (Highest Overall Safety Rating): {{safestRating}} Safety Rating
-    <ul class="list-group">
-        {{#each safest}}
-        <li class="list-group-item">{{this.name}}</li>
-        {{/each}}
-    </ul>
-</div>
-<div>
-    Most Reviewed Restaurant: {{numReviews}} Reviews
-    <ul class="list-group">
-        {{#each mostReviewed}}
-        <li class="list-group-item">{{this.name}}</li>
-        {{/each}}
-    </ul>
-</div>
-<div>
-    Most Active User (User with the Most Reviews): {{highestUserReviews}} Reviews
-    <ul class="list-group">
-        {{#each mostActive}}
-        <li class="list-group-item">{{this.username}}</li>
-        {{/each}}
-    </ul>
-</div>
-<div>
-    Total Number of Reviews on Celp: {{totalReviews}} Reviews
-</div>
-<div>
-    Total Number of Restaurants on Celp: {{totalRestaurants}} Restaurants
+<div class="container">
+    <h1 class="my-3">Statistics Page</h1>
+    <div class="container mb-3">
+        <h3>Safest Restaurant (Highest Overall Safety Rating): {{safestRating}} Safety Rating</h3>
+        <ul class="list-group">
+            {{#each safest}}
+            <li class="list-group-item">{{this.name}}</li>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="container mb-3">
+        <span class="h3">Most Reviewed Restaurant</span>
+        <span class="font-weight-lighter font-italic">({{numReviews}} reviews)</span>
+        <ul class="list-group">
+            {{#each mostReviewed}}
+            <li class="list-group-item">{{this.name}}</li>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="container mb-3">
+        <h3>Most Active User (User with the Most Reviews): {{highestUserReviews}} Reviews</h3>
+        <ul class="list-group">
+            {{#each mostActive}}
+            <li class="list-group-item">{{this.username}}</li>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="container mb-3">
+        <span class="font-weight-bold">Total Number of Reviews on Celp:</span>
+        <span>{{totalReviews}}</span>
+    </div>
+    <div class="container mb-3">
+        <span class="font-weight-bold">Total Number of Restaurants on Celp:</span>
+        <span>{{totalRestaurants}}</span>
+    </div>
 </div>
