@@ -137,7 +137,7 @@ module.exports = {
         const deletionInfo = await reviewCollection.deleteOne({ _id: ObjectId(reviewId) });
         if (deletionInfo.deletedCount === 0) throw `Could not delete review with id of ${reviewId}`;
 
-        return; 
+        return review; 
     },
 
     async getAllReviewsOfUser(reviewerId) {

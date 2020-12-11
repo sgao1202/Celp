@@ -12,10 +12,15 @@ const users = require('../data/users');
 
 router.post('/delete/:id', async function (req,res){
     const id = ObjectId(xss(req.body.id))
-    const review = await reviews.deleteReview(xss(req.body.id));
-
+    const delReview = await reviews.deleteReview(xss(req.body.id));
+    const reviewList = await reviews.getAllReviewsOfUser(delReview.reviewerId)
+    let empty = false;
+    if (reviewList.length == 0){
+        empty = true;
+    }
     res.status(200).json({
-        success: true
+        success: true,
+        empty: empty
     });
 })
 
