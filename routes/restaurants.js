@@ -120,9 +120,9 @@ router.get('/:id', async (req, res) => {
         restaurant.noTouchPayment = ((restaurant.noTouchPayment / numReviews) * 100).toFixed(2);
         restaurant.outdoorSeating = ((restaurant.outdoorSeating / numReviews) * 100).toFixed(2);
 
-        return res.render('restaurants/single', {
+        res.render('restaurants/single', {
             partial: 'restaurants-single-script',
-            authenticated: req.session.user? true : false,
+            authenticated: req.session.user ? true : false,
             user: req.session.user,
             restaurant: restaurant,
             reviews: reviews

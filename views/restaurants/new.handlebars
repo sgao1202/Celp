@@ -1,6 +1,6 @@
 <div class="container mt-3 col-4">
     <h1>Create a new restaurant</h1>
-    <form method="POST" action="/restaurants/new" id="restaurant-form" class="needs-validation" novalidate>
+    <form method="POST" action="/restaurants/new" id="restaurant-form" class="needs-validation" onsubmit="submitButton.disabled = true; return true" novalidate>
         <div class="form-group">
             <label for="restaurant-name-input">Name</label>
             <input type="text" class="form-control" id="restaurant-name-input" name="name" placeholder="Enter restaurant name">
@@ -32,6 +32,6 @@
                 Please provide a valid external link e.g. https://www.yelp.com/biz/bobs-burgers-hoboken
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Create New Restaurant</button>
+        <button type="submit" class="btn btn-primary" name="submitButton">Create New Restaurant</button>
     </form>
 </div>
