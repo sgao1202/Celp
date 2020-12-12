@@ -31,6 +31,8 @@ router.get('/writeareview/:id', async (req, res) => {
         const restaurant = await restaurantData.getRestaurantById(restaurantId);
         res.render('reviews/create', {
             partial: 'write-a-review-script',
+            authenticated: req.session.user? true : false,
+            user : req.session.user,
             restaurant: restaurant
         });
     } catch (e) {
