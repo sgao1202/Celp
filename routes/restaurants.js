@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
         }
     });
     return res.render('restaurants/list', { 
-        authenticated: req.session.user? true : false,
+        authenticated: req.session.user ? true : false,
         user: req.session.user,
             partial: 'restaurants-list-script', 
             restaurants: restaurants
