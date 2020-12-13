@@ -7,16 +7,16 @@
                     <div class="container">
                         <span class="h5">Safest Restaurants</span>
                     </div>
-                    <div class="container mb-2">
+                    <div class="container mb-2 font-weight-lighter font-italic">
                         <span>(</span>
-                        <span class="font-weight-lighter font-italic">{{safestRating}}</span>
+                        <span>{{safestRating}}</span>
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill align-baseline" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
                         </span>
                         <span>)</span>
                     </div>
                     <div class="container">
-                        <ul class="list-group">
+                        <ul class="list-group list-group-flush">
                             {{#each safest}}
                             <li class="list-group-item"><a href="/restaurants/{{this._id}}">{{this.name}}</a></li>
                             {{/each}}
@@ -29,11 +29,11 @@
                     <div class="container">
                         <span class="h5">Most Reviewed Restaurants</span>
                     </div>
-                    <div class="container mb-2">
-                        <span class="font-weight-lighter font-italic">({{numReviews}} reviews)</span>
+                    <div class="container mb-2 font-weight-lighter font-italic">
+                        <span>({{numReviews}} reviews)</span>
                     </div>
                     <div class="container">
-                        <ul class="list-group">
+                        <ul class="list-group list-group-flush">
                             {{#each mostReviewed}}
                             <li class="list-group-item"><a href="/restaurants/{{this._id}}">{{this.name}}</a></li>
                             {{/each}}
@@ -46,11 +46,11 @@
                     <div class="container">
                         <span class="h5">Most Active Users</span>                
                     </div>
-                    <div class="container mb-2">
-                        <span class="font-weight-lighter font-italic">({{highestUserReviews}} reviews)</span>
+                    <div class="container mb-2 font-weight-lighter font-italic">
+                        <span>({{highestUserReviews}} reviews)</span>
                     </div>
                     <div class="container">
-                        <ul class="list-group">
+                        <ul class="list-group list-group-flush">
                             {{#each mostActive}}
                             <li class="list-group-item">{{this.username}}</li>
                             {{/each}}
@@ -60,15 +60,15 @@
             </div>
         </div>      
         <div class="row mt-5">
-            <div class="col-4">
+            <div class="col-3">
                 <div class="card shadow p-3">
                     <div class="container">
-                        <span class="font-weight-bold mr-2">Total Reviews on Celp:</span>
+                        <span class="font-weight-bold mr-2">Total Reviews:</span>
                         <span>{{totalReviews}}</span>
                     </div>
                     <div class="container">
-                        <span class="font-weight-bold mr-2">Total Restaurants on Celp:</span>
-                        <span>{{totalRestaurants}}</span>
+                        <span class="font-weight-bold mr-2">Total Restaurants:</span>
+                        <span class="text-right">{{totalRestaurants}}</span>
                     </div>
                 </div>
             </div>
