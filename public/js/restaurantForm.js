@@ -14,11 +14,15 @@
     let nameInput = $('#restaurant-name-input');
     let addressInput = $('#restaurant-address-input');
     let cuisineInput = $('#restaurant-cuisine-input');
+    let btn = $('#submitButton');
 
     form.submit((event) => {
         // Prevent default form submission
         noErrors = true;
         event.preventDefault();
+
+        btn.prop('disabled', true);
+
         nameInput.removeClass('is-invalid is-valid');
         addressInput.removeClass('is-invalid is-valid');
         cuisineInput.removeClass('is-invalid is-valid');
@@ -40,7 +44,11 @@
         if (!validString(info.cuisine)) cuisineInput.addClass('is-invalid');
 
         // Unbind submit event to avoid an infinite loop
-        if (noErrors) form.unbind().submit();
+        if (noErrors) {
+            form.unbind().submit();
+        } else {
+            btn.prop('disabled', false);
+        }
     });
     
 })(jQuery);
