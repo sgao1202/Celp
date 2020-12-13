@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const bcrypt = require('bcrypt');
+const xss = require('xss')
 const userData = data.users;
 
 // Redirect if user is logged in and authenticated
