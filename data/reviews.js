@@ -30,7 +30,8 @@ module.exports = {
         	reviewText: reviewText,
         	metrics: metrics,
         	likes: [],
-        	dislikes: []
+            dislikes: [],
+            reported: []
         };
 
         restaurants.updateMetrics(restaurantId, metrics, true);
@@ -93,6 +94,7 @@ module.exports = {
     	if (!verify.validString(userId)) throw 'cid is not a valid string.';
         
         const objReviewId = ObjectId(reviewId);
+        const uid = ObjectId(userId)
 
 	    const reviewCollection = await reviews();
     	let review = await reviewCollection.findOne({ _id: objReviewId });
@@ -117,6 +119,35 @@ module.exports = {
 	    }
     },
 
+    async updateReviewReport(reviewId, userId){
+        if (!verify.validString(reviewId)) throw 'id is not a valid string.';
+    	if (!verify.validString(userId)) throw 'cid is not a valid string.';
+        
+        const objReviewId = ObjectId(reviewId);
+        const uid = ObjectId(userId)
+
+        const reviewCollection = await reviews();
+    	let review = await reviewCollection.findOne({ _id: objReviewId });
+        if (review === null) throw 'No review with that id';
+        
+        const myRev = await this.getReviewById(reviewId);
+        if (myRev.reported.includes(userId)){
+            const updateInfo = await reviewCollection.updateOne({_id: objReviewId},{$pull: {reported: userId}});
+            if (!updateInfo.matchedCount && !updateInfo.modifiedCount) return false;
+        }
+        else{
+            const updateInfo = await reviewCollection.updateOne({_id: objReviewId},{$addToSet: {reported: userId}});
+            if (!updateInfo.matchedCount && !updateInfo.modifiedCount) return false;
+        }
+        const myRevUpdated = await this.getReviewById(reviewId);
+        if (myRevUpdated.reported.length == 5){
+            await this.deleteReview(reviewId);
+            return true;
+        }
+        return false;
+
+
+    },
     async deleteReview(reviewId){
     	if (!verify.validString(reviewId)) throw 'reviewId is not a valid string.';
 

@@ -103,6 +103,7 @@ router.get('/:id', async (req, res) => {
             current.metrics = review.metrics;
             current.likes = review.likes;
             current.dislikes = review.dislikes;
+            current.reported = review.reported;
 
             let allComments = await commentData.getAllCommentsOfReview(review._id);
             let comments = [];
