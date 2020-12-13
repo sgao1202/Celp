@@ -12,7 +12,17 @@
     let form = $('#restaurant-form');
     let nameInput = $('#restaurant-name-input');
     let addressInput = $('#restaurant-address-input');
+    let cuisineSelect = $('#cuisine-type-select');
     let cuisineInput = $('#restaurant-cuisine-input');
+    let cuisineInputDiv = $('#cuisine-input-div');
+    cuisineInputDiv.hide();
+
+    let otherOption = 'Other';
+    cuisineSelect.change((event) => {
+        let selectValue = cuisineSelect.val();
+        cuisineInputDiv.hide();
+        if (selectValue === otherOption) cuisineInputDiv.show();
+    });
 
     form.submit((event) => {
         // Prevent default form submission
@@ -21,12 +31,20 @@
         nameInput.removeClass('is-invalid is-valid');
         addressInput.removeClass('is-invalid is-valid');
         cuisineInput.removeClass('is-invalid is-valid');
+        cuisineSelect.removeClass('is-invalid is-valid');
 
         let info = {
             name: nameInput.val().trim(),
             address: addressInput.val().trim(),
-            cuisine: cuisineInput.val().trim()
+            cuisine: cuisineSelect.val().trim()
         };
+
+        let cuisineTypeElem = cuisineSelect;
+        if (cuisineSelect.val() === otherOption) {
+            info.cuisine = cuisineInput.val().trim();
+            cuisineTypeElem = cuisineInput;
+        }
+        console.log(info)
         /*
             Make POST request to server if input is valid, 
             otherwise reload the form with errors attached
@@ -36,7 +54,7 @@
         // Validate user input and reload the page with proper errors attached
         if (!validString(info.name)) nameInput.addClass('is-invalid');
         if (!validString(info.address)) addressInput.addClass('is-invalid');
-        if (!validString(info.cuisine)) cuisineInput.addClass('is-invalid');
+        if (!validString(info.cuisine)) cuisineTypeElem.addClass('is-invalid');
 
         // Unbind submit event to avoid an infinite loop
         if (noErrors) form.unbind().submit();
