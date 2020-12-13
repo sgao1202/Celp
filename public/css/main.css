@@ -77,3 +77,16 @@
 .error.font-italic{
   color: red;
 }
+
+.reportbtn{
+  display: inline-block;
+}
+
+.reportbtn.rfilled{
+  color: red;
+}
+
+.float-right{
+  overflow: auto;
+  display: inline-block;
+}
