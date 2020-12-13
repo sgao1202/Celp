@@ -26,10 +26,14 @@
     let noTouchPaymentInput = $('#no-touch-payment');
     let outdoorDiningInput = $('#outdoor-dining');
     let reviewTextInput = $('#review-text');
+    let btn = $('#submitButton');
 
     form.submit((event) => {
         // Client side validation
         event.preventDefault();
+
+        btn.prop('disabled', true);
+
         hasErrors = false;
         ratingInput.removeClass('is-valid is-invalid');
         priceInput.removeClass('is-valid is-invalid');
@@ -49,7 +53,11 @@
         if (!validNumber(info.price)) priceInput.addClass('is-invalid');
         if (!validString(info.text)) reviewTextInput.addClass('is-invalid');
 
-        if (!hasErrors) form.unbind().submit();
+        if (!hasErrors) {
+            form.unbind().submit();
+        } else {
+            btn.prop('disabled', false);
+        }
     });
 
 })(jQuery);

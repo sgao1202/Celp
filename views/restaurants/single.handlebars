@@ -3,7 +3,7 @@
         <div class="col">
             <div class="border-bottom mt-3">
                 <h1 class="display-4 font-weight-bold">{{restaurant.name}} 
-                    {{#if (checkListMem restaurant_id user.favoritedRestaurants)}}
+                    {{#if (checkListMem restaurant._id user.favoritedRestaurants)}}
                     <i class = "favbtn fa fa-star filled" data-rid = "{{restaurant._id}}" data-uid = "{{user._id}}"></i>
                     {{else}}
                     <i class = "favbtn fa fa-star-o" data-rid = "{{restaurant._id}}" data-uid = "{{user._id}}"></i>
@@ -140,7 +140,7 @@
                                     </span>
                                 </p>
                             </div>
-                            <!-- likes/dislikes -->
+                            <!-- likes/dislikes and reporting-->
                             <div class = "dblclick container">
                                 {{#if (checkListMem ../user._id this.likes)}}
                                 <i class = "likebtn fa fa-thumbs-up filled" data-rid = "{{this.id}}" data-uid = "{{../user._id}}"></i>
@@ -155,7 +155,21 @@
                                 <i class = "dislikebtn fa fa-thumbs-down" data-rid = "{{this.id}}" data-uid = "{{../user._id}}"></i>
                                 {{/if}}
                                 <span class = "dislikes">{{this.dislikes.length}}</span>
-                                <p hidden = "true" class = "error font-italic"></p>
+                                
+                                <div class = "float-right">
+                                    {{#if (checkListMem ../user._id this.reported)}}
+                                    <span class = "report-text">Unreport</span>
+                                    <i class = "reportbtn fa fa-exclamation rfilled" data-rid = "{{this.id}}" data-uid = "{{../user._id}}" data-restid = "{{../restaurant._id}}" aria-hidden = "true"></i>
+                                    {{else}}
+                                    <span class = "report-text">Report</span>
+                                    <i class = "reportbtn fa fa-exclamation" data-rid = "{{this.id}}" data-uid = "{{../user._id}}" data-restid = "{{../restaurant._id}}" aria-hidden = "true"></i>
+                                    {{/if}}
+                                </div>
+
+                                
+
+                                <!-- error div -->
+                                <div hidden = "true" class = "error font-italic"></div>
                             </div>
                             
                         </div>
@@ -209,7 +223,7 @@
                             </span>
                     </div>
                     <div class="col">
-                        <span>
+                        <span id = "rating">
                             {{restaurant.rating}}
                         </span>
                     </div>
@@ -225,7 +239,7 @@
                         </span>
                     </div>
                     <div class="col">
-                        <span>
+                        <span id = "distanced">
                             {{restaurant.distancedTables}}%
                         </span>
                     </div>
@@ -240,7 +254,7 @@
                     </div>
 
                     <div class="col">
-                        <span>
+                        <span id = "masked">
                             {{restaurant.maskedEmployees}}%
                         </span>
                     </div>
@@ -258,7 +272,9 @@
                         </span>
                     </div>
                     <div class="col">
-                        {{restaurant.noTouchPayment}}%
+                        <span id = "noTouch">
+                            {{restaurant.noTouchPayment}}%
+                        </span>
                     </div>
                 </div>
 
@@ -274,7 +290,7 @@
                     </div>
 
                     <div class="col">
-                        <span>
+                        <span id = "outdoor">
                             {{restaurant.outdoorSeating}}%  
                         </span>
                     </div>

@@ -47,6 +47,13 @@ router.post('/new', async (req, res) => {
     if (!verify.validString(newRestaurantData.cuisine)) errors.push('Invalid cuisine');
     if (!verify.validLink(newRestaurantData.link)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant');
 
+    
+    const allRestaurants = await restaurantData.getAllRestaurants();
+
+    for (let x of allRestaurants) {
+        if (x.address === newRestaurantData.address) errors.push('A Restaurant with this Address already Exists');
+    }
+    
     // Do not submit if there are errors in the form
     if (errors.length > 0) {
         res.render('restaurants/new', {
@@ -96,6 +103,7 @@ router.get('/:id', async (req, res) => {
             current.metrics = review.metrics;
             current.likes = review.likes;
             current.dislikes = review.dislikes;
+            current.reported = review.reported;
 
             let allComments = await commentData.getAllCommentsOfReview(review._id);
             let comments = [];

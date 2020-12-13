@@ -53,7 +53,6 @@ module.exports = {
         if (!verify.validString(cuisine)) throw 'Restaurant cuisine must be a valid string';
         if (!verify.validLink(link)) throw 'Restaurant external link must be a valid yelp link.';
 
-
         const restaurantCollection = await restaurants();
         const newRestaurant = {
             name: name.trim(),
