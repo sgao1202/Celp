@@ -5,6 +5,9 @@ const bcrypt = require('bcrypt');
 const userData = data.users;
 
 // Redirect if user is logged in and authenticated
+/*
+    Why don't we use middleware for this?
+*/
 router.get('/', async (req, res) => {
     if (req.session.user){
         res.redirect("/restaurants");
@@ -75,7 +78,6 @@ router.post('/login', async (req, res) => {
         return res.status(401).render('users/login', 
         {   title: "Login",
             partial: "login-script",
-            error: "Username or password does not match"
         });
     }
 });

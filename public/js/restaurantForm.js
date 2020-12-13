@@ -1,5 +1,4 @@
 (function ($) {
-    // Returns
     let noErrors = true;
     function validString(str) {
         if (!str || !isNaN(str)) {
