@@ -36,7 +36,7 @@ app.set('view engine', 'handlebars');
 
 app.use(
   session({
-      name: "Celp",
+      name: "AuthCookie",
       secret: 'some secret string',
       resave: false,
       saveUninitialized: true
@@ -46,13 +46,28 @@ app.use(
 //if user attempts to access private route without being authenicated, redirect them to the "main" page
 app.use('/private', async(req, res, next) =>{
     if (!req.session.user){
-      //should call error for this instead?
-      res.redirect('/restaurants');
+      let errors = [];
+      errors.push("You cannot access the private route without logging in")
+      res.render('errors/error',{
+        errors: errors,
+        partial: 'errors-script'});
     }
     else{
       next();
     }
 });
+
+app.use('/restaurants/new', async(req,res, next) =>{
+  if (!req.session.user){
+    req.session.previousRoute = req.originalUrl;
+    res.render("users/login",
+      {error: "You must be logged in to create a restaurant",
+      partial: 'login-script'})
+    }
+  else{
+    next();
+  }
+})
 
 configRoutes(app);
 
