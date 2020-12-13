@@ -94,7 +94,6 @@ router.post('/signup', async(req, res) => {
             authenticated: false,
             title: "Login",
             partial: "login-script",
-            error: e
         });
     }
     
