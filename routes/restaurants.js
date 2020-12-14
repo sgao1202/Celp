@@ -97,7 +97,7 @@ router.get('/:id', async (req, res) => {
             let current = {};
             let { firstName, lastName, age } = await userData.getUserById(review.reviewerId);
             current.id = review._id;
-            current.username = firstName + ' ' + lastName;
+            current.name = firstName + ' ' + lastName;
             current.age = age;
             current.text = review.reviewText;
             current.metrics = review.metrics;
@@ -109,7 +109,7 @@ router.get('/:id', async (req, res) => {
             for (const comment of allComments) {
                 let currentComment = {};
                 let {firstName, lastName, age} = await userData.getUserById(comment.userId);
-                currentComment.username = firstName + ' ' + lastName;
+                currentComment.name = firstName + ' ' + lastName;
                 currentComment.age = age;
                 currentComment.text = comment.text
                 comments.push(currentComment);
