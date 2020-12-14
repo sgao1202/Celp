@@ -6,6 +6,9 @@ const xss = require('xss')
 const userData = data.users;
 
 // Redirect if user is logged in and authenticated
+/*
+    Why don't we use middleware for this?
+*/
 router.get('/', async (req, res) => {
     if (req.session.user){
         res.redirect("/restaurants");
@@ -67,17 +70,13 @@ router.post('/login', async (req, res) => {
         let temp = req.session.previousRoute;
         if (temp) {
             req.session.previousRoute = '';
-            res.redirect(temp);
-        } else {
-            res.redirect('/restaurants');
-        }
-    }
-
-    else {
+            return res.redirect(temp);
+        } 
+        res.redirect('/restaurants');
+    } else {
         return res.status(401).render('users/login', 
         {   title: "Login",
             partial: "login-script",
-            error: "Username or password does not match"
         });
     }
 });
@@ -93,13 +92,13 @@ router.post('/signup', async(req, res) => {
     try {
         age = parseInt(age);
         const user = await userData.createUser(firstName, lastName, email, username, age, password);
+        req.session.user = user;
         res.redirect("/restaurants");
     } catch(e){
         return res.status(401).render('users/signup',{
             authenticated: false,
             title: "Login",
             partial: "login-script",
-            error: e
         });
     }
     

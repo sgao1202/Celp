@@ -9,29 +9,34 @@
     <title>Celp</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-color border-bottom d-flex p-2">
-        <span>
-            <a class="navbar-brand h1" href="/">Celp</a>
-        </span>
-        {{#if authenticated}}
-            <div class="dropdown ml-auto">
-                <button id = "profile" class = "btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</button>
-                <div role = "menu" class = "dropdown-menu dropdown-menu-right" aria-labelledby="profile">
-                    <a class = "dropdown-item" href="/private">User Profile</a>
-                    <a class = "dropdown-item" href="/users/logout">Logout</a>
+    <nav class="navbar navbar-expand-lg navbar-color py-0">
+        <div class="container border-bottom mt-3">
+            <span>
+                <a class="navbar-brand h1 mb-0" href="/">
+                    <img src="../../public/images/celp2.png" id="navbar-img" width="64" height="64" class="fluid-image" alt="celp-image">
+                </a>
+            </span>
+            {{#if authenticated}}
+                <div class="dropdown">
+                    <button id="profile" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</button>
+                    <div role="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile">
+                        <a href="/private" class="dropdown-item">User Profile</a>
+                        <a href="/users/logout" class="dropdown-item">Logout</a>
+                    </div>
                 </div>
-            </div>
-        {{else}}
-            <div class="ml-auto">
-                <span>
-                    <a href="/users/login" class="btn btn-light px-3 mx-1 border">Login</a>
-                    <a href="/users/signup" class="btn btn-primary px-3 mx-1">Sign Up</a>
-                </span>
-            </div>
-        {{/if}}
-        
+            {{else}}
+                <div class="container justify-content-end mw-100">
+                    <span>
+                        <a href="/users/login" class="btn btn-light px-3 mx-1 border">Login</a>
+                        <a href="/users/signup" class="btn btn-primary px-3 mx-1">Sign Up</a>
+                    </span>
+                </div>
+            {{/if}}
+        </div>
     </nav>
-    {{{body}}}
+    <div class="container">
+        {{{body}}}
+    </div>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     {{> (lookup . 'partial') }}

@@ -127,13 +127,6 @@ router.post('/comment/new', async (req, res) => {
             text: comment.text
         };
         res.render('partials/comment_item', { layout: null, ...commentLayout});
-        // res.json({
-        //     success: true,
-        //     text: comment.text,
-        //     username: username,
-        //     firstName: firstName,
-        //     lastName: lastName
-        // });
     } catch (e) {
         errors.push(e);
         res.status(500).json({
