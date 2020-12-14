@@ -38,7 +38,8 @@ router.get('/signup', async (req, res) => {
 
 // Post login
 router.post('/login', async (req, res) => {
-    const {username, password} = req.body;
+    const username = xss(req.body.username.trim())
+    const password = xss(req.body.password.trim())
     let myUser;
 
     /*
@@ -82,8 +83,13 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/signup', async(req, res) => {
-    const {firstName, lastName, username, password, email} = req.body;
-    let age = req.body.age;
+    const firstName = xss(req.body.firstName);
+    const lastName = xss(req.body.lastName);
+    const username = xss(req.body.username);
+    const password = xss(req.body.password);
+    const email = xss(req.body.email);
+    const age = xss(req.body.age);
+    
     try {
         age = parseInt(age);
         const user = await userData.createUser(firstName, lastName, email, username, age, password);
