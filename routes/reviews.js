@@ -12,10 +12,7 @@ router.get('/writeareview/:id', async (req, res) => {
     // Use req.session to store the redirect address after logging in
     if (!req.session.user) {
         req.session.previousRoute = req.originalUrl;
-        res.render('users/login', {
-            error: "You must be logged in to write a review",
-            partial: 'login-script'
-        });
+        res.redirect('/users/login');
         return;
     }
 
