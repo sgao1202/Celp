@@ -87,7 +87,7 @@ router.post('/signup', async(req, res) => {
     const username = xss(req.body.username);
     const password = xss(req.body.password);
     const email = xss(req.body.email);
-    const age = xss(req.body.age);
+    let age = xss(req.body.age);
     
     try {
         age = parseInt(age);
@@ -98,7 +98,7 @@ router.post('/signup', async(req, res) => {
         return res.status(401).render('users/signup',{
             authenticated: false,
             title: "Login",
-            partial: "login-script",
+            partial: "login-script"
         });
     }
     
