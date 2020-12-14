@@ -68,13 +68,10 @@ router.post('/login', async (req, res) => {
         let temp = req.session.previousRoute;
         if (temp) {
             req.session.previousRoute = '';
-            res.redirect(temp);
-        } else {
-            res.redirect('/restaurants');
-        }
-    }
-
-    else {
+            return res.redirect(temp);
+        } 
+        res.redirect('/restaurants');
+    } else {
         return res.status(401).render('users/login', 
         {   title: "Login",
             partial: "login-script",
@@ -88,6 +85,7 @@ router.post('/signup', async(req, res) => {
     try {
         age = parseInt(age);
         const user = await userData.createUser(firstName, lastName, email, username, age, password);
+        req.session.user = user;
         res.redirect("/restaurants");
     } catch(e){
         return res.status(401).render('users/signup',{

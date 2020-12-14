@@ -37,6 +37,10 @@ router.get('/', async (req, res) => {
 
 // Get create a restaurant page
 router.get('/new', async (req, res) => {
+    // if (!req.session.user) {
+    //     req.session.previousRoute = req.originalUrl;
+    //     return res.redirect('/users/login');
+    // }
     // Select options for cuisine type
     return res.render('restaurants/new', { 
             cuisines: cuisineTypes,
