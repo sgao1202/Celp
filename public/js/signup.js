@@ -15,6 +15,7 @@
     let passwordInput = $('#password');
     let emailInput = $('#email');
     let ageInput = $('#age');
+    let submitButton = $('#submitButton');
 
     signupForm.submit((event) => {
         event.preventDefault();
@@ -25,6 +26,7 @@
         emailInput.removeClass('is-invalid is-valid');
         ageInput.removeClass('is-invalid is-valid');
 
+        submitButton.prop('disabled', true);
         let info = {
             firstName: firstNameInput.val().trim(),
             lastName: lastNameInput.val().trim(),
@@ -41,6 +43,10 @@
         if (!validString(info.email)) emailInput.addClass('is-invalid');
         if (!validString(info.age)) ageInput.addClass('is-invalid');
 
-        if (!hasErrors) signupForm.unbind().submit();
+        if (!hasErrors) {
+            signupForm.unbind().submit();
+        } else {
+            submitButton.prop('disabled', false);
+        }
     });
 })(jQuery);
