@@ -13,7 +13,12 @@
             })
         }
         $.ajax(requestConfig).then(function(responseMessage){
-            button.closest('li').remove();
+            if (responseMessage.empty){
+                let empty = "<p class = 'font-italic'>None, go write some reviews!</p>";
+                button.closest('ul').replaceWith(empty);
+            }else{
+                button.closest('li').remove();
+            }
         });
     }));
 })(jQuery);

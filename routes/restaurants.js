@@ -6,6 +6,7 @@ const reviewData = data.reviews;
 const commentData = data.comments;
 const userData = data.users;
 const verify = require('../data/verify');
+const xss = require('xss');
 
 // Route for the page of all restaurants
 router.get('/', async (req, res) => {
@@ -39,7 +40,7 @@ router.get('/new', async (req, res) => {
 
 // Route to create a restaurant
 router.post('/new', async (req, res) => {
-    let newRestaurantData = req.body;
+    let newRestaurantData = xss(req.body);
     let errors = [];
 
     if (!verify.validString(newRestaurantData.name)) errors.push('Invalid restaurant name');
