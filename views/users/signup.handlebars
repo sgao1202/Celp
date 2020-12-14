@@ -1,35 +1,54 @@
-<div class="container mt-3 col-4">
-    <h1>Signup Form</h1>
-    <form method="POST" action="/users/signup" id='signupForm'>
-        <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name">
-        </div>
-        <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name">
+<div class="container mt-3 col-6">
+    <h1 class="h3 mb-3 fw-normal">Sign Up for Celp</h1>
+    <form method="POST" action="/users/signup" id="signup-form" onsubmit="submitButton.disabled = true; return true;">
+        <div class="form-row">
+            <div class="form-group col-6">
+                <label for="firstName" class="sr-only"></label>
+                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name">
+                <div class="invalid-feedback">
+                    First name cannot be empty
+                </div>
+            </div>
+            <div class="form-group col-6">
+                <label for="lastName" class="sr-only"></label>
+                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name">
+                <div class="invalid-feedback">
+                    Last name cannot be empy
+                </div>
+            </div>
         </div>
     
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+            <label for="username" class="sr-only"></label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+            <div class="invalid-feedback">
+                Username cannot be empty
+            </div>
         </div>
         
         <div class="form-group">
-            <label for="password">Password</label>
-            <input class="form-control" id="password" name="password" type="password" placeholder="Enter password">
+            <label for="password" class="sr-only"></label>
+            <input class="form-control" id="password" name="password" type="password" placeholder="Password">
+            <div class="invalid-feedback">
+                Password cannot be empty
+            </div>
         </div>
         
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address">
+            <label for="email" class="sr-only"></label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
+            <div class="invalid-feedback">
+                Email address cannot be empty
+            </div>
         </div>
         
         <div class="form-group">
-            <label for="age">Age</label>
-            <input type="number" class="form-control" id="age" name="age" placeholder="Enter your age">
+            <label for="age" class="sr-only"></label>
+            <input type="number" class="form-control" id="age" name="age" placeholder="Age">
+            <div class="invalid-feedback">
+                Age cannot be empty
+            </div>
         </div>
-        <button class="btn btn-primary" type="submit" name="submitButton" id="submitbutton">Create an account</button>
+        <button class="btn btn-primary" type="submit" name="submitButton" id="submitButton">Create an account</button>
     </form>
-    <div>{{error}}</div>
 </div>

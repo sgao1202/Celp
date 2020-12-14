@@ -1,4 +1,4 @@
-<div class="container mt-3 col-4">
+<div class="container mt-3 col-5">
     <h1>Create a new restaurant</h1>
     <form method="POST" action="/restaurants/new" id="restaurant-form" class="needs-validation" novalidate>
         <div class="form-group">
@@ -19,8 +19,20 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="cuisine-type-select">Cuisine Type</label>
+            <select name="cuisine" id="cuisine-type-select" class="form-control">
+                <option value="" selected>Select cuisine type</option>
+                {{#each cuisines}}
+                    <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+            <div class="invalid-feedback">
+                Please select a cuisine type
+            </div>
+        </div>
+        <div class="form-group" id="cuisine-input-div">
             <label for="restaurant-cuisine-input">Cuisine Type</label>
-            <input type="text" class="form-control" id="restaurant-cuisine-input" name="cuisine" placeholder="Enter type of cuisine">
+            <input type="text" class="form-control" id="restaurant-cuisine-input" name="cuisineInput" placeholder="Enter cuisine type">
             <div class="invalid-feedback">
                 Please provide a valid cuisine 
             </div>

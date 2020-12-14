@@ -7,25 +7,32 @@ const commentData = data.comments;
 const userData = data.users;
 const verifier = require('../data/verify');
 const xss = require('xss');
-
 let { ObjectId } = require('mongodb');
-const users = require('../data/users');
 
 router.post('/delete/:id', async function (req,res){
-    const id = ObjectId(xss(req.body.id))
-    const review = await reviewData.deleteReview(xss(req.body.id));
+    const rid = xss(req.body.id.trim())
+    const parsedId = ObjectId(rid)
+    const delReview = await reviewData.deleteReview(rid);
+    const reviewList = await reviewData.getAllReviewsOfUser(delReview.reviewerId);
+    let empty = false;
+    if (reviewList.length == 0){
+        empty = true;
+    }
 
     res.status(200).json({
-        success: true
+        success: true,
+        empty: empty
     });
 })
 
 router.post('/like/:rid/:uid', async function (req,res){
-    const rid = ObjectId(xss(req.body.rid));
-    const uid = ObjectId(xss(req.body.uid));
-    const review = await reviewData.getReviewById(xss(req.body.rid));
-    const update = await reviewData.updateReviewLike(xss(req.body.rid), xss(req.body.uid), (review.likes.includes(xss(req.body.uid)))? null : true);
-    const updatedRev = await reviewData.getReviewById(xss(req.body.rid));
+    const rid = xss(req.body.rid.trim());
+    const uid = xss(req.body.uid.trim());
+    const parsedRid = ObjectId(rid);
+    const parsedUid = ObjectId(uid);
+    const review = await reviewData.getReviewById(rid);
+    const update = await reviewData.updateReviewLike(rid, uid, (review.likes.includes(uid))? null : true);
+    const updatedRev = await reviewData.getReviewById(rid);
 
     res.status(200).json({
         likeNum: updatedRev.likes.length.toString(),
@@ -35,11 +42,13 @@ router.post('/like/:rid/:uid', async function (req,res){
 })
 
 router.post('/dislike/:rid/:uid', async function (req,res){
-    const rid = ObjectId(xss(req.body.rid));
-    const uid = ObjectId(xss(req.body.uid));
-    const review = await reviewData.getReviewById(xss(req.body.rid));
-    const update = await reviewData.updateReviewLike(xss(req.body.rid), xss(req.body.uid), (review.dislikes.includes(xss(req.body.uid)))? null : false);
-    const updatedRev = await reviewData.getReviewById(xss(req.body.rid));
+    const rid = xss(req.body.rid.trim());
+    const uid = xss(req.body.uid.trim());
+    const parsedRid = ObjectId(rid);
+    const parsedUid = ObjectId(uid);
+    const review = await reviewData.getReviewById(rid);
+    const update = await reviewData.updateReviewLike(rid, uid, (review.dislikes.includes(uid))? null : false);
+    const updatedRev = await reviewData.getReviewById(rid);
 
     res.status(200).json({
         likeNum: updatedRev.likes.length.toString(),
@@ -49,12 +58,14 @@ router.post('/dislike/:rid/:uid', async function (req,res){
 })
 
 router.post('/favorite/:rid/:uid', async function (req, res){
-    const rid = ObjectId(xss(req.body.rid));
-    const uid = ObjectId(xss(req.body.rid));
-    const update = await userData.toggleFavoriteRestaurant(xss(req.body.uid), xss(req.body.rid));
+    const rid = xss(req.body.rid.trim());
+    const uid = xss(req.body.uid.trim());
+    const parsedRid = ObjectId(rid);
+    const parsedUid = ObjectId(uid);
+    const update = await userData.toggleFavoriteRestaurant(uid, rid);
 
     //update session user to display on user page
-    req.session.user = await userData.getUserById(xss(req.body.uid));
+    req.session.user = await userData.getUserById(uid);
 
     res.status(200).json({
         success: true
@@ -63,12 +74,16 @@ router.post('/favorite/:rid/:uid', async function (req, res){
 })
 
 router.post('/report/:rid/:uid/:restid', async function (req, res){
-    const rid = ObjectId(xss(req.body.rid));
-    const uid = ObjectId(xss(req.body.uid));
-    const restid = ObjectId(xss(req.body.restId))
-    const deleted = await reviewData.updateReviewReport(xss(req.body.rid), xss(req.body.uid));
-    const restaurant = await restaurantData.getRestaurantById(xss(req.body.restId));
-    const allReviews = await reviewData.getAllReviewsOfRestaurant(xss(req.body.restId));
+    const rid = xss(req.body.rid.trim());
+    const uid = xss(req.body.uid.trim());
+    const restId = xss(req.body.restId.trim());
+    const parsedRid = ObjectId(rid);
+    const parsedUid = ObjectId(uid);
+    const parsedRestId = ObjectId(restId)
+    
+    const deleted = await reviewData.updateReviewReport(rid, uid);
+    const restaurant = await restaurantData.getRestaurantById(restId);
+    const allReviews = await reviewData.getAllReviewsOfRestaurant(restId);
     const numReviews = allReviews.length;
     restaurant.rating = (restaurant.rating / numReviews).toFixed(2);
     restaurant.price = (restaurant.price / numReviews).toFixed(2);
@@ -112,13 +127,6 @@ router.post('/comment/new', async (req, res) => {
             text: comment.text
         };
         res.render('partials/comment_item', { layout: null, ...commentLayout});
-        // res.json({
-        //     success: true,
-        //     text: comment.text,
-        //     username: username,
-        //     firstName: firstName,
-        //     lastName: lastName
-        // });
     } catch (e) {
         errors.push(e);
         res.status(500).json({

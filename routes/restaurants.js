@@ -6,6 +6,14 @@ const reviewData = data.reviews;
 const commentData = data.comments;
 const userData = data.users;
 const verify = require('../data/verify');
+const xss = require('xss');
+
+let cuisineTypes = ['American', 'Breakfast', 'Chinese', 'Fast Food', 'Italian',
+    'Mexican', 'Thai', 'Korean', 'Middle-Eastern', 'Indian', 'Soul Food',
+    'French', 'Japanese', 'Vietnamese', 'Mediterranean', 'Cuban', 'Sichuan',
+    'Greek', 'Halal','Other'
+];
+cuisineTypes.sort();
 
 // Route for the page of all restaurants
 router.get('/', async (req, res) => {
@@ -21,7 +29,7 @@ router.get('/', async (req, res) => {
         }
     });
     return res.render('restaurants/list', { 
-        authenticated: req.session.user? true : false,
+        authenticated: req.session.user ? true : false,
         user: req.session.user,
             partial: 'restaurants-list-script', 
             restaurants: restaurants
@@ -30,7 +38,13 @@ router.get('/', async (req, res) => {
 
 // Get create a restaurant page
 router.get('/new', async (req, res) => {
+    // if (!req.session.user) {
+    //     req.session.previousRoute = req.originalUrl;
+    //     return res.redirect('/users/login');
+    // }
+    // Select options for cuisine type
     return res.render('restaurants/new', { 
+            cuisines: cuisineTypes,
             authenticated: req.session.user? true : false,
             user: req.session.user,
             partial: 'restaurants-form-script'
@@ -39,17 +53,18 @@ router.get('/new', async (req, res) => {
 
 // Route to create a restaurant
 router.post('/new', async (req, res) => {
-    let newRestaurantData = req.body;
-    let errors = [];
+    let newRestaurantData = xss(req.body);
+    let otherOption = 'Other';
 
+    if (newRestaurantData.cuisine === otherOption) newRestaurantData.cuisine = newRestaurantData.cuisineInput;
+
+    let errors = [];
     if (!verify.validString(newRestaurantData.name)) errors.push('Invalid restaurant name');
     if (!verify.validString(newRestaurantData.address)) errors.push('Invalid restaurat address');
     if (!verify.validString(newRestaurantData.cuisine)) errors.push('Invalid cuisine');
-    if(newRestaurantData.link){
-       if (!verify.validLink(newRestaurantData.link)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant'); 
-    }else{
-        newRestaurantData.link=null;
-    }
+
+    if (newRestaurantData.link && !verify.validLink(newRestaurantData.link)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant');
+
     
     const allRestaurants = await restaurantData.getAllRestaurants();
 
@@ -59,7 +74,8 @@ router.post('/new', async (req, res) => {
     
     // Do not submit if there are errors in the form
     if (errors.length > 0) {
-        res.render('restaurants/new', {
+        return res.render('restaurants/new', {
+            cuisines: cuisineTypes,
             partial: 'restaurants-form-script',
             authenticated: req.session.user? true : false,
             user: req.session.user,

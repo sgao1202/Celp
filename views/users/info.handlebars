@@ -1,22 +1,50 @@
-<div class = "container m-5 col-sm-4">
-    <h1>User Info:</h1>
-    <br>
-    <dl>
-        <dt>First Name:</dt>
-        <dd>{{user.firstName}}</dd>
-        <dt>Last Name: </dt>
-        <dd>{{user.lastName}}</dd>
-        <dt>Username:</dt>
-        <dd>{{user.username}}</dd>
-        <dt>Email:</dt>
-        <dd>{{user.email}}</dd>
-        <dt>Age:<dt>
-        <dd>{{user.age}}</dd>
-    </dl>
-</div>
-<br>
+<div class="container">
+    <div class="row mb-5">
+        <div class="col card mt-3 shadow">
+            <div class="card-body">
+                <div class="container">
+                    <h4 class="card-title">User Info</h5>
+                    <h5 class="card-subtitle mb-2 text-muted">{{user.firstName}} {{user.lastName}}</h6>
+                </div>
+                <div class="container">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col card shadow mr-4">
+            <div class="card-body">
+                <div class="container">
+                    <h4 class="card-title">Favorited Restaurants</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col card shadow">
+            <div class="card-body">
+                <div class="container">
+                    <h4 class="card-title">Your Reviews</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class = "container m-5 col-sm-4">
+    <div class = "container m-5">
+        <h1>User Info:</h1>
+        <dl>
+            <dt>First Name:</dt>
+            <dd>{{user.firstName}}</dd>
+            <dt>Last Name: </dt>
+            <dd>{{user.lastName}}</dd>
+            <dt>Username:</dt>
+            <dd>{{user.username}}</dd>
+            <dt>Email:</dt>
+            <dd>{{user.email}}</dd>
+            <dt>Age:<dt>
+            <dd>{{user.age}}</dd>
+        </dl>
+    </div>
+    <div class = "container m-5">
         <h2>Favorited Restaurants:</h2>
         <br>
         {{#if (checkListLengthZero favRestaurants)}}
@@ -31,23 +59,21 @@
             </ul>
         {{/if}}
     </div>
-<br>
-
-<!-- table data instead of description list?-->
-<div class = "container m-5 col-sm-4">
-    <h2>Your Reviews:</h2>
-    {{#if (checkListLengthZero reviews)}}
-        <p class = "font-italic">None, go write some reviews!</p>
-    {{else}}
-    <ul class = "list-group">
-        {{#each reviews}}
-        <li class="list-group-item">
-            <div class = 'btnContainer'>
-                <!-- delete button -->
-                <button class = "btn btn-danger" type = "button" data-toggle="modal" data-target="#review-{{@index}}" focus="true" aria-hidden = "true">Delete</button>
-            </div>
-            <!-- modal -->
-            <div class="modal" id = 'review-{{@index}}' role = "dialog" tabindex="-1" aria-labelledby="reviewLabel">
+    <!-- table data instead of description list?-->
+    <div class = "container m-5">
+        <h2>Your Reviews:</h2>
+        {{#if (checkListLengthZero reviews)}}
+            <p class = "font-italic">None, go write some reviews!</p>
+        {{else}}
+        <ul class = "list-group">
+            {{#each reviews}}
+            <li class="list-group-item">
+                <div class = 'btnContainer'>
+                    <!-- delete button -->
+                    <button class = "btn btn-danger" type = "button" data-toggle="modal" data-target="#review-{{@index}}" focus="true" aria-hidden = "true">Delete</button>
+                </div>
+                <!-- modal -->
+                <div class="modal" id = 'review-{{@index}}' role = "dialog" tabindex="-1" aria-labelledby="reviewLabel">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -64,44 +90,45 @@
                         </div>
                     </div>
                 </div>
-            <h3>{{this.restaurant}}</h3>
-            <dl class = 'review-info'>
-                <dt>Review:</dt> 
-                <dd>{{this.review.reviewText}}</dd>
-                <dt>Rating: 
-                <dd>{{this.review.metrics.rating}}</dd>
-                <dt>Price:</dt> 
-                <dd>{{this.review.metrics.price}}</dd>
-                <dt>Distanced Tables:<dt>
-                {{#if this.review.metrics.distancedTables}}
-                    <dd>&#10004;</dd>
-                {{else}}
-                    <dd>&#10060;</dd>
-                {{/if}}
-                
-                <dt>Masked Employees:<dt> 
-                {{#if this.review.metrics.maskedEmployees}}
-                    <dd>&#10004;</dd>
-                {{else}}
-                    <dd>&#10060;</dd>
-                {{/if}}
+                <h3>{{this.restaurant}}</h3>
+                <dl class = 'review-info'>
+                    <dt>Review:</dt> 
+                    <dd>{{this.review.reviewText}}</dd>
+                    <dt>Rating: 
+                    <dd>{{this.review.metrics.rating}}</dd>
+                    <dt>Price:</dt> 
+                    <dd>{{this.review.metrics.price}}</dd>
+                    <dt>Distanced Tables:<dt>
+                    {{#if this.review.metrics.distancedTables}}
+                        <dd>&#10004;</dd>
+                    {{else}}
+                        <dd>&#10060;</dd>
+                    {{/if}}
+                    
+                    <dt>Masked Employees:<dt> 
+                    {{#if this.review.metrics.maskedEmployees}}
+                        <dd>&#10004;</dd>
+                    {{else}}
+                        <dd>&#10060;</dd>
+                    {{/if}}
 
-                <dt>No Touch Payment:<dt> 
-                {{#if this.review.metrics.noTouchPayment}}
-                    <dd>&#10004;</dd>
-                {{else}}
-                    <dd>&#10060;</dd>
-                {{/if}}
+                    <dt>No Touch Payment:<dt> 
+                    {{#if this.review.metrics.noTouchPayment}}
+                        <dd>&#10004;</dd>
+                    {{else}}
+                        <dd>&#10060;</dd>
+                    {{/if}}
 
-                <dt>Outdoor Seating:</dt>
-                {{#if this.review.metrics.outdoorSeating}}
-                    <dd>&#10004;</dd>
-                {{else}}
-                    <dd>&#10060;</dd>
-                {{/if}}
-            </dl>
-        </li>
-        {{/each}}
-    </ul>
-    {{/if}}
+                    <dt>Outdoor Seating:</dt>
+                    {{#if this.review.metrics.outdoorSeating}}
+                        <dd>&#10004;</dd>
+                    {{else}}
+                        <dd>&#10060;</dd>
+                    {{/if}}
+                </dl>
+            </li>
+            {{/each}}
+        </ul>
+        {{/if}}
+    </div>
 </div>

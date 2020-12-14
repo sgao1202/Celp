@@ -2,9 +2,13 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const bcrypt = require('bcrypt');
+const xss = require('xss')
 const userData = data.users;
 
 // Redirect if user is logged in and authenticated
+/*
+    Why don't we use middleware for this?
+*/
 router.get('/', async (req, res) => {
     if (req.session.user){
         res.redirect("/restaurants");
@@ -37,7 +41,8 @@ router.get('/signup', async (req, res) => {
 
 // Post login
 router.post('/login', async (req, res) => {
-    const {username, password} = req.body;
+    const username = xss(req.body.username.trim())
+    const password = xss(req.body.password.trim())
     let myUser;
 
     /*
@@ -65,34 +70,35 @@ router.post('/login', async (req, res) => {
         let temp = req.session.previousRoute;
         if (temp) {
             req.session.previousRoute = '';
-            res.redirect(temp);
-        } else {
-            res.redirect('/restaurants');
-        }
-    }
-
-    else {
+            return res.redirect(temp);
+        } 
+        res.redirect('/restaurants');
+    } else {
         return res.status(401).render('users/login', 
         {   title: "Login",
             partial: "login-script",
-            error: "Username or password does not match"
         });
     }
 });
 
 router.post('/signup', async(req, res) => {
-    const {firstName, lastName, username, password, email} = req.body;
-    let age = req.body.age;
+    const firstName = xss(req.body.firstName);
+    const lastName = xss(req.body.lastName);
+    const username = xss(req.body.username);
+    const password = xss(req.body.password);
+    const email = xss(req.body.email);
+    const age = xss(req.body.age);
+    
     try {
         age = parseInt(age);
         const user = await userData.createUser(firstName, lastName, email, username, age, password);
+        req.session.user = user;
         res.redirect("/restaurants");
     } catch(e){
         return res.status(401).render('users/signup',{
             authenticated: false,
             title: "Login",
             partial: "login-script",
-            error: e
         });
     }
     
