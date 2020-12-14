@@ -6,6 +6,7 @@ const reviewData = data.reviews;
 const commentData = data.comments;
 const userData = data.users;
 const verify = require('../data/verify');
+const xss = require('xss');
 
 let cuisineTypes = ['American', 'Breakfast', 'Chinese', 'Fast Food', 'Italian',
     'Mexican', 'Thai', 'Korean', 'Middle-Eastern', 'Indian', 'Soul Food',
@@ -52,8 +53,9 @@ router.get('/new', async (req, res) => {
 
 // Route to create a restaurant
 router.post('/new', async (req, res) => {
-    let newRestaurantData = req.body;
+    let newRestaurantData = xss(req.body);
     let otherOption = 'Other';
+    let errors = [];
 
     if (newRestaurantData.cuisine === otherOption) newRestaurantData.cuisine = newRestaurantData.cuisineInput;
 
