@@ -70,7 +70,7 @@ router.post('/new', async (req, res) => {
     for (let x of allRestaurants) {
         if (x.address === newRestaurantData.address) errors.push('A Restaurant with this Address already Exists');
     }
-    
+
     // Do not submit if there are errors in the form
     if (errors.length > 0) {
         return res.render('restaurants/new', {
@@ -113,9 +113,9 @@ router.get('/:id', async (req, res) => {
         const reviews = [];
         for (const review of allReviews) {
             let current = {};
-            let { username, age } = await userData.getUserById(review.reviewerId);
+            let { firstName, lastName, age } = await userData.getUserById(review.reviewerId);
             current.id = review._id;
-            current.username = username;
+            current.name = firstName + ' ' + lastName;
             current.age = age;
             current.text = review.reviewText;
             current.metrics = review.metrics;
@@ -127,8 +127,8 @@ router.get('/:id', async (req, res) => {
             let comments = [];
             for (const comment of allComments) {
                 let currentComment = {};
-                let {username, age} = await userData.getUserById(comment.userId);
-                currentComment.username = username;
+                let {firstName, lastName, age} = await userData.getUserById(comment.userId);
+                currentComment.name = firstName + ' ' + lastName;
                 currentComment.age = age;
                 currentComment.text = comment.text
                 comments.push(currentComment);
