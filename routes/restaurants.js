@@ -45,8 +45,11 @@ router.post('/new', async (req, res) => {
     if (!verify.validString(newRestaurantData.name)) errors.push('Invalid restaurant name');
     if (!verify.validString(newRestaurantData.address)) errors.push('Invalid restaurat address');
     if (!verify.validString(newRestaurantData.cuisine)) errors.push('Invalid cuisine');
-    if (!verify.validLink(newRestaurantData.link)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant');
-
+    if(newRestaurantData.link){
+       if (!verify.validLink(newRestaurantData.link)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant'); 
+    }else{
+        newRestaurantData.link=null;
+    }
     
     const allRestaurants = await restaurantData.getAllRestaurants();
 

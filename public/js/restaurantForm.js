@@ -8,6 +8,16 @@
         }
         return true;
     }
+    function validLink(link) {
+        if (!validString(link)) return false;
+        const re = /^https:\/\/www\.yelp\.com\/biz\/((\w+)-)*\w+/;
+        if(re.test(String(link).toLowerCase())){
+            return true;
+        }else{
+            noErrors = false;
+            return false;
+        }
+    }
 
     // form.removeClass('was-validated');
     let form = $('#restaurant-form');
@@ -46,7 +56,10 @@
         if (!validString(info.name)) nameInput.addClass('is-invalid');
         if (!validString(info.address)) addressInput.addClass('is-invalid');
         if (!validString(info.cuisine)) cuisineInput.addClass('is-invalid');
-        if (!validString(info.link)) linkInput.addClass('is-invalid');
+        if(info.link){
+            if (!validLink(info.link)) linkInput.addClass('is-invalid');
+        }
+        
 
         // Unbind submit event to avoid an infinite loop
         if (noErrors) {

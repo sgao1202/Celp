@@ -51,7 +51,6 @@ module.exports = {
         if (!verify.validString(name))    throw 'Restaurant name must be a valid string';
         if (!verify.validString(address)) throw 'Restaurant adddress must be a valid string';
         if (!verify.validString(cuisine)) throw 'Restaurant cuisine must be a valid string';
-        if (!verify.validLink(link)) throw 'Restaurant external link must be a valid yelp link.';
 
         const restaurantCollection = await restaurants();
         const newRestaurant = {
@@ -64,8 +63,11 @@ module.exports = {
             maskedEmployees: 0,
             noTouchPayment: 0,
             outdoorSeating: 0,
-            link: link.trim(),
         };
+        if(link){
+        	if (!verify.validLink(link)) throw 'Restaurant external link must be a valid yelp link.';
+        	newRestaurant.link=link.trim();
+        }
         
         const insertInfo = await restaurantCollection.insertOne(newRestaurant);
         if (insertInfo.insertedCount === 0) throw 'Could not add restaurant to database';
