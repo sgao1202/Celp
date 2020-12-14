@@ -53,25 +53,29 @@ router.get('/new', async (req, res) => {
 
 // Route to create a restaurant
 router.post('/new', async (req, res) => {
-    let newRestaurantData = xss(req.body);
+    const newName = xss(req.body.name);
+    const newAddress = xss(req.body.address);
+    const newCuisine = xss(req.body.cuisine);
+    const newCuisineInput = xss(req.body.cuisineInput);
+    const newLink = xss(req.body.link);
     let otherOption = 'Other';
 
-    if (newRestaurantData.cuisine === otherOption) newRestaurantData.cuisine = newRestaurantData.cuisineInput;
+    if (newCuisine === otherOption) newCuisine = newCuisineInput;
 
     let errors = [];
-    if (!verify.validString(newRestaurantData.name)) errors.push('Invalid restaurant name');
-    if (!verify.validString(newRestaurantData.address)) errors.push('Invalid restaurat address');
-    if (!verify.validString(newRestaurantData.cuisine)) errors.push('Invalid cuisine');
 
-    if (newRestaurantData.link && !verify.validLink(newRestaurantData.link)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant');
+    if (!verify.validString(newName)) errors.push('Invalid restaurant name');
+    if (!verify.validString(newAddress)) errors.push('Invalid restaurat address');
+    if (!verify.validString(newCuisine)) errors.push('Invalid cuisine');
+    if (newLink && !verify.validLink(newLink)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant');
 
     
     const allRestaurants = await restaurantData.getAllRestaurants();
 
     for (let x of allRestaurants) {
-        if (x.address === newRestaurantData.address) errors.push('A Restaurant with this Address already Exists');
+        if (x.address === newAddress) errors.push('A Restaurant with this Address already Exists');
     }
-    
+
     // Do not submit if there are errors in the form
     if (errors.length > 0) {
         return res.render('restaurants/new', {
@@ -85,7 +89,7 @@ router.post('/new', async (req, res) => {
     }
 
     try {
-        const newRestaurant = await restaurantData.createRestaurant(newRestaurantData.name, newRestaurantData.address, newRestaurantData.cuisine, newRestaurantData.link);
+        const newRestaurant = await restaurantData.createRestaurant(newName, newAddress, newCuisine, newLink);
         res.redirect(`/restaurants`);
     } catch(e) {
         res.status(500).json({error: e});
@@ -114,9 +118,9 @@ router.get('/:id', async (req, res) => {
         const reviews = [];
         for (const review of allReviews) {
             let current = {};
-            let { username, age } = await userData.getUserById(review.reviewerId);
+            let { firstName, lastName, age } = await userData.getUserById(review.reviewerId);
             current.id = review._id;
-            current.username = username;
+            current.name = firstName + ' ' + lastName;
             current.age = age;
             current.text = review.reviewText;
             current.metrics = review.metrics;
@@ -128,8 +132,8 @@ router.get('/:id', async (req, res) => {
             let comments = [];
             for (const comment of allComments) {
                 let currentComment = {};
-                let {username, age} = await userData.getUserById(comment.userId);
-                currentComment.username = username;
+                let {firstName, lastName, age} = await userData.getUserById(comment.userId);
+                currentComment.name = firstName + ' ' + lastName;
                 currentComment.age = age;
                 currentComment.text = comment.text
                 comments.push(currentComment);
