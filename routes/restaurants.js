@@ -55,7 +55,6 @@ router.get('/new', async (req, res) => {
 router.post('/new', async (req, res) => {
     let newRestaurantData = xss(req.body);
     let otherOption = 'Other';
-    let errors = [];
 
     if (newRestaurantData.cuisine === otherOption) newRestaurantData.cuisine = newRestaurantData.cuisineInput;
 
