@@ -18,7 +18,7 @@
             </span>
             {{#if authenticated}}
                 <div class="dropdown">
-                    <button id="profile" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</button>
+                    <button id="profile" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</button>
                     <div role="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="profile">
                         <a href="/private" class="dropdown-item">User Profile</a>
                         <a href="/users/logout" class="dropdown-item">Logout</a>
