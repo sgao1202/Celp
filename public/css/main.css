@@ -46,3 +46,11 @@
   overflow: auto;
   display: inline-block;
 }
+
+.check-mark {
+  fill: rgb(5, 168, 130);
+}
+
+.x-mark {
+  fill: rgb(255, 82, 61);
+}

@@ -138,6 +138,11 @@ router.get('/:id', async (req, res) => {
                 comments.push(currentComment);
             }
             current.comments = comments;
+
+            let max = 5;
+            current.filledStars = verify.generateList(current.metrics.rating);
+            current.unfilledStars = verify.generateList(max - current.metrics.rating);
+            current.filledDollars = verify.generateList(current.metrics.price)
             reviews.push(current);
         }
 

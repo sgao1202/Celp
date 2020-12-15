@@ -2,133 +2,227 @@
     <div class="row mb-5">
         <div class="col card mt-3 shadow">
             <div class="card-body">
-                <div class="container">
-                    <h4 class="card-title">User Info</h5>
-                    <h5 class="card-subtitle mb-2 text-muted">{{user.firstName}} {{user.lastName}}</h6>
+                <div class="container mb-3">
+                    <h1 class="card-title h3">User Info</h5>
                 </div>
-                <div class="container">
-                    
+                <div class="row">
+                    <div class="col">
+                        <div class="container row mb-3">
+                            <div class="col col-4">
+                                <label for="first-name" class="mr-3">First Name</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" id="first-name" class="rounded p-1" placeholder="{{user.firstName}}" disabled>
+                            </div>
+                        </div>
+                        <div class="container row mb-3">
+                            <div class="col col-4">
+                                <label for="username" class="mr-3">Username</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" id="username" class="rounded p-1" placeholder="{{user.username}}"disabled>
+                            </div>
+                        </div>
+                        <div class="container row mb-3">
+                            <div class="col col-4">
+                                <label for="age">Age</label>
+                            </div>
+                            <div class="col">
+                                <input type="number" id="age" class="rounded p-1" placeholder="{{user.age}}" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="container row mb-3">
+                            <div class="col col-4">
+                                <label for="last-name" class="mr-3">Last Name</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" id="last-name" class="rounded p-1" placeholder="{{user.lastName}}" disabled>
+                            </div>
+                        </div>
+                        <div class="container row mb-3">
+                            <div class="col col-4">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" id="email" class="rounded p-1" placeholder="{{user.email}}" disabled>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col card shadow mr-4">
+    <div class="row mb-5">
+        <div class="col col-6 card shadow mr-4">
             <div class="card-body">
                 <div class="container">
-                    <h4 class="card-title">Favorited Restaurants</h5>
+                    <h1 class="card-title h3">Favorited Restaurants</h5>
+                </div>
+                <div class="container">
+                    {{#if (checkListLengthZero favRestaurants)}}
+                        <p class = "font-italic">None, go favorite some restaurants!</p>
+                    {{else}}
+                        <ul class = "list-group col-10 list-group-flush">  
+                        {{#each favRestaurants}}
+                            <li class = "list-group-item">
+                                <a href = "/restaurants/{{this.id}}"><span class="mr-2">&starf;</span>{{this.name}}</a>
+                            </li>
+                        {{/each}}
+                        </ul>
+                    {{/if}}
                 </div>
             </div>
         </div>
         <div class="col card shadow">
             <div class="card-body">
                 <div class="container">
-                    <h4 class="card-title">Your Reviews</h5>
+                    <h1 class="card-title h3">Your Statistics</h5>
+                </div>
+                <div class="container">
+                    <div class="container">
+                        <span class="font-weight-bold">Your Total Favorited Restaurants:</span>
+                        <span class="text-right">{{favRestaurants.length}}</span>
+                    </div>
+                    <div class="container">
+                        <span class="font-weight-bold">Your Total Reviews:</span>
+                        <span class="text-right">{{reviews.length}}</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class = "container m-5">
-        <h1>User Info:</h1>
-        <dl>
-            <dt>First Name:</dt>
-            <dd>{{user.firstName}}</dd>
-            <dt>Last Name: </dt>
-            <dd>{{user.lastName}}</dd>
-            <dt>Username:</dt>
-            <dd>{{user.username}}</dd>
-            <dt>Email:</dt>
-            <dd>{{user.email}}</dd>
-            <dt>Age:<dt>
-            <dd>{{user.age}}</dd>
-        </dl>
-    </div>
-    <div class = "container m-5">
-        <h2>Favorited Restaurants:</h2>
-        <br>
-        {{#if (checkListLengthZero favRestaurants)}}
-            <p class = "font-italic">None, go favorite some restaurants!</p>
-        {{else}}
-            <ul class = "list-group list-group-horizontal-md">  
-            {{#each favRestaurants}}
-            <li class = "list-group-item">
-                <a href = "/restaurants/{{this.id}}">&starf;{{this.name}}</a>
-            </li>
-            {{/each}}
-            </ul>
-        {{/if}}
-    </div>
-    <!-- table data instead of description list?-->
-    <div class = "container m-5">
-        <h2>Your Reviews:</h2>
-        {{#if (checkListLengthZero reviews)}}
-            <p class = "font-italic">None, go write some reviews!</p>
-        {{else}}
-        <ul class = "list-group">
-            {{#each reviews}}
-            <li class="list-group-item">
-                <div class = 'btnContainer'>
-                    <!-- delete button -->
-                    <button class = "btn btn-danger" type = "button" data-toggle="modal" data-target="#review-{{@index}}" focus="true" aria-hidden = "true">Delete</button>
+    <div class="row mb-5">
+        <div class="col card shadow">
+            <div class="card-body">
+                <div class="container">
+                    <h1 class="card-title h3">Your Reviews</h1>
                 </div>
-                <!-- modal -->
-                <div class="modal" id = 'review-{{@index}}' role = "dialog" tabindex="-1" aria-labelledby="reviewLabel">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="reviewLabel">"{{this.review.reviewText}}"</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
+                <div class="container">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                        {{#each reviews}}
+                            <div class="card container mb-5">
+                                <div class="card-header row">
+                                    <div class="col mt-2">
+                                        <h2 class="h5">{{this.restaurant}}</h2>
+                                    </div>
+                                    <div class="btnContainer col">
+                                        <!-- delete button -->
+                                        <button class = "btn btn-danger" type = "button" data-toggle="modal" data-target="#review-{{@index}}" focus="true" aria-hidden = "true">Delete</button>
+                                    </div>
+                                    <!-- modal -->
+                                    <div class="modal" id = 'review-{{@index}}' role = "dialog" tabindex="-1" aria-labelledby="reviewLabel">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title text-truncate" id="reviewLabel">"{{this.review.reviewText}}"</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">Are you sure you want to delete this review for {{this.restaurant}}?</div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-danger delbtn" data-id="{{this.review._id}}" data-dismiss="modal">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="container">
+                                                <h3 class="card-title h5">Review</h3>
+                                            </div>
+                                            <div class="mb-3 bg-light rounded-pill w-50">
+                                                 <div class="container">
+                                                    {{#each filledStars}} 
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill text-info" viewBox="0 0 16 16">
+                                                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                            </svg>
+                                                        </span>
+                                                    {{/each}}
+                                                    {{#each unfilledStars}}
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill text-info" viewBox="0 0 16 16">
+                                                                <path fill-rule="evenodd" d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                                                            </svg>
+                                                        </span>
+                                                    {{/each}}
+                                                </div>
+                                                <div class="container">
+                                                    {{#each filledDollars}}
+                                                        <span class="text-info">
+                                                            $
+                                                        </span>
+                                                    {{/each}}
+                                                </div>
+                                            </div>
+                                            <div class="container">
+                                                <p class="card-text text-truncate">{{this.review.reviewText}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="container">
+                                                <h3 class="card-title h5">Metric Ratings</h3>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-5">
+                                                    <div class="container">
+                                                        <span class="font-weight-bold">Distanced Tables</span>
+                                                        <span>
+                                                            {{#if this.review.metrics.distancedTables}}
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="icon_svg check-mark"><path d="M9.46 17.52a1 1 0 01-.71-.29l-4-4a1.004 1.004 0 111.42-1.42l3.25 3.26 8.33-8.34a1.004 1.004 0 011.42 1.42l-9 9a1 1 0 01-.71.37z"></path></svg>
+                                                            {{else}}
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="icon_svg x-mark"><path d="M13.41 12l5.3-5.29a1.004 1.004 0 10-1.42-1.42L12 10.59l-5.29-5.3a1.004 1.004 0 00-1.42 1.42l5.3 5.29-5.3 5.29a1 1 0 000 1.42 1 1 0 001.42 0l5.29-5.3 5.29 5.3a1 1 0 001.42 0 1 1 0 000-1.42L13.41 12z"></path></svg>            
+                                                            {{/if}}
+                                                        </span>
+                                                    </div>
+                                                    <div class="container">
+                                                        <span class="font-weight-bold">Masked Employees</span>
+                                                        <span>
+                                                            {{#if this.review.metrics.maskedEmployees}}
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="icon_svg check-mark"><path d="M9.46 17.52a1 1 0 01-.71-.29l-4-4a1.004 1.004 0 111.42-1.42l3.25 3.26 8.33-8.34a1.004 1.004 0 011.42 1.42l-9 9a1 1 0 01-.71.37z"></path></svg>
+                                                            {{else}}
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="icon_svg x-mark"><path d="M13.41 12l5.3-5.29a1.004 1.004 0 10-1.42-1.42L12 10.59l-5.29-5.3a1.004 1.004 0 00-1.42 1.42l5.3 5.29-5.3 5.29a1 1 0 000 1.42 1 1 0 001.42 0l5.29-5.3 5.29 5.3a1 1 0 001.42 0 1 1 0 000-1.42L13.41 12z"></path></svg>            
+                                                            {{/if}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="container">
+                                                        <span class="font-weight-bold">No Touch Payment</span>
+                                                        {{#if this.review.metrics.noTouchPayment}}
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="icon_svg check-mark"><path d="M9.46 17.52a1 1 0 01-.71-.29l-4-4a1.004 1.004 0 111.42-1.42l3.25 3.26 8.33-8.34a1.004 1.004 0 011.42 1.42l-9 9a1 1 0 01-.71.37z"></path></svg>
+                                                        {{else}}
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="icon_svg x-mark"><path d="M13.41 12l5.3-5.29a1.004 1.004 0 10-1.42-1.42L12 10.59l-5.29-5.3a1.004 1.004 0 00-1.42 1.42l5.3 5.29-5.3 5.29a1 1 0 000 1.42 1 1 0 001.42 0l5.29-5.3 5.29 5.3a1 1 0 001.42 0 1 1 0 000-1.42L13.41 12z"></path></svg>            
+                                                        {{/if}}
+                                                    </div>
+                                                    <div class="container">
+                                                        <span class="font-weight-bold">Outdoor Seating</span>
+                                                        <span>
+                                                            {{#if this.review.metrics.outdoorSeating}}
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="icon_svg check-mark"><path d="M9.46 17.52a1 1 0 01-.71-.29l-4-4a1.004 1.004 0 111.42-1.42l3.25 3.26 8.33-8.34a1.004 1.004 0 011.42 1.42l-9 9a1 1 0 01-.71.37z"></path></svg>
+                                                            {{else}}
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="icon_svg x-mark"><path d="M13.41 12l5.3-5.29a1.004 1.004 0 10-1.42-1.42L12 10.59l-5.29-5.3a1.004 1.004 0 00-1.42 1.42l5.3 5.29-5.3 5.29a1 1 0 000 1.42 1 1 0 001.42 0l5.29-5.3 5.29 5.3a1 1 0 001.42 0 1 1 0 000-1.42L13.41 12z"></path></svg>            
+                                                            {{/if}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>   
+                                </div>
                             </div>
-                            <div class="modal-body">Are you sure you want to delete this review for {{this.restaurant}}?</div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-danger delbtn" data-id="{{this.review._id}}" data-dismiss="modal">Delete</button>
-                            </div>
-                        </div>
-                    </div>
+                        {{/each}}
+                        </li>
+                    </ul>
                 </div>
-                <h3>{{this.restaurant}}</h3>
-                <dl class = 'review-info'>
-                    <dt>Review:</dt> 
-                    <dd>{{this.review.reviewText}}</dd>
-                    <dt>Rating: 
-                    <dd>{{this.review.metrics.rating}}</dd>
-                    <dt>Price:</dt> 
-                    <dd>{{this.review.metrics.price}}</dd>
-                    <dt>Distanced Tables:<dt>
-                    {{#if this.review.metrics.distancedTables}}
-                        <dd>&#10004;</dd>
-                    {{else}}
-                        <dd>&#10060;</dd>
-                    {{/if}}
-                    
-                    <dt>Masked Employees:<dt> 
-                    {{#if this.review.metrics.maskedEmployees}}
-                        <dd>&#10004;</dd>
-                    {{else}}
-                        <dd>&#10060;</dd>
-                    {{/if}}
-
-                    <dt>No Touch Payment:<dt> 
-                    {{#if this.review.metrics.noTouchPayment}}
-                        <dd>&#10004;</dd>
-                    {{else}}
-                        <dd>&#10060;</dd>
-                    {{/if}}
-
-                    <dt>Outdoor Seating:</dt>
-                    {{#if this.review.metrics.outdoorSeating}}
-                        <dd>&#10004;</dd>
-                    {{else}}
-                        <dd>&#10060;</dd>
-                    {{/if}}
-                </dl>
-            </li>
-            {{/each}}
-        </ul>
-        {{/if}}
+            </div>
+        </div>
     </div>
 </div>
