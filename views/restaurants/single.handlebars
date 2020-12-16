@@ -13,7 +13,11 @@
                 <span hidden = "true" class = "error font-italic"></span>
                 <h2 id="address" class="font-italic h5">{{restaurant.address}}</h5>
                 <h2 class="text-secondary h5">{{restaurant.cuisine}}</h5>
-                <h2 class="text-secondary h5"><a href={{restaurant.link}} target="_blank">Link to Yelp</a></h5>
+            {{#if restaurant.link}}
+                <h2 class="text-secondary h5"><a href={{restaurant.link}} target="_blank">Link to Yelp</a></h2>
+            {{else}}
+                <h2 class="text-secondary h5"><i class="fa fa-ban"></i>Link is not available</h2>
+            {{/if}}
             </div>
             {{!-- <div class="container">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
