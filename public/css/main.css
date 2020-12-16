@@ -1,3 +1,18 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#map-parent {
+  height: 400px;
+}
+
+#map {
+  height: 90%;
+}
+
 .btnContainer{
     text-align: right;
 }
@@ -19,7 +34,7 @@
 }
 
 .fa.filled{
-  color: blue;
+  color: #f15c00;
 }
 
 .fa:hover{
@@ -53,4 +68,12 @@
 
 .x-mark {
   fill: rgb(255, 82, 61);
+}
+
+.star, .dollar {
+  color: #f15c00;
+}
+
+.dollar {
+  color: #f15c00;
 }

@@ -23,6 +23,33 @@
         error.removeAttr('hidden');
     }
 
+    // 'Google Maps API Integration'
+    let map;
+    let geocoder;
+
+    window.initMap = () => {
+        let latlng =  new google.maps.LatLng(40.7440, -74.0324);
+        let mapOptions = {
+            zoom: 15,
+            center: latlng
+        }
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        geocoder = new google.maps.Geocoder();
+        let address = $('#address').html() + ' Hoboken, NJ 07030';
+        geocoder.geocode({'address': address}, (results, status) => {
+            console.log(results);
+            console.log(status);
+            if (status == 'OK') {
+                // Display map of the restaurant with a marker
+                map.setCenter(results[0].geometry.location);
+                let marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location
+                });
+            }
+        });
+    }
+
     $('.favbtn').on('click', function(event){
         event.preventDefault();
         var btn = $(this);
@@ -67,7 +94,6 @@
                 })
             }
             $.ajax(requestConfig).then(function(responseMessage){
-                console.log(responseMessage)
                 var restaurant = responseMessage.restaurant;
                 if (responseMessage.deleted){
                     let li = "<li class = 'list-group-item error font-italic'>This review has been deleted due to multiple reports</li>"
@@ -159,11 +185,9 @@
         AJAX for adding a comment
     */ 
     let commentForms = $('.comment-form');
-    console.log(commentForms);
     if (commentForms.length > 0) {
         commentForms.each((index) => {
             let currentForm = $(commentForms[index]);
-            console.log(currentForm);
             currentForm.submit((event) => {
                 event.preventDefault();
 

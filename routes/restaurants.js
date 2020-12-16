@@ -98,7 +98,7 @@ router.post('/new', async (req, res) => {
 // Search for a specific restaurant
 router.get('/:id', async (req, res) => {
     let id = req.params.id.trim();
-    if (!id) res.render('errors/error', {errorMessage: 'Id was not provided in route'});
+    if (!id) return res.render('errors/error', {errorMessage: 'Id was not provided in route'});
     
     try {
         const restaurant = await restaurantData.getRestaurantById(id);
