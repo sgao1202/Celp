@@ -13,7 +13,11 @@
                 <span hidden = "true" class = "error font-italic"></span>
                 <h5 class="font-italic">{{restaurant.address}}</h5>
                 <h5 class="text-secondary">{{restaurant.cuisine}}</h5>
+            {{#if restaurant.link}}
                 <h5 class="text-secondary"><a href={{restaurant.link}} target="_blank">Link to Yelp</a></h5>
+            {{else}}
+                <h5 class="text-secondary"><i class="fa fa-ban"></i>Link is not available</h5>
+            {{/if}}
             </div>
                 
             <div class="border-bottom mt-3">
