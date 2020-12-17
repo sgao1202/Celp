@@ -52,7 +52,10 @@
                     <div class="container">
                         <ul class="list-group list-group-flush">
                             {{#each mostActive}}
-                            <li class="list-group-item">{{this.username}}</li>
+                            <li class="list-group-item">
+                                <span>{{this.firstName}}</span>
+                                <span>{{this.lastName}}</span>
+                            </li>
                             {{/each}}
                         </ul>
                     </div>

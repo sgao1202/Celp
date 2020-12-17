@@ -62,7 +62,7 @@ app.use('/restaurants/new', async(req,res, next) =>{
   if (!req.session.user) {
     req.session.previousRoute = req.originalUrl;
     return res.render("users/login", {
-        title: 'Errors',
+        title: 'Log In',
         error: "You must be logged in to create a restaurant",
         partial: 'login-script'
       });
