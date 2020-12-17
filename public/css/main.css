@@ -33,8 +33,8 @@ body {
   position: realtive;
 }
 
-.error.font-italic{
-  color: red;
+.error{
+  color: #ee0000;
 }
 
 .fa.fa-thumbs-up{
@@ -90,19 +90,7 @@ body {
 }
 
 .star, .dollar {
-  color: #f15c00;
-}
-
-#restAdd{
-  font-size: 30px;
-}
-
-#restCui{
-  font-size: 27px;
-}
-
-#restLink{
-  font-size: 20px;
+  color:#c74a00;
 }
 
 .report-text{
