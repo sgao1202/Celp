@@ -80,7 +80,7 @@ router.post('/new', async (req, res) => {
         return res.render('restaurants/new', {
             cuisines: cuisineTypes,
             partial: 'restaurants-form-script',
-            authenticated: req.session.user? true : false,
+            authenticated: req.session.user ? true : false,
             user: req.session.user,
             hasErrors: true,
             errors: errors
@@ -98,7 +98,7 @@ router.post('/new', async (req, res) => {
 // Search for a specific restaurant
 router.get('/:id', async (req, res) => {
     let id = req.params.id.trim();
-    if (!id) res.render('errors/error', {errorMessage: 'Id was not provided in route'});
+    if (!id) return res.render('errors/error', {errorMessage: 'Id was not provided in route'});
     
     try {
         const restaurant = await restaurantData.getRestaurantById(id);
@@ -138,6 +138,11 @@ router.get('/:id', async (req, res) => {
                 comments.push(currentComment);
             }
             current.comments = comments;
+
+            let max = 5;
+            current.filledStars = verify.generateList(current.metrics.rating);
+            current.unfilledStars = verify.generateList(max - current.metrics.rating);
+            current.filledDollars = verify.generateList(current.metrics.price)
             reviews.push(current);
         }
 

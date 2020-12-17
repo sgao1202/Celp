@@ -1,3 +1,18 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#map-parent {
+  height: 400px;
+}
+
+#map {
+  height: 90%;
+}
+
 .btnContainer{
     text-align: right;
 }
@@ -32,7 +47,7 @@
 }
 
 .fa.filled{
-  color: blue;
+  color: #f15c00;
 }
 
 .favbtn{
@@ -59,6 +74,23 @@
 
 .review-input-box{
   margin-bottom: 40px;
+}
+
+.float-right{
+  overflow: auto;
+  display: inline-block;
+}
+
+.check-mark {
+  fill: rgb(5, 168, 130);
+}
+
+.x-mark {
+  fill: rgb(255, 82, 61);
+}
+
+.star, .dollar {
+  color: #f15c00;
 }
 
 #restAdd{

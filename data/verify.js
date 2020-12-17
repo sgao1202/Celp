@@ -54,6 +54,14 @@ function validLink(link) {
     return re.test(String(link).toLowerCase());
 }
 
+function generateList(n) {
+    let arr = [];
+    for (let i = 0; i < n; i++) {
+        arr.push(i);
+    }
+    return arr;
+}
+
 module.exports = {
     validString,
     convertId,
@@ -62,5 +70,6 @@ module.exports = {
     validBoolean,
     validRating,
     validMetrics,
-    validLink
+    validLink,
+    generateList
 };

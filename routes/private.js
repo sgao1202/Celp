@@ -2,26 +2,36 @@ const express = require('express');
 const reviews = require('../data/reviews');
 const restaurants = require('../data/restaurants')
 const router = express.Router();
+const verifier = require('../data/verify');
 
 router.get('/', async(req, res) =>{
     const userData = req.session.user;
     const userReviews = await reviews.getAllReviewsOfUser(userData._id);
 
-    //combine restaurants and reviews into one array for easier access
+    // Combine restaurants and reviews into one array for easier access
     let restaurantNames = [];
     for (let review of userReviews){
         let rest = await restaurants.getRestaurantById(review.restaurantId);
         restaurantNames.push(rest.name);
     }
-    let reviewRest = []
-    for (let i = 0; i < userReviews.length; i++){
+
+    let reviewRest = [];
+    for (let i = 0; i < userReviews.length; i++) {
+        let currentReview = userReviews[i];
+        let max = 5;
+        let price = currentReview.metrics.price;
+        let rating = currentReview.metrics.rating
+        
         reviewRest.push({
-            review: userReviews[i], 
-            restaurant: restaurantNames[i]
+            review: currentReview, 
+            restaurant: restaurantNames[i],
+            filledStars: verifier.generateList(rating),
+            unfilledStars: verifier.generateList(max-rating),
+            filledDollars: verifier.generateList(price)
         });
     }
 
-    //get restaurant names of user's favorited restaurants
+    // Get restaurant names of user's favorited restaurants
     let favRestaurants = [];
     for (let restaurantId of userData.favoritedRestaurants){
         let rest = await restaurants.getRestaurantById(restaurantId);
@@ -30,6 +40,7 @@ router.get('/', async(req, res) =>{
             name: rest.name
         });
     }
+
 
     return res.render('users/info', {
         authenticated: true,
