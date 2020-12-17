@@ -72,7 +72,7 @@ router.post('/new', async (req, res) => {
     const allRestaurants = await restaurantData.getAllRestaurants();
 
     for (let x of allRestaurants) {
-        if (x.address === newAddress) errors.push('A Restaurant with this Address already Exists');
+        if (x.address === newAddress) errors.push('A restaurant with this address already exists');
     }
 
     // Do not submit if there are errors in the form

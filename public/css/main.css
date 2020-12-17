@@ -28,7 +28,20 @@ body {
   display:block;
 }
 
-.fa {
+.dblclick{
+  user-select: none;
+  position: realtive;
+}
+
+.error.font-italic{
+  color: red;
+}
+
+.fa.fa-thumbs-up{
+  font-size: 28px;
+  margin: 10px;
+}
+.fa.fa-thumbs-down{
   font-size: 28px;
   margin: 10px;
 }
@@ -37,24 +50,30 @@ body {
   color: #f15c00;
 }
 
+.favbtn{
+  font-size: 35px;
+}
+
 .fa:hover{
   background-color: lightgray;
 }
 
-.dblclick{
-  user-select: none;
-}
-
-.error.font-italic{
-  color: red;
-}
-
 .reportbtn{
-  display: inline-block;
+  border-width: thin;
+  border-radius: 5px;
 }
 
-.reportbtn.rfilled{
-  color: red;
+.reportbtn:focus{
+  outline: 0;
+}
+
+.float-right{
+  float:right;
+  margin-bottom: auto;
+}
+
+.review-input-box{
+  margin-bottom: 40px;
 }
 
 .float-right{
@@ -74,6 +93,14 @@ body {
   color: #f15c00;
 }
 
-.dollar {
-  color: #f15c00;
+#restAdd{
+  font-size: 30px;
+}
+
+#restCui{
+  font-size: 27px;
+}
+
+#restLink{
+  font-size: 20px;
 }

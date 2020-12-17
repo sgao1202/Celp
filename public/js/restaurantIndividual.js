@@ -110,7 +110,18 @@
                 var reportText = $('.report-text').first().text();
                 $('.report-text').text(reportText == "Report" ? "Unreport": "Report")
 
-                btn.toggleClass('rfilled');
+                var msg = $('#msg');
+                if (btn.hasClass('btn-danger')){
+                    msg.text("Thank you, your review has been submitted!");
+                }
+                else{
+                    msg.text("You have unreported this review.");
+                }
+                msg.removeAttr('hidden');
+
+                btn.toggleClass('btn-danger');
+                btn.toggleClass('btn-secondary');
+                
             })
         }else{
             showRepError(btn);

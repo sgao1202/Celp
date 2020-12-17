@@ -72,7 +72,7 @@ router.post('/login', async (req, res) => {
             req.session.previousRoute = '';
             return res.redirect(temp);
         } 
-        res.redirect('/restaurants');
+        res.redirect('/');
     } else {
         return res.status(401).render('users/login', 
         {   title: "Login",
@@ -106,6 +106,6 @@ router.post('/signup', async(req, res) => {
 
 router.get('/logout', async(req,res) =>{
     req.session.destroy();
-    res.redirect('/restaurants');
+    res.redirect('/');
 })
 module.exports = router;
