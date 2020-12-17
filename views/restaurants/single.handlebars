@@ -158,18 +158,17 @@
                                 <div class = "float-right">
                                     {{#if (checkListMem ../user._id this.reported)}}
                                     <button class="btn btn-secondary reportbtn" data-rid = "{{this.id}}" data-uid = "{{../user._id}}" data-restid = "{{../restaurant._id}}" >
-                                        <span class = "report-text">Unreport</span>
                                         <i class = "fa fa-exclamation" aria-hidden = "true"></i>
+                                        <span class = "report-text">Unreport</span>
                                     </button>
                                     {{else}}
                                     <button class="btn btn-danger active reportbtn" data-rid = "{{this.id}}" data-uid = "{{../user._id}}" data-restid = "{{../restaurant._id}}" >
-                                        <span class = "report-text">Report</span>
                                         <i class = "fa fa-exclamation" aria-hidden = "true"></i>
+                                        <span class = "report-text">Report</span>
                                     </button>
                                     
                                     {{/if}}
                                 </div>
-
                                 <!-- error div -->
                                 <div hidden = "true" class = "error font-italic"></div>
                                 <!-- msg div -->
