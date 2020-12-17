@@ -87,17 +87,9 @@
                 var msg = $('#msg');
                 if (btn.hasClass('btn-danger')){
                     msg.text("Thank you, your review has been submitted!");
-                    // if (msg.hasClass('alert-secondary')){
-                    //     msg.toggleClass('alert-secondary');
-                    // }
-                    // msg.toggleClass('alert-success')
                 }
                 else{
                     msg.text("You have unreported this review.");
-                    // if (msg.hasClass('alert-success')){
-                    //     msg.toggleClass('alert-success');
-                    // }
-                    // msg.toggleClass("alert-secondary")
                 }
                 msg.removeAttr('hidden');
 
