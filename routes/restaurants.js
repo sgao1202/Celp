@@ -8,7 +8,6 @@ const commentData = data.comments;
 const userData = data.users;
 const verify = require('../data/verify');
 const xss = require('xss');
-const e = require('express');
 const apiKey = 'tWaKVqK2ktyz9c0V5G219_tqPdsQxkuNnt6RYpLXqf-TLZN9mQMBmpDZspWi7IUtvxHSghav2WgdYaCz-viZDUO19uPSJCLK-6ToPnfJWDMj1_-fELadhOJ8mqPSX3Yx';
 
 let cuisineTypes = ['American', 'Breakfast', 'Brunch', 'Chinese', 'Fast Food', 'Italian',
@@ -98,10 +97,15 @@ router.post('/new', async (req, res) => {
 // Search for a specific restaurant
 router.get('/:id', async (req, res) => {
     let id = req.params.id.trim();
-    if (!id) return res.render('errors/error', {
-        title: 'Errors',
-        errorMessage: 'Id was not provided in route.'
-    });
+    let errors = [];
+    if (!verify.validString(id)) {
+        errors.push('Id of the restaurant must be provided')
+        return res.render('errors/error', {
+            title: 'Errors',
+            partial: 'errors-script',
+            errors: errors
+        });
+    }
     
     try {
         const restaurant = await restaurantData.getRestaurantById(id);
@@ -188,10 +192,12 @@ router.get('/:id', async (req, res) => {
             reviews: reviews,
             photos: photos
         });
-    } catch(e) {
+    } catch(e) {   
+        errors.push(e);
         res.status(500).render('errors/error', {
             title: 'Errors',
-            errorMessage: e
+            partial: 'errors-script',
+            errors: errors
         });
     }
 });
