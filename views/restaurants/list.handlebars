@@ -19,13 +19,13 @@
         <div class="col col-4">
             <div class="rating-slider w-100">
                 <label for="rsb" class="font-weight-bold">Rating above: <span id="rsd" class="ml-2"></span></label>
-                <input value="1" min="1" max="5" step="0.1" type="range" id="rsb" onmouseup="fNum('rsb',3)" onkeyup="fNum('rsb',3)">
+                <input value="1" min="1" max="5" step="0.1" type="range" id="rsb" onmouseup="fNum2()" onkeyup="fNum2()">
             </div>
         </div>
         <div class="col col-4">
             <div class="price-slider w-100">
                 <label for="psb" class="font-weight-bold">Price below: <span id="psd" class="ml-2"></span></label>
-                <input value="5" min="1" max="5" step="0.1" type="range" id="psb" onmouseup="fNum('psb',4,(a,b)=>a<=b)" onkeyup="fNum('psb',4,(a,b)=>a<=b)"> 
+                <input value="5" min="1" max="5" step="0.1" type="range" id="psb" onmouseup="fNum2()" onkeyup="fNum2()"> 
             </div>
         </div>
     </div>
