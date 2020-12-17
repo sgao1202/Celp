@@ -4,7 +4,7 @@
             <div class="border-bottom mt-3">
                 <h1 class="display-4 font-weight-bold">{{restaurant.name}} 
                     {{#if (checkListMem restaurant._id user.favoritedRestaurants)}}
-                    <i id = "favbtn" class = "favbtn fa fa-star filled" data-rid = "{{restaurant._id}}" data-uid = "{{user._id}}"></i>
+                    <i class = "favbtn fa fa-star filled" data-rid = "{{restaurant._id}}" data-uid = "{{user._id}}"></i>
                     {{else}}
                     <i class = "favbtn fa fa-star-o" data-rid = "{{restaurant._id}}" data-uid = "{{user._id}}"></i>
                     {{/if}}
@@ -14,9 +14,9 @@
                 <h2 id="restAdd" class="font-italic">{{restaurant.address}}</h5>
                 <h2 id="restCui" class="text-secondary">{{restaurant.cuisine}}</h5>
                 {{#if restaurant.link}}
-                <h3 class="text-secondary"><a href={{restaurant.link}} target="_blank">Link to Yelp</a></h5>
+                <h3 id="restLink" class="text-secondary"><a href={{restaurant.link}} target="_blank">Link to Yelp</a></h5>
                 {{else}}
-                <h3 class="font-italic"><span>No Yelp Link Available</span></h5>
+                <h3 id="restLink" class="font-italic"><span>No Yelp Link Available</span></h5>
                 {{/if}}
             </div>
                 
@@ -177,6 +177,7 @@
 
                                 <!-- error div -->
                                 <div hidden = "true" class = "error font-italic"></div>
+                                <!-- msg div -->
                                 <div id="msg" class="alert alert-success" role="alert" hidden = "true"></div>
                             </div>
                             

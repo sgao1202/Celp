@@ -7,9 +7,11 @@
 
     <div class="row">
         <div class="col col-4">
+            <label for="myInput"></label>
             <input type="text" class="form-control" id="myInput" onkeyup="fName('myInput',0)" placeholder="Search Restaurant Name">
         </div>
         <div class="col col-4">
+            <label for="myInput_2"></label>
             <input type="text" class="form-control" id="myInput_2" onkeyup="fName('myInput_2',2)" placeholder="Search Cuisine Type">
         </div>
     </div>
@@ -40,15 +42,13 @@
     </thead>
     <tbody>
         {{#each restaurants}}
-        <a href="">
-            <tr class="clickable-row" id="{{this._id}}"data-href="/restaurants/{{this._id}}">
-                <td>{{this.name}}</td>
-                <td>{{this.address}}</td>
-                <td>{{this.cuisine}}</td>
-                <td>{{this.rating}}</td>
-                <td>{{this.price}}</td>
-            </tr>
-        </a>
+        <tr class="clickable-row" id="{{this._id}}"data-href="/restaurants/{{this._id}}">
+            <td>{{this.name}}</td>
+            <td>{{this.address}}</td>
+            <td>{{this.cuisine}}</td>
+            <td>{{this.rating}}</td>
+            <td>{{this.price}}</td>
+        </tr>
         {{/each}}
     </tbody>
 </table>
