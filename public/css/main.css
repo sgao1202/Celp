@@ -108,3 +108,7 @@ body {
 .report-text{
   margin: 5px;
 }
+
+li.borderless{
+  border: none;
+}
