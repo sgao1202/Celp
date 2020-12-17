@@ -11,15 +11,19 @@
                 </h1>
 
                 <span hidden = "true" class = "error font-italic"></span>
-                <h5 class="font-italic">{{restaurant.address}}</h5>
-                <h5 class="text-secondary">{{restaurant.cuisine}}</h5>
-                <h5 class="text-secondary"><a href={{restaurant.link}} target="_blank">Link to Yelp</a></h5>
+                <h2 id="restAdd" class="font-italic">{{restaurant.address}}</h5>
+                <h2 id="restCui" class="text-secondary">{{restaurant.cuisine}}</h5>
+                {{#if restaurant.link}}
+                <h3 id="restLink" class="text-secondary"><a href={{restaurant.link}} target="_blank">Link to Yelp</a></h5>
+                {{else}}
+                <h3 id="restLink" class="font-italic"><span>No Yelp Link Available</span></h5>
+                {{/if}}
             </div>
                 
             <div class="border-bottom mt-3">
                 <div class="row">
                     <div class="col-3">
-                        <h3 class="font-weight-bold mb-4">Reviews</h3>    
+                        <h4 class="font-weight-bold mb-4">Reviews</h3>    
                     </div>
                     <div class="col">
                         <a href="/reviews/writeareview/{{restaurant._id}}" class="btn btn-primary">Write a Review</a>
@@ -158,18 +162,23 @@
                                 
                                 <div class = "float-right">
                                     {{#if (checkListMem ../user._id this.reported)}}
-                                    <span class = "report-text">Unreport</span>
-                                    <i class = "reportbtn fa fa-exclamation rfilled" data-rid = "{{this.id}}" data-uid = "{{../user._id}}" data-restid = "{{../restaurant._id}}" aria-hidden = "true"></i>
+                                    <button class="btn btn-secondary reportbtn" data-rid = "{{this.id}}" data-uid = "{{../user._id}}" data-restid = "{{../restaurant._id}}" >
+                                        <span class = "report-text font-italic">Unreport</span>
+                                        <i class = "fa fa-exclamation" aria-hidden = "true"></i>
+                                    </button>
                                     {{else}}
-                                    <span class = "report-text">Report</span>
-                                    <i class = "reportbtn fa fa-exclamation" data-rid = "{{this.id}}" data-uid = "{{../user._id}}" data-restid = "{{../restaurant._id}}" aria-hidden = "true"></i>
+                                    <button class="btn btn-danger active reportbtn" data-rid = "{{this.id}}" data-uid = "{{../user._id}}" data-restid = "{{../restaurant._id}}" >
+                                        <span class = "report-text font-italic">Report</span>
+                                        <i class = "fa fa-exclamation" aria-hidden = "true"></i>
+                                    </button>
+                                    
                                     {{/if}}
                                 </div>
 
-                                
-
                                 <!-- error div -->
                                 <div hidden = "true" class = "error font-italic"></div>
+                                <!-- msg div -->
+                                <div id="msg" class="alert alert-success" role="alert" hidden = "true"></div>
                             </div>
                             
                         </div>
