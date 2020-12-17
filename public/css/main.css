@@ -13,7 +13,20 @@
   display:block;
 }
 
-.fa {
+.dblclick{
+  user-select: none;
+  position: realtive;
+}
+
+.error.font-italic{
+  color: red;
+}
+
+.fa.fa-thumbs-up{
+  font-size: 28px;
+  margin: 10px;
+}
+.fa.fa-thumbs-down{
   font-size: 28px;
   margin: 10px;
 }
@@ -22,20 +35,21 @@
   color: blue;
 }
 
+.favbtn{
+  font-size: 35px;
+}
+
 .fa:hover{
   background-color: lightgray;
 }
 
-.dblclick{
-  user-select: none;
-}
-
-.error.font-italic{
-  color: red;
-}
-
 .reportbtn{
-  display: inline-block;
+  border-width: thin;
+  border-radius: 5px;
+}
+
+.reportbtn:focus{
+  outline: 0;
 }
 
 .reportbtn.rfilled{
@@ -43,6 +57,10 @@
 }
 
 .float-right{
-  overflow: auto;
-  display: inline-block;
+  float:right;
+  margin-bottom: auto;
+}
+
+.review-input-box{
+  margin-bottom: 40px;
 }

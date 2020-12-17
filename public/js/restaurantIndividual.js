@@ -55,6 +55,7 @@
         var revId = btn.data('rid');
         var userId = btn.data('uid');
         var restId = btn.data('restid');
+        var running = false;
         if (userId){
             var requestConfig = {
                 method : "POST",
@@ -84,7 +85,26 @@
                 var reportText = $('.report-text').first().text();
                 $('.report-text').text(reportText == "Report" ? "Unreport": "Report")
 
-                btn.toggleClass('rfilled');
+                var msg = $('#msg');
+                if (btn.hasClass('btn-danger')){
+                    msg.text("Thank you, your review has been submitted!");
+                    // if (msg.hasClass('alert-secondary')){
+                    //     msg.toggleClass('alert-secondary');
+                    // }
+                    // msg.toggleClass('alert-success')
+                }
+                else{
+                    msg.text("You have unreported this review.");
+                    // if (msg.hasClass('alert-success')){
+                    //     msg.toggleClass('alert-success');
+                    // }
+                    // msg.toggleClass("alert-secondary")
+                }
+                msg.removeAttr('hidden');
+
+                btn.toggleClass('btn-danger');
+                btn.toggleClass('btn-secondary');
+                
             })
         }else{
             showRepError(btn);
