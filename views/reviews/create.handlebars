@@ -53,6 +53,9 @@
                     <button type="submit" class="btn btn-primary" name="submitButton" id="submitButton">Post Review</button>
                 </div>
             </div>
+            {{#each errors}}
+                <div class = "error font-italic">{{this}}</div>
+            {{/each}}
         </form>
     </div>
 </div>

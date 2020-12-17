@@ -10,5 +10,8 @@
             Username and/or passsword cannot be empty
         </div>
         <button type="submit" name="submitButton" id="submitButton" class="btn btn-primary w-100">Sign In</button>
+        {{#each errors}}
+            <div class = "error font-italic" id="errors">{{this}}</div>
+        {{/each}}
     </form>
 </div>

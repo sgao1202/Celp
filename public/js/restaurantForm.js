@@ -17,6 +17,7 @@
     let cuisineInputDiv = $('#cuisine-input-div');
     let linkInput = $('#restaurant-link-input');
     let btn = $('#submitButton');
+    let errors = $('.error');
     cuisineInputDiv.hide();
 
     let otherOption = 'Other';
@@ -31,6 +32,9 @@
         noErrors = true;
         event.preventDefault();
         btn.prop('disabled', true);
+
+        errors.hide();
+
 
         nameInput.removeClass('is-invalid is-valid');
         addressInput.removeClass('is-invalid is-valid');
