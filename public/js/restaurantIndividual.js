@@ -109,8 +109,8 @@
                 }
 
                 //toggle icon color and text
-                var reportText = $('.report-text').first().text();
-                $('.report-text').text(reportText == "Report" ? "Unreport": "Report")
+                var reportText = btn.children('.report-text');
+                reportText.text(reportText.text() == "Report" ? "Unreport": "Report")
 
                 var msg = btn.closest('.container').find('.msg');
                 if (btn.hasClass('btn-danger')){
