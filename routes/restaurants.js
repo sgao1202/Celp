@@ -11,7 +11,7 @@ const xss = require('xss');
 const e = require('express');
 const apiKey = 'tWaKVqK2ktyz9c0V5G219_tqPdsQxkuNnt6RYpLXqf-TLZN9mQMBmpDZspWi7IUtvxHSghav2WgdYaCz-viZDUO19uPSJCLK-6ToPnfJWDMj1_-fELadhOJ8mqPSX3Yx';
 
-let cuisineTypes = ['American', 'Breakfast', 'Chinese', 'Fast Food', 'Italian',
+let cuisineTypes = ['American', 'Breakfast', 'Brunch', 'Chinese', 'Fast Food', 'Italian',
     'Mexican', 'Thai', 'Korean', 'Middle-Eastern', 'Indian', 'Soul Food',
     'French', 'Japanese', 'Vietnamese', 'Mediterranean', 'Cuban', 'Sichuan',
     'Greek', 'Halal','Other'
@@ -42,10 +42,6 @@ router.get('/', async (req, res) => {
 
 // Get create a restaurant page
 router.get('/new', async (req, res) => {
-    // if (!req.session.user) {
-    //     req.session.previousRoute = req.originalUrl;
-    //     return res.redirect('/users/login');
-    // }
     // Select options for cuisine type
     return res.render('restaurants/new', { 
             cuisines: cuisineTypes,

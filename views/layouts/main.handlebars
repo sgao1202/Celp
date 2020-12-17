@@ -16,10 +16,10 @@
                     <img src="../../public/images/celp2.png" id="navbar-img" width="64" height="64" class="fluid-image" alt="celp-image">
                 </a>
             </span>
-            <label class="switch" aria-expanded="false">
+            {{!-- <label class="switch">
 			  <input type="checkbox" onclick="toggleDarkMode()" id="dms">
 			  <span class="slider round"></span>
-			</label>
+			</label> --}}
             {{#if authenticated}}
                 <div class="dropdown">
                     <button id="profile" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{user.username}}</button>
@@ -38,7 +38,7 @@
             {{/if}}
         </div>
     </nav>
-    <div class="container">
+    <div id="body" class="container pb-5">
         {{{body}}}
     </div>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
