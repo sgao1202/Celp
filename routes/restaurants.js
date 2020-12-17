@@ -170,10 +170,14 @@ router.get('/:id', async (req, res) => {
 
         const matchRes = await client.businessMatch(matchRequest);
         const jsonRes = matchRes.jsonBody;
-        let result = jsonRes.businesses[0];
-        const businessRes = await client.business(result.id);
-        const jsonRes2 = businessRes.jsonBody;
-        let photos = jsonRes2.photos;
+        let results = jsonRes.businesses;
+        let result = results[0];
+        let photos = [];
+        if (results.length > 0) {
+            const businessRes = await client.business(result.id);
+            const jsonRes2 = businessRes.jsonBody;
+            photos = jsonRes2.photos;
+        }
 
         res.render('restaurants/single', {
             partial: 'restaurants-single-script',
