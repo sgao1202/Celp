@@ -80,7 +80,7 @@ router.post('/new', async (req, res) => {
         return res.render('restaurants/new', {
             cuisines: cuisineTypes,
             partial: 'restaurants-form-script',
-            authenticated: req.session.user? true : false,
+            authenticated: req.session.user ? true : false,
             user: req.session.user,
             hasErrors: true,
             errors: errors
