@@ -19,6 +19,9 @@
 
     signupForm.submit((event) => {
         event.preventDefault();
+
+        $('.error').hide();
+
         firstNameInput.removeClass('is-invalid is-valid');
         lastNameInput.removeClass('is-invalid is-valid');
         usernameInput.removeClass('is-invalid is-valid');

@@ -121,7 +121,20 @@ input:checked + .slider:before {
   display:block;
 }
 
-.fa {
+.dblclick{
+  user-select: none;
+  position: realtive;
+}
+
+.error{
+  color: #ee0000;
+}
+
+.fa.fa-thumbs-up{
+  font-size: 28px;
+  margin: 10px;
+}
+.fa.fa-thumbs-down{
   font-size: 28px;
   margin: 10px;
 }
@@ -130,24 +143,30 @@ input:checked + .slider:before {
   color: #f15c00;
 }
 
+.favbtn{
+  font-size: 35px;
+}
+
 .fa:hover{
   background-color: lightgray;
 }
 
-.dblclick{
-  user-select: none;
-}
-
-.error.font-italic{
-  color: red;
-}
-
 .reportbtn{
-  display: inline-block;
+  border-width: thin;
+  border-radius: 5px;
 }
 
-.reportbtn.rfilled{
-  color: red;
+.reportbtn:focus{
+  outline: 0;
+}
+
+.float-right{
+  float:right;
+  margin-bottom: auto;
+}
+
+.review-input-box{
+  margin-bottom: 40px;
 }
 
 .float-right{
@@ -164,9 +183,23 @@ input:checked + .slider:before {
 }
 
 .star, .dollar {
-  color: #f15c00;
+  color:#c74a00;
 }
 
-.dollar {
-  color: #f15c00;
+.report-text{
+  margin: 5px;
+}
+
+#restLink{
+  font-size: 20px;
+}
+
+.carousel-item img {
+  height: 300px;
+  width: 400px;
+  object-fit: cover;
+}
+
+li.borderless{
+  border: none;
 }

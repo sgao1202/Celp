@@ -45,5 +45,8 @@
             </div>
         </div>
         <button type="submit" class="btn btn-primary" name="submitButton" id="submitButton">Create New Restaurant</button>
+        {{#each errors}}
+            <div class = "error font-italic">{{this}}</div>
+        {{/each}}
     </form>
 </div>

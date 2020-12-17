@@ -26,6 +26,7 @@
     "express-session": "^1.17.1",
     "handlebars": "^4.7.6",
     "mongodb": "^3.6.3",
-    "xss": "^1.0.8"
+    "xss": "^1.0.8",
+    "yelp-fusion": "^3.0.0"
   }
 }

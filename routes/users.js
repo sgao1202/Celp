@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const bcrypt = require('bcrypt');
+const verifier = require('../data/verify');
 const xss = require('xss')
 const userData = data.users;
 
@@ -45,6 +46,11 @@ router.post('/login', async (req, res) => {
     const password = xss(req.body.password.trim())
     let myUser;
 
+    errors = [];
+
+    if (!verifier.validString(username)) errors.push('Invalid username');
+    if (!verifier.validString(password)) errors.push('Invalid password');
+
     /*
         Why not create a function in users to query by username since each username should be unique?
     */
@@ -54,13 +60,17 @@ router.post('/login', async (req, res) => {
             myUser = users[i];
         }
     }
-    if (!myUser){
+
+    if (!myUser) errors.push("Username or password does not match");
+
+    if (errors.length > 0) {
         return res.status(401).render('users/login',
             {title: "Login",
             partial: "login-script",
-            error: "Username or password does not match"
+            errors: errors
         });
     }
+
     let match = await bcrypt.compare(password, myUser.hashedPassword);
 
     if (match){
@@ -72,11 +82,12 @@ router.post('/login', async (req, res) => {
             req.session.previousRoute = '';
             return res.redirect(temp);
         } 
-        res.redirect('/restaurants');
+        res.redirect('/');
     } else {
         return res.status(401).render('users/login', 
         {   title: "Login",
             partial: "login-script",
+            errors: ["Username or password does not match"]
         });
     }
 });
@@ -87,18 +98,36 @@ router.post('/signup', async(req, res) => {
     const username = xss(req.body.username);
     const password = xss(req.body.password);
     const email = xss(req.body.email);
-    let age = xss(req.body.age);
+    let age = parseInt(xss(req.body.age));
+
+    errors = [];
+
+    if (!verifier.validString(firstName)) errors.push('Invalid first name');
+    if (!verifier.validString(lastName)) errors.push('Invalid last name');
+    if (!verifier.validString(username)) errors.push('Invalid username');
+    if (!verifier.validString(password)) errors.push('Invalid password');
+    if (!verifier.validEmail(email)) errors.push('Invalid email');
+    if (!verifier.validAge(age)) errors.push('Invalid age');
+
+    if (errors.length > 0) {
+        return res.status(401).render('users/signup',{
+            authenticated: false,
+            title: "Signup",
+            partial: "signup-script",
+            errors: errors
+        });
+    }
     
     try {
-        age = parseInt(age);
         const user = await userData.createUser(firstName, lastName, email, username, age, password);
         req.session.user = user;
         res.redirect("/restaurants");
     } catch(e){
         return res.status(401).render('users/signup',{
             authenticated: false,
-            title: "Login",
-            partial: "login-script"
+            title: "Signup",
+            partial: "signup-script",
+            errors: [e]
         });
     }
     
@@ -106,6 +135,6 @@ router.post('/signup', async(req, res) => {
 
 router.get('/logout', async(req,res) =>{
     req.session.destroy();
-    res.redirect('/restaurants');
+    res.redirect('/');
 })
 module.exports = router;

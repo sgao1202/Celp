@@ -21,7 +21,8 @@ router.post('/delete/:id', async function (req,res){
 
     res.status(200).json({
         success: true,
-        empty: empty
+        empty: empty,
+        numReviews: reviewList.length
     });
 })
 

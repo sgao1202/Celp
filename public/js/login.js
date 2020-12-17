@@ -2,13 +2,15 @@
     let loginForm = $('#login-form')
     let usernameInput = $('#username');
     let passwordInput = $('#password');
-    let submitButton = $('#submitButton')
+    let submitButton = $('#submitButton');
+    let errors = $('.error');
 
     loginForm.submit((event) => {
         event.preventDefault();
         usernameInput.removeClass('is-invalid is-valid');
         passwordInput.removeClass('is-invalid is-valid');
         submitButton.prop('disabled', true);
+        errors.hide();
 
         let info = {
             username: usernameInput.val().trim(),
