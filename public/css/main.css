@@ -97,6 +97,16 @@ body {
   margin: 5px;
 }
 
+#restLink{
+  font-size: 20px;
+}
+
+.carousel-item img {
+  height: 300px;
+  width: 400px;
+  object-fit: cover;
+}
+
 li.borderless{
   border: none;
 }
