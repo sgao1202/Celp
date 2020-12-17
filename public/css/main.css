@@ -1,3 +1,7 @@
+.btn-primary{
+  background-color:#0072ee;
+}
+
 html,
 body {
   height: 100%;
@@ -22,16 +26,36 @@ body.dark-mode{
 	color: #fff;
 }
 
+body.dark-mode li.list-group-item>a{
+  color: #3b85ff;
+}
+body:not(.dark-mode) li.list-group-item>a{
+  color: #0072ed;
+}
+
 body.dark-mode li.list-group-item,
 body.dark-mode .card{
 	background: #222;
+}
+
+body.dark-mode .jumbotron{
+  background-color: #222;
+}
+
+body.dark-mode .dollar{
+  color: lightgreen;
+}
+
+body.dark-mode .text-secondary>span{
+  color: lightyellow;
 }
 
 body.dark-mode .card-header{
 	background: #333;
 }
 
-body.dark-mode tr.clickable-row>td{
+body.dark-mode tr.clickable-row>td,
+body.dark-mode input:disabled::placeholder{
 	color: #eee;
 }
 
