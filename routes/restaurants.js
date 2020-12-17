@@ -54,11 +54,11 @@ router.get('/new', async (req, res) => {
 
 // Route to create a restaurant
 router.post('/new', async (req, res) => {
-    const newName = xss(req.body.name);
-    const newAddress = xss(req.body.address);
+    let newName = xss(req.body.name);
+    let newAddress = xss(req.body.address);
     let newCuisine = xss(req.body.cuisine);
-    const newCuisineInput = xss(req.body.cuisineInput);
-    const newLink = xss(req.body.link);
+    let newCuisineInput = xss(req.body.cuisineInput);
+    let newLink = xss(req.body.link);
     let otherOption = 'Other';
 
     if (newCuisine === otherOption) newCuisine = newCuisineInput;
@@ -69,11 +69,9 @@ router.post('/new', async (req, res) => {
     if (!verify.validString(newCuisine)) errors.push('Invalid cuisine.');
     if (newLink && !verify.validLink(newLink)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant.');
 
-    
     const allRestaurants = await restaurantData.getAllRestaurants();
-
     for (let x of allRestaurants) {
-        if (x.address === newAddress) errors.push('A restaurant with this address already exists.');
+        if (x.address.toLowerCase() === newAddress.toLowerCase()) errors.push('A restaurant with this address already exists.');
     }
 
     // Do not submit if there are errors in the form

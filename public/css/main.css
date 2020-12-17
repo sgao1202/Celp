@@ -182,8 +182,12 @@ input:checked + .slider:before {
   fill: rgb(255, 82, 61);
 }
 
-.star, .dollar {
-  color:#c74a00;
+.star {
+  color:rgb(255, 82, 61);
+}
+
+.dollar {
+  color: #767676;
 }
 
 .report-text{
@@ -202,4 +206,8 @@ input:checked + .slider:before {
 
 li.borderless{
   border: none;
+}
+
+a:hover {
+  text-decoration: none;
 }
