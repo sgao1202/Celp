@@ -123,7 +123,7 @@ router.post('/comment/new', async (req, res) => {
         // Get user info
         let {username, age, firstName, lastName} = await userData.getUserById(userId);
         let commentLayout = {
-            username: username,
+            name: firstName + ' ' + lastName,
             text: comment.text
         };
         res.render('partials/comment_item', { layout: null, ...commentLayout});
