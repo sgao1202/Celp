@@ -19,6 +19,7 @@
             }else{
                 button.closest('li').remove();
             }
+            $('#numReviews').text(responseMessage.numReviews);
         });
     }));
 })(jQuery);

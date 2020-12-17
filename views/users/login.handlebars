@@ -1,5 +1,5 @@
 <div class="container col-3 mt-3 text-center">
-    <img src="../../public/images/celp2.png" class="fluid-image mb-3" width="128" height="128"alt="company-image">
+    <img src="../../public/images/celp2.png" class="fluid-image mb-3" width="128" height="128" alt="company-image">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     <form method="POST" action="/users/login" id="login-form" onsubmit="submitButton.disabled = true; return true">
         <label class="sr-only" for="username">Username</label>
@@ -7,8 +7,11 @@
         <label class="sr-only" for="password">Password</label>
         <input class="form-control mb-4 rounded-0" type="password" id="password" name="password" placeholder="Password">
         <div class="invalid-feedback mb-3">
-            Username and/or passsword does not match
+            Username and/or passsword cannot be empty
         </div>
         <button type="submit" name="submitButton" id="submitButton" class="btn btn-primary w-100">Sign In</button>
+        {{#each errors}}
+            <div class = "error font-italic" id="errors">{{this}}</div>
+        {{/each}}
     </form>
 </div>

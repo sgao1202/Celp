@@ -71,6 +71,7 @@ router.get('/', async (req, res) => {
     }
     return res.render('statistics/statistics', {
         partial: 'statistics-script',
+        title: 'Site Statistics',
         authenticated: req.session.user? true : false,
         user: req.session.user,
         safest: safest,

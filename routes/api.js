@@ -21,7 +21,8 @@ router.post('/delete/:id', async function (req,res){
 
     res.status(200).json({
         success: true,
-        empty: empty
+        empty: empty,
+        numReviews: reviewList.length
     });
 })
 
@@ -104,11 +105,11 @@ router.post('/comment/new', async (req, res) => {
     let reviewId = xss(req.body.reviewId.trim());
     let text = xss(req.body.text.trim());
 
-    if (!req.session.user) errors.push('Must log in to comment');
+    if (!req.session.user) errors.push('Must log in to comment.');
     let userId = req.session.user._id;
-    if (!verifier.validString(reviewId)) errors.push('Invalid comment reviewId');
-    if (!verifier.validString(userId)) errors.push('Invalid comment userId');
-    if (!verifier.validString(text)) errors.push('Invalid comment textt');
+    if (!verifier.validString(reviewId)) errors.push('Invalid comment review id.');
+    if (!verifier.validString(userId)) errors.push('Invalid comment user id.');
+    if (!verifier.validString(text)) errors.push('Invalid comment text.');
 
     if (errors.length > 0) {
         res.status(500).json({
@@ -123,7 +124,7 @@ router.post('/comment/new', async (req, res) => {
         // Get user info
         let {username, age, firstName, lastName} = await userData.getUserById(userId);
         let commentLayout = {
-            username: username,
+            name: firstName + ' ' + lastName,
             text: comment.text
         };
         res.render('partials/comment_item', { layout: null, ...commentLayout});
