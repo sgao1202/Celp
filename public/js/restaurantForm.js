@@ -17,7 +17,7 @@
     let cuisineInputDiv = $('#cuisine-input-div');
     let linkInput = $('#restaurant-link-input');
     let btn = $('#submitButton');
-    let errors = $('#errors');
+    let errors = $('.error');
     cuisineInputDiv.hide();
 
     let otherOption = 'Other';

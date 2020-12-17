@@ -33,7 +33,7 @@
         event.preventDefault();
 
         btn.prop('disabled', true);
-        $('#errors').hide();
+        $('.error').hide();
 
         hasErrors = false;
         ratingInput.removeClass('is-valid is-invalid');

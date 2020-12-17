@@ -3,7 +3,7 @@
     let usernameInput = $('#username');
     let passwordInput = $('#password');
     let submitButton = $('#submitButton');
-    let errors = $('#errors');
+    let errors = $('.error');
 
     loginForm.submit((event) => {
         event.preventDefault();
