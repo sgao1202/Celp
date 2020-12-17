@@ -55,7 +55,6 @@
         var revId = btn.data('rid');
         var userId = btn.data('uid');
         var restId = btn.data('restid');
-        var running = false;
         if (userId){
             var requestConfig = {
                 method : "POST",
