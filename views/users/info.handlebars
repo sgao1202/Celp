@@ -82,12 +82,12 @@
                 </div>
                 <div class="container">
                     <div class="container">
-                        <span class="font-weight-bold">Your Total Favorited Restaurants:</span>
-                        <span class="text-right">{{favRestaurants.length}}</span>
+                        <span class="font-weight-bold">Number of Favorited Restaurants:</span>
+                        <span id="numFav" class="text-right">{{favRestaurants.length}}</span>
                     </div>
                     <div class="container">
-                        <span class="font-weight-bold">Your Total Reviews:</span>
-                        <span class="text-right">{{reviews.length}}</span>
+                        <span class="font-weight-bold">Number of Reviews:</span>
+                        <span id="numReviews" class="text-right">{{reviews.length}}</span>
                     </div>
                 </div>
             </div>
@@ -101,8 +101,8 @@
                 </div>
                 <div class="container">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
                         {{#each reviews}}
+                        <li class="list-group-item borderless">
                             <div class="card container mb-5">
                                 <div class="card-header row">
                                     <div class="col mt-2">
@@ -117,7 +117,7 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title text-truncate" id="reviewLabel">"{{this.review.reviewText}}"</h4>
+                                                    <h3 class="modal-title text-truncate" id="reviewLabel">"{{this.review.reviewText}}"</h4>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -218,8 +218,8 @@
                                     </div>   
                                 </div>
                             </div>
-                        {{/each}}
                         </li>
+                        {{/each}}
                     </ul>
                 </div>
             </div>
