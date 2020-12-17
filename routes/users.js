@@ -48,8 +48,8 @@ router.post('/login', async (req, res) => {
 
     errors = [];
 
-    if (!verifier.validString(username)) errors.push('Invalid username');
-    if (!verifier.validString(password)) errors.push('Invalid password');
+    if (!verifier.validString(username)) errors.push('Invalid username.');
+    if (!verifier.validString(password)) errors.push('Invalid password.');
 
     /*
         Why not create a function in users to query by username since each username should be unique?
@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
         }
     }
 
-    if (!myUser) errors.push("Username or password does not match");
+    if (!myUser) errors.push("Username or password does not match.");
 
     if (errors.length > 0) {
         return res.status(401).render('users/login',
@@ -84,15 +84,17 @@ router.post('/login', async (req, res) => {
         } 
         res.redirect('/');
     } else {
+        errors.push("Username or password does not match");
         return res.status(401).render('users/login', 
         {   title: "Login",
             partial: "login-script",
-            errors: ["Username or password does not match"]
+            errors: errors
         });
     }
 });
 
 router.post('/signup', async(req, res) => {
+    console.log('route');
     const firstName = xss(req.body.firstName);
     const lastName = xss(req.body.lastName);
     const username = xss(req.body.username);
@@ -102,12 +104,12 @@ router.post('/signup', async(req, res) => {
 
     errors = [];
 
-    if (!verifier.validString(firstName)) errors.push('Invalid first name');
-    if (!verifier.validString(lastName)) errors.push('Invalid last name');
-    if (!verifier.validString(username)) errors.push('Invalid username');
-    if (!verifier.validString(password)) errors.push('Invalid password');
-    if (!verifier.validEmail(email)) errors.push('Invalid email');
-    if (!verifier.validAge(age)) errors.push('Invalid age');
+    if (!verifier.validString(firstName)) errors.push('Invalid first name.');
+    if (!verifier.validString(lastName)) errors.push('Invalid last name.');
+    if (!verifier.validString(username)) errors.push('Invalid username.');
+    if (!verifier.validString(password)) errors.push('Invalid password.');
+    if (!verifier.validEmail(email)) errors.push('Invalid email.');
+    if (!verifier.validAge(age)) errors.push('Invalid age.');
 
     if (errors.length > 0) {
         return res.status(401).render('users/signup',{
@@ -123,11 +125,12 @@ router.post('/signup', async(req, res) => {
         req.session.user = user;
         res.redirect("/restaurants");
     } catch(e){
+        errors.push(e);
         return res.status(401).render('users/signup',{
             authenticated: false,
             title: "Signup",
             partial: "signup-script",
-            errors: [e]
+            errors: errors
         });
     }
     

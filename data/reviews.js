@@ -6,23 +6,23 @@ let { ObjectId } = require('mongodb');
 
 module.exports = {
 	async getReviewById(reviewId) {
-        if (!verify.validString(reviewId)) throw 'reviewId is not a valid string.';
+        if (!verify.validString(reviewId)) throw 'Review id is not a valid string.';
 
         let parsedId = ObjectId(reviewId);
     
         const reviewCollection = await reviews();
         let review = await reviewCollection.findOne({ _id: parsedId });
-        if (review === null) throw 'No review with that id';
+        if (review === null) throw 'No review with that id.';
         review._id = review._id.toString();
 
         return review;
     },
 
     async createReview(reviewerId, restaurantId, reviewText, metrics){
-    	if (!verify.validString(reviewerId))   throw 'reviewerId is not a valid string.';
-        if (!verify.validString(restaurantId)) throw 'restaurantId is not a valid string.';
-        if (!verify.validString(reviewText))   throw 'reviewText is not a valid string.';
-        if (!verify.validMetrics(metrics))     throw 'metrics is not valid';
+    	if (!verify.validString(reviewerId))   throw 'Reviewer id is not a valid string.';
+        if (!verify.validString(restaurantId)) throw 'Restaurant id is not a valid string.';
+        if (!verify.validString(reviewText))   throw 'Review text is not a valid string.';
+        if (!verify.validMetrics(metrics))     throw 'Metrics is not valid.';
 
         let newReview = {
         	reviewerId: reviewerId,
@@ -38,7 +38,7 @@ module.exports = {
         
         const reviewCollection = await reviews();
         const insertInfo = await reviewCollection.insertOne(newReview);
-        if (insertInfo.insertedCount === 0) throw 'Could not add review';
+        if (insertInfo.insertedCount === 0) throw 'Could not add review.';
     
         const newId = insertInfo.insertedId;
 
@@ -90,15 +90,15 @@ module.exports = {
     },*/
 
     async updateReviewLike(reviewId, userId, isLike){
-    	if (!verify.validString(reviewId)) throw 'id is not a valid string.';
-    	if (!verify.validString(userId)) throw 'cid is not a valid string.';
+    	if (!verify.validString(reviewId)) throw 'Id is not a valid string.';
+    	if (!verify.validString(userId)) throw 'User id is not a valid string.';
         
         const objReviewId = ObjectId(reviewId);
         const uid = ObjectId(userId)
 
 	    const reviewCollection = await reviews();
     	let review = await reviewCollection.findOne({ _id: objReviewId });
-        if (review === null) throw 'No review with that id';
+        if (review === null) throw 'No review with that id.';
 
         if (isLike == null) {
             await reviewCollection.updateOne({_id: objReviewId},{$pull: {likes: userId}});
@@ -120,15 +120,15 @@ module.exports = {
     },
 
     async updateReviewReport(reviewId, userId){
-        if (!verify.validString(reviewId)) throw 'id is not a valid string.';
-    	if (!verify.validString(userId)) throw 'cid is not a valid string.';
+        if (!verify.validString(reviewId)) throw 'Review id is not a valid string.';
+    	if (!verify.validString(userId)) throw 'User id is not a valid string.';
         
         const objReviewId = ObjectId(reviewId);
         const uid = ObjectId(userId)
 
         const reviewCollection = await reviews();
     	let review = await reviewCollection.findOne({ _id: objReviewId });
-        if (review === null) throw 'No review with that id';
+        if (review === null) throw 'No review with that id.';
         
         const myRev = await this.getReviewById(reviewId);
         if (myRev.reported.includes(userId)){
@@ -149,7 +149,7 @@ module.exports = {
 
     },
     async deleteReview(reviewId){
-    	if (!verify.validString(reviewId)) throw 'reviewId is not a valid string.';
+    	if (!verify.validString(reviewId)) throw 'Review id is not a valid string.';
 
         /* Remove all comments on this review */
         let commentList = comments.getAllCommentsOfReview(reviewId);
@@ -166,13 +166,13 @@ module.exports = {
         /* delete review from DB */
         const reviewCollection = await reviews();
         const deletionInfo = await reviewCollection.deleteOne({ _id: ObjectId(reviewId) });
-        if (deletionInfo.deletedCount === 0) throw `Could not delete review with id of ${reviewId}`;
+        if (deletionInfo.deletedCount === 0) throw `Could not delete review with id of ${reviewId}.`;
 
         return review; 
     },
 
     async getAllReviewsOfUser(reviewerId) {
-        if (!verify.validString(reviewerId)) throw 'reviewerId is not a valid string.';
+        if (!verify.validString(reviewerId)) throw 'Reviewer id is not a valid string.';
 
         const reviewCollection = await reviews();
         const reviewList = await reviewCollection.find({'reviewerId': { $eq: reviewerId}}).toArray();
@@ -184,7 +184,7 @@ module.exports = {
     },
 
     async getAllReviewsOfRestaurant(restaurantId) {
-        if (!verify.validString(restaurantId)) throw 'restaurantId is not a valid string.';
+        if (!verify.validString(restaurantId)) throw 'Restaurant id is not a valid string.';
 
         const reviewCollection = await reviews();
         const reviewList = await reviewCollection.find({'restaurantId': { $eq: restaurantId}}).toArray();

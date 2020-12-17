@@ -21,7 +21,7 @@ router.get('/writeareview/:id', async (req, res) => {
     let errors = [];
     let restaurantId = req.params.id.trim();
     if (!verifier.validString(restaurantId)) {
-        errors.push("No id was provided to 'restaurants/writeareview/:id' route");
+        errors.push("No id was provided to 'restaurants/writeareview/:id' route.");
         res.render('errors/error', {
             errors: errors,
             partial: 'errors-script'
@@ -49,7 +49,7 @@ router.get('/writeareview/:id', async (req, res) => {
 router.post('/writeareview/:id', async (req, res) => {
     // Validate input in this route before sending to server
     let restaurantId = xss(req.params.id.trim());
-    if (!verifier.validString(restaurantId)) res.render('errors/errror', {errorMessage: "Invalid restaurant id"});
+    if (!verifier.validString(restaurantId)) res.render('errors/errror', {errorMessage: "Invalid restaurant id."});
 
     // Everything in req.body is a string
     const newRating = parseInt(xss(req.body.reviewRating));
@@ -72,9 +72,9 @@ router.post('/writeareview/:id', async (req, res) => {
     // Route-side input validation
     let errors = [];
     if (!req.session.user) errors.push('User is not logged in!');
-    if (!verifier.validRating(newMetrics.rating)) errors.push('Invalid review rating');
-    if (!verifier.validRating(newMetrics.price)) errors.push('Invalid review price');
-    if (!verifier.validString(newReviewText)) errors.push('Invalid review text');
+    if (!verifier.validRating(newMetrics.rating)) errors.push('Invalid review rating.');
+    if (!verifier.validRating(newMetrics.price)) errors.push('Invalid review price.');
+    if (!verifier.validString(newReviewText)) errors.push('Invalid review text.');
 
     if (errors.length > 0) {
         res.render('errors/error', {
