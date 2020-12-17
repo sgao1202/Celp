@@ -7,6 +7,10 @@ body.dark-mode{
 	color: #eee;
 }
 
+body.dark-mode li.list-group-item>a{
+  color: #3b85ff;
+}
+
 body.dark-mode li.list-group-item,
 body.dark-mode .card{
 	background: #222;
