@@ -66,16 +66,16 @@ router.post('/new', async (req, res) => {
     if (newCuisine === otherOption) newCuisine = newCuisineInput;
 
     let errors = [];
-    if (!verify.validString(newName)) errors.push('Invalid restaurant name');
-    if (!verify.validString(newAddress)) errors.push('Invalid restaurat address');
-    if (!verify.validString(newCuisine)) errors.push('Invalid cuisine');
-    if (newLink && !verify.validLink(newLink)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant');
+    if (!verify.validString(newName)) errors.push('Invalid restaurant name.');
+    if (!verify.validString(newAddress)) errors.push('Invalid restaurat address.');
+    if (!verify.validString(newCuisine)) errors.push('Invalid cuisine.');
+    if (newLink && !verify.validLink(newLink)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant.');
 
     
     const allRestaurants = await restaurantData.getAllRestaurants();
 
     for (let x of allRestaurants) {
-        if (x.address === newAddress) errors.push('A restaurant with this address already exists');
+        if (x.address === newAddress) errors.push('A restaurant with this address already exists.');
     }
 
     // Do not submit if there are errors in the form
@@ -101,7 +101,7 @@ router.post('/new', async (req, res) => {
 // Search for a specific restaurant
 router.get('/:id', async (req, res) => {
     let id = req.params.id.trim();
-    if (!id) return res.render('errors/error', {errorMessage: 'Id was not provided in route'});
+    if (!id) return res.render('errors/error', {errorMessage: 'Id was not provided in route.'});
     
     try {
         const restaurant = await restaurantData.getRestaurantById(id);

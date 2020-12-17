@@ -32,12 +32,12 @@ module.exports = {
 
     // Returns: a singular document (JSON) from the database
     async getRestaurantById(id) {
-        if (!verify.validString(id)) throw 'Restuarant Id must be a valid string';
+        if (!verify.validString(id)) throw 'Restuarant id must be a valid string.';
         let objId = ObjectId(id.trim());
         const restaurantCollection = await restaurants();
 
         const restaurant = await restaurantCollection.findOne({_id: objId});
-        if (!restaurant) throw `No restaurant found with id=${id}`;
+        if (!restaurant) throw `No restaurant found with id=${id}.`;
 
         // Convert _id field to string before returning
         return verify.convertId(restaurant);
@@ -48,9 +48,9 @@ module.exports = {
         The rest of the fields will be initialized upon creation, but updated later on with additional data.
     */
     async createRestaurant(name, address, cuisine, link) {
-        if (!verify.validString(name))    throw 'Restaurant name must be a valid string';
-        if (!verify.validString(address)) throw 'Restaurant adddress must be a valid string';
-        if (!verify.validString(cuisine)) throw 'Restaurant cuisine must be a valid string';
+        if (!verify.validString(name))    throw 'Restaurant name must be a valid string.';
+        if (!verify.validString(address)) throw 'Restaurant address must be a valid string.';
+        if (!verify.validString(cuisine)) throw 'Restaurant cuisine must be a valid string.';
         if (link && !verify.validLink(link)) throw 'Restaurant external link must be a valid yelp link.';
 
         const restaurantCollection = await restaurants();
@@ -70,16 +70,16 @@ module.exports = {
             newRestaurant.link=link.trim();
         }
         const insertInfo = await restaurantCollection.insertOne(newRestaurant);
-        if (insertInfo.insertedCount === 0) throw 'Could not add restaurant to database';
+        if (insertInfo.insertedCount === 0) throw 'Could not add restaurant to database.';
         const id = insertInfo.insertedId.toString();
 
         return await this.getRestaurantById(id);
     },
 
     async updateMetrics(restaurantId, metrics, toAdd) {
-        if (!verify.validBoolean(toAdd)) throw 'toAdd is not a boolean';
-        if (!verify.validMetrics(metrics)) throw 'invalid metrics';
-        if (!verify.validString(restaurantId)) throw 'restaurantId is not a valid string';
+        if (!verify.validBoolean(toAdd)) throw 'To add is not a boolean.';
+        if (!verify.validMetrics(metrics)) throw 'Invalid metrics.';
+        if (!verify.validString(restaurantId)) throw 'Restaurant id is not a valid string.';
         
         let updatedMetrics = {};
         let currentRestaurant = (await this.getRestaurantById(restaurantId)); 
@@ -96,7 +96,7 @@ module.exports = {
             }
 
             const updatedInfo = await restaurantCollection.updateOne({_id: ObjectId(restaurantId)}, {$set: updatedMetrics});
-            if (updatedInfo.modifiedCount === 0) throw 'could not update movie successfully';
+            if (updatedInfo.modifiedCount === 0) throw 'Could not update restaurant successfully.';
         } else {
             updatedMetrics = {
                 rating:          currentRestaurant.rating - metrics.rating,
@@ -108,7 +108,7 @@ module.exports = {
             }
 
             const updatedInfo = await restaurantCollection.updateOne({_id: ObjectId(restaurantId)}, {$set: updatedMetrics});
-            if (updatedInfo.modifiedCount === 0) throw 'could not update movie successfully';
+            if (updatedInfo.modifiedCount === 0) throw 'Could not update restaurant successfully.';
         }
 
         return true;

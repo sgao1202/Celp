@@ -19,7 +19,7 @@
 
     signupForm.submit((event) => {
         event.preventDefault();
-
+        hasErrors = false;
         $('.error').hide();
 
         firstNameInput.removeClass('is-invalid is-valid');
