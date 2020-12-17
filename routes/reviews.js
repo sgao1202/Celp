@@ -17,12 +17,12 @@ router.get('/writeareview/:id', async (req, res) => {
     }
 
     // Clear the previousRoute in req.session if it exists
-    // if (req.session.previousRoute) req.session.previousRoute = '';
     let errors = [];
     let restaurantId = req.params.id.trim();
     if (!verifier.validString(restaurantId)) {
         errors.push("No id was provided to 'restaurants/writeareview/:id' route.");
         res.render('errors/error', {
+            title: 'Errors',
             errors: errors,
             partial: 'errors-script'
         });
@@ -32,6 +32,7 @@ router.get('/writeareview/:id', async (req, res) => {
         const restaurant = await restaurantData.getRestaurantById(restaurantId);
         res.render('reviews/create', {
             partial: 'write-a-review-script',
+            title: 'Write a Review',
             authenticated: req.session.user? true : false,
             user : req.session.user,
             restaurant: restaurant
@@ -39,6 +40,7 @@ router.get('/writeareview/:id', async (req, res) => {
     } catch (e) {
         errors.push(e)
         res.status(500).render('errors/error', {
+            title: 'Errors',
             errors: errors,
             partial: 'errors-script'
         });
@@ -78,6 +80,7 @@ router.post('/writeareview/:id', async (req, res) => {
 
     if (errors.length > 0) {
         res.render('errors/error', {
+            title: 'Write a Review',
             errors: errors,
             partial: 'errors-script'
         });

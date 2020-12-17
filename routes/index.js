@@ -12,7 +12,9 @@ const constructorMethod = (app) => {
         return res.render('landing/landing', {
             authenticated: req.session.user ? true : false,
             user: req.session.user,
-            partial: 'landing-script'});
+            partial: 'landing-script',
+            title: 'Home'
+        });
     });
     app.use('/api', apiRoutes);
     app.use('/private', privateRoutes);

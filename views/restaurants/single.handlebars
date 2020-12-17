@@ -36,10 +36,8 @@
                         <a href="/reviews/writeareview/{{restaurant._id}}" class="btn btn-primary">Write a Review</a>
                     </div>
                 </div>
-                {{!-- All reviews for the restaurant --}}
                 <ul class="list-group list-group-flush">
                     {{#each reviews}}
-                    {{!-- Each review is a list item --}}
                     <li class="list-group-item mb-4">
                         <div class="container">
                             <div class="row">
@@ -125,7 +123,6 @@
                                     </span>
                                 </p>
                             </div>
-                            <!-- likes/dislikes and reporting-->
                             <div class = "dblclick container">
                                 {{#if (checkListMem ../user._id this.likes)}}
                                 <i class = "likebtn fa fa-thumbs-up filled" data-rid = "{{this.id}}" data-uid = "{{../user._id}}"></i>
@@ -155,14 +152,11 @@
                                     
                                     {{/if}}
                                 </div>
-                                <!-- error div -->
                                 <div hidden = "true" class = "error font-italic"></div>
-                                <!-- msg div -->
                                 <div class="msg alert alert-success" role="alert" hidden = "true"></div>
                             </div>
                             
                         </div>
-                        {{!-- Commment Section --}}
                         <div class="container mb-5">
                             <div class="card">
                                 <div class="card-header">
@@ -195,10 +189,8 @@
                 </ul>
             </div>
         </div>
-        {{!-- {{#if reviews}} --}}
         <div class="col col-5 mt-5 ml-3">
             <div class="container p-3 border border-light rounded shadow-sm mb-5">
-                {{!-- Header for COVID-19 Metrics --}}
                 <div class="row ml-3">
                     <h3 class="font-weight-bold">COVID-19 Safety Measures</h3>
                 </div>
@@ -358,6 +350,5 @@
                 <div id="map" class="container"></div>
             </div>
         </div>
-        {{!-- {{/if}} --}}
     </div>
 </div>

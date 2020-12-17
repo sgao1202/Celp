@@ -34,6 +34,7 @@ router.get('/', async (req, res) => {
     return res.render('restaurants/list', { 
         authenticated: req.session.user ? true : false,
         user: req.session.user,
+            title: 'All Restaurants',
             partial: 'restaurants-list-script', 
             restaurants: restaurants
     });
@@ -48,6 +49,7 @@ router.get('/new', async (req, res) => {
     // Select options for cuisine type
     return res.render('restaurants/new', { 
             cuisines: cuisineTypes,
+            title: 'New Restaurant',
             authenticated: req.session.user? true : false,
             user: req.session.user,
             partial: 'restaurants-form-script'
@@ -82,6 +84,7 @@ router.post('/new', async (req, res) => {
     if (errors.length > 0) {
         return res.render('restaurants/new', {
             cuisines: cuisineTypes,
+            title: 'New Restaurant',
             partial: 'restaurants-form-script',
             authenticated: req.session.user ? true : false,
             user: req.session.user,
@@ -101,7 +104,10 @@ router.post('/new', async (req, res) => {
 // Search for a specific restaurant
 router.get('/:id', async (req, res) => {
     let id = req.params.id.trim();
-    if (!id) return res.render('errors/error', {errorMessage: 'Id was not provided in route.'});
+    if (!id) return res.render('errors/error', {
+        title: 'Errors',
+        errorMessage: 'Id was not provided in route.'
+    });
     
     try {
         const restaurant = await restaurantData.getRestaurantById(id);
@@ -181,6 +187,7 @@ router.get('/:id', async (req, res) => {
 
         res.render('restaurants/single', {
             partial: 'restaurants-single-script',
+            title: `${restaurant.name}`,
             authenticated: req.session.user ? true : false,
             user: req.session.user,
             restaurant: restaurant,
@@ -188,7 +195,10 @@ router.get('/:id', async (req, res) => {
             photos: photos
         });
     } catch(e) {
-        res.status(500).render('errors/error', {errorMessage: e});
+        res.status(500).render('errors/error', {
+            title: 'Errors',
+            errorMessage: e
+        });
     }
 });
 

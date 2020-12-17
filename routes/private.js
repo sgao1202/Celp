@@ -45,6 +45,7 @@ router.get('/', async(req, res) =>{
     return res.render('users/info', {
         authenticated: true,
         partial: 'user-info-script',
+        title: 'Your Profile',
         user: userData,
         favRestaurants: favRestaurants,
         reviews: reviewRest

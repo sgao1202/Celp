@@ -22,6 +22,7 @@ router.get('/login', async (req, res) => {
         res.redirect('/private');
     } else{
         res.render('users/login', {
+            title: 'Log In',
             authenticated: false,
             partial: 'login-script'
         });
@@ -34,6 +35,7 @@ router.get('/signup', async (req, res) => {
         res.redirect('/private');
     } else{
         res.render('users/signup', {
+            title: 'Sign Up',
             authenticated: false,
             partial: 'signup-script'
         })
@@ -64,8 +66,8 @@ router.post('/login', async (req, res) => {
     if (!myUser) errors.push("Username or password does not match.");
 
     if (errors.length > 0) {
-        return res.status(401).render('users/login',
-            {title: "Login",
+        return res.status(401).render('users/login',{
+            title: "Log In",
             partial: "login-script",
             errors: errors
         });
@@ -85,8 +87,8 @@ router.post('/login', async (req, res) => {
         res.redirect('/');
     } else {
         errors.push("Username or password does not match");
-        return res.status(401).render('users/login', 
-        {   title: "Login",
+        return res.status(401).render('users/login', {   
+            title: "Errors",
             partial: "login-script",
             errors: errors
         });
@@ -94,7 +96,6 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/signup', async(req, res) => {
-    console.log('route');
     const firstName = xss(req.body.firstName);
     const lastName = xss(req.body.lastName);
     const username = xss(req.body.username);
@@ -103,7 +104,6 @@ router.post('/signup', async(req, res) => {
     let age = parseInt(xss(req.body.age));
 
     errors = [];
-
     if (!verifier.validString(firstName)) errors.push('Invalid first name.');
     if (!verifier.validString(lastName)) errors.push('Invalid last name.');
     if (!verifier.validString(username)) errors.push('Invalid username.');
@@ -114,7 +114,7 @@ router.post('/signup', async(req, res) => {
     if (errors.length > 0) {
         return res.status(401).render('users/signup',{
             authenticated: false,
-            title: "Signup",
+            title: "Sign Up",
             partial: "signup-script",
             errors: errors
         });
@@ -124,16 +124,15 @@ router.post('/signup', async(req, res) => {
         const user = await userData.createUser(firstName, lastName, email, username, age, password);
         req.session.user = user;
         res.redirect("/restaurants");
-    } catch(e){
+    } catch(e) {
         errors.push(e);
         return res.status(401).render('users/signup',{
             authenticated: false,
-            title: "Signup",
+            title: "Sign Up",
             partial: "signup-script",
             errors: errors
         });
     }
-    
 });
 
 router.get('/logout', async(req,res) =>{
