@@ -112,7 +112,7 @@
                 var reportText = $('.report-text').first().text();
                 $('.report-text').text(reportText == "Report" ? "Unreport": "Report")
 
-                var msg = $('#msg');
+                var msg = btn.closest('.container').find('.msg');
                 if (btn.hasClass('btn-danger')){
                     msg.text("Thank you, your review has been submitted!");
                 }
