@@ -58,7 +58,7 @@ router.post('/login', async (req, res) => {
         return res.status(401).render('users/login',
             {title: "Login",
             partial: "login-script",
-            error: "Username or password does not match"
+            errors: ["Username or password does not match"]
         });
     }
     let match = await bcrypt.compare(password, myUser.hashedPassword);

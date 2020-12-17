@@ -51,4 +51,11 @@
         </div>
         <button class="btn btn-primary" type="submit" name="submitButton" id="submitButton">Create an account</button>
     </form>
+    <ul id="errors">
+        {{#each errors}}
+            <li class="list-group-item" >
+                {{this}}
+            </li>
+        {{/each}}
+    </ul>
 </div>

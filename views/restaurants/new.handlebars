@@ -51,4 +51,11 @@
             {{/each}}
         {{/if}}
     </form>
+    <ul id="errors">
+        {{#each errors}}
+            <li class="list-group-item" >
+                {{this}}
+            </li>
+        {{/each}}
+    </ul>
 </div>

@@ -11,4 +11,11 @@
         </div>
         <button type="submit" name="submitButton" id="submitButton" class="btn btn-primary w-100">Sign In</button>
     </form>
+    <ul id="errors">
+        {{#each errors}}
+            <li class="list-group-item" >
+                {{this}}
+            </li>
+        {{/each}}
+    </ul>
 </div>
