@@ -93,6 +93,10 @@ body {
   color:#c74a00;
 }
 
+.report-text{
+  margin: 5px;
+}
+
 #restLink{
   font-size: 20px;
 }
