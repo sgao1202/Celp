@@ -8,7 +8,7 @@ const commentData = data.comments;
 const userData = data.users;
 const verify = require('../data/verify');
 const xss = require('xss');
-const apiKey = 'tWaKVqK2ktyz9c0V5G219_tqPdsQxkuNnt6RYpLXqf-TLZN9mQMBmpDZspWi7IUtvxHSghav2WgdYaCz-viZDUO19uPSJCLK-6ToPnfJWDMj1_-fELadhOJ8mqPSX3Yx';
+const apiKey = 'yelpAPIKey';
 
 let cuisineTypes = ['American', 'Breakfast', 'Brunch', 'Chinese', 'Fast Food', 'Italian',
     'Mexican', 'Thai', 'Korean', 'Middle-Eastern', 'Indian', 'Soul Food',
