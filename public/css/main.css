@@ -1,3 +1,7 @@
+.btn-primary{
+  background-color:#0072ee;
+}
+
 html,
 body {
   height: 100%;
@@ -11,6 +15,119 @@ body {
 
 #map {
   height: 90%;
+}
+
+body {
+	background: #fff;
+}
+
+body.dark-mode{
+	background: #111;
+	color: #fff;
+}
+
+body.dark-mode li.list-group-item>a{
+  color: #3b85ff;
+}
+body:not(.dark-mode) li.list-group-item>a{
+  color: #0072ed;
+}
+
+body.dark-mode li.list-group-item,
+body.dark-mode .card{
+	background: #222;
+}
+
+body.dark-mode .jumbotron{
+  background-color: #222;
+}
+
+body.dark-mode .dollar{
+  color: lightgreen;
+}
+
+body.dark-mode .text-secondary>span{
+  color: lightyellow;
+}
+
+body.dark-mode .card-header{
+	background: #333;
+}
+
+body.dark-mode tr.clickable-row>td,
+body.dark-mode input:disabled::placeholder{
+	color: #eee;
+}
+
+body.dark-mode .form-control{
+	background: #020202;
+	color: #fff;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: fixed;
+  bottom: 20px;
+  left: 30px;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #444;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #ccc;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #ccc;
+}
+
+input:checked + .slider:before {
+  background-color: #222;
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 .btnContainer{
@@ -33,8 +150,8 @@ body {
   position: realtive;
 }
 
-.error.font-italic{
-  color: red;
+.error{
+  color: #ee0000;
 }
 
 .fa.fa-thumbs-up{
@@ -89,22 +206,32 @@ body {
   fill: rgb(255, 82, 61);
 }
 
-.star, .dollar {
-  color: #f15c00;
+.star {
+  color:rgb(255, 82, 61);
 }
 
-#restAdd{
-  font-size: 30px;
+.dollar {
+  color: #767676;
 }
 
-#restCui{
-  font-size: 27px;
+.report-text{
+  margin: 5px;
 }
 
 #restLink{
   font-size: 20px;
 }
 
+.carousel-item img {
+  height: 300px;
+  width: 400px;
+  object-fit: cover;
+}
+
 li.borderless{
   border: none;
+}
+
+a:hover {
+  text-decoration: none;
 }

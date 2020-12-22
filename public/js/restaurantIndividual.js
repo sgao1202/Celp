@@ -23,6 +23,10 @@
         error.removeAttr('hidden');
     }
 
+    // Attach 'active' class to first carousel item to show the carousel
+    let firstItem = $('.carousel-item')[0];
+    $(firstItem).addClass('active');
+
     // 'Google Maps API Integration'
     let map;
     let geocoder;
@@ -37,8 +41,6 @@
         geocoder = new google.maps.Geocoder();
         let address = $('#address').html() + ' Hoboken, NJ 07030';
         geocoder.geocode({'address': address}, (results, status) => {
-            console.log(results);
-            console.log(status);
             if (status == 'OK') {
                 // Display map of the restaurant with a marker
                 map.setCenter(results[0].geometry.location);
@@ -107,10 +109,10 @@
                 }
 
                 //toggle icon color and text
-                var reportText = $('.report-text').first().text();
-                $('.report-text').text(reportText == "Report" ? "Unreport": "Report")
+                var reportText = btn.children('.report-text');
+                reportText.text(reportText.text() == "Report" ? "Unreport": "Report")
 
-                var msg = $('#msg');
+                var msg = btn.closest('.container').find('.msg');
                 if (btn.hasClass('btn-danger')){
                     msg.text("Thank you, your review has been submitted!");
                 }

@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
+const yelp = require('yelp-fusion');
 const restaurantData = data.restaurants;
 const reviewData = data.reviews;
 const commentData = data.comments;
 const userData = data.users;
 const verify = require('../data/verify');
 const xss = require('xss');
+const apiKey = 'yelpAPIKey';
 
-let cuisineTypes = ['American', 'Breakfast', 'Chinese', 'Fast Food', 'Italian',
+let cuisineTypes = ['American', 'Breakfast', 'Brunch', 'Chinese', 'Fast Food', 'Italian',
     'Mexican', 'Thai', 'Korean', 'Middle-Eastern', 'Indian', 'Soul Food',
     'French', 'Japanese', 'Vietnamese', 'Mediterranean', 'Cuban', 'Sichuan',
     'Greek', 'Halal','Other'
@@ -31,6 +33,7 @@ router.get('/', async (req, res) => {
     return res.render('restaurants/list', { 
         authenticated: req.session.user ? true : false,
         user: req.session.user,
+            title: 'All Restaurants',
             partial: 'restaurants-list-script', 
             restaurants: restaurants
     });
@@ -38,13 +41,10 @@ router.get('/', async (req, res) => {
 
 // Get create a restaurant page
 router.get('/new', async (req, res) => {
-    // if (!req.session.user) {
-    //     req.session.previousRoute = req.originalUrl;
-    //     return res.redirect('/users/login');
-    // }
     // Select options for cuisine type
     return res.render('restaurants/new', { 
             cuisines: cuisineTypes,
+            title: 'New Restaurant',
             authenticated: req.session.user? true : false,
             user: req.session.user,
             partial: 'restaurants-form-script'
@@ -53,32 +53,31 @@ router.get('/new', async (req, res) => {
 
 // Route to create a restaurant
 router.post('/new', async (req, res) => {
-    const newName = xss(req.body.name);
-    const newAddress = xss(req.body.address);
-    const newCuisine = xss(req.body.cuisine);
-    const newCuisineInput = xss(req.body.cuisineInput);
-    const newLink = xss(req.body.link);
+    let newName = xss(req.body.name);
+    let newAddress = xss(req.body.address);
+    let newCuisine = xss(req.body.cuisine);
+    let newCuisineInput = xss(req.body.cuisineInput);
+    let newLink = xss(req.body.link);
     let otherOption = 'Other';
 
     if (newCuisine === otherOption) newCuisine = newCuisineInput;
 
     let errors = [];
-    if (!verify.validString(newName)) errors.push('Invalid restaurant name');
-    if (!verify.validString(newAddress)) errors.push('Invalid restaurat address');
-    if (!verify.validString(newCuisine)) errors.push('Invalid cuisine');
-    if (newLink && !verify.validLink(newLink)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant');
+    if (!verify.validString(newName)) errors.push('Invalid restaurant name.');
+    if (!verify.validString(newAddress)) errors.push('Invalid restaurat address.');
+    if (!verify.validString(newCuisine)) errors.push('Invalid cuisine.');
+    if (newLink && !verify.validLink(newLink)) errors.push('Invalid yelp link. Link should be of the form :\n https://www.yelp.com/biz/name-of-the-restaurant.');
 
-    
     const allRestaurants = await restaurantData.getAllRestaurants();
-
     for (let x of allRestaurants) {
-        if (x.address === newAddress) errors.push('A restaurant with this address already exists');
+        if (x.address.toLowerCase() === newAddress.toLowerCase()) errors.push('A restaurant with this address already exists.');
     }
 
     // Do not submit if there are errors in the form
     if (errors.length > 0) {
         return res.render('restaurants/new', {
             cuisines: cuisineTypes,
+            title: 'New Restaurant',
             partial: 'restaurants-form-script',
             authenticated: req.session.user ? true : false,
             user: req.session.user,
@@ -98,7 +97,15 @@ router.post('/new', async (req, res) => {
 // Search for a specific restaurant
 router.get('/:id', async (req, res) => {
     let id = req.params.id.trim();
-    if (!id) return res.render('errors/error', {errorMessage: 'Id was not provided in route'});
+    let errors = [];
+    if (!verify.validString(id)) {
+        errors.push('Id of the restaurant must be provided')
+        return res.render('errors/error', {
+            title: 'Errors',
+            partial: 'errors-script',
+            errors: errors
+        });
+    }
     
     try {
         const restaurant = await restaurantData.getRestaurantById(id);
@@ -155,15 +162,43 @@ router.get('/:id', async (req, res) => {
         restaurant.noTouchPayment = ((restaurant.noTouchPayment / numReviews) * 100).toFixed(2);
         restaurant.outdoorSeating = ((restaurant.outdoorSeating / numReviews) * 100).toFixed(2);
 
+        // Get the restaurant's photos from calling Yelp API
+        const client = yelp.client(apiKey);
+        const matchRequest = {
+            name: restaurant.name,
+            address1: restaurant.address,
+            city: 'Hoboken',
+            state: 'NJ',
+            country: 'US'
+        };
+
+        const matchRes = await client.businessMatch(matchRequest);
+        const jsonRes = matchRes.jsonBody;
+        let results = jsonRes.businesses;
+        let result = results[0];
+        let photos = [];
+        if (results.length > 0) {
+            const businessRes = await client.business(result.id);
+            const jsonRes2 = businessRes.jsonBody;
+            photos = jsonRes2.photos;
+        }
+
         res.render('restaurants/single', {
             partial: 'restaurants-single-script',
+            title: `${restaurant.name}`,
             authenticated: req.session.user ? true : false,
             user: req.session.user,
             restaurant: restaurant,
-            reviews: reviews
+            reviews: reviews,
+            photos: photos
         });
-    } catch(e) {
-        res.status(500).render('errors/error', {errorMessage: e});
+    } catch(e) {   
+        errors.push(e);
+        res.status(500).render('errors/error', {
+            title: 'Errors',
+            partial: 'errors-script',
+            errors: errors
+        });
     }
 });
 

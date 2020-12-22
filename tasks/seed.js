@@ -19,10 +19,9 @@ async function main() {
     const chipotle       = await restaurants.createRestaurant("Chipotle",           '229 Washington St',  'Mexican', 'https://www.yelp.com/biz/chipotle-mexican-grill-hoboken');
     const brassRail      = await restaurants.createRestaurant("Brass Rail",         '135 Washington St',  'American','https://www.yelp.com/biz/the-brass-rail-hoboken-hoboken');
     const pizzaRepublic  = await restaurants.createRestaurant("Pizza Republic",     '406 Washington St',  'Italian', 'https://www.yelp.com/biz/pizza-republic-hoboken');
-    /*
     const vitosDeli      = await restaurants.createRestaurant("Vitos Deli",         '806 Washington St',  'Italian');
     const midtownPhilly  = await restaurants.createRestaurant("Midtown Philly",     '523 Washington St',  'American');
-    const cluckUChicken  = await restaurants.createRestaurant("Chipotle",           '229 Washington St',  'Mexican');
+    const cluckUChicken  = await restaurants.createRestaurant("Cluck U Chicken",    '112 Washington St',  'Fast Food');
     const amandas        = await restaurants.createRestaurant('Amandas',            '908 Washington St',  'American');
     const theCuban       = await restaurants.createRestaurant('The Cuban',          '333 Washington St',  'Cuban');
     const turningPoint   = await restaurants.createRestaurant('Turning Point',      '1420 Sinatra Dr N',  'Brunch');
@@ -30,7 +29,6 @@ async function main() {
     const unionHall      = await restaurants.createRestaurant('Union Hall',         '306 Sinatra Dr',     'American');
     const mamounsFalafel = await restaurants.createRestaurant('Mamouns Falafel',    '300 Washington St',  'Mediterranean');
     const augustinos     = await restaurants.createRestaurant('Augustinos',         '1104 Washington St', 'Italian');
-    */
 
     // Users
     const Smells    = await users.createUser('Simon',    'Smells',    'ss20@gmail.com',           'stinkyman20',    25, 'stonkystonk');
@@ -47,6 +45,35 @@ async function main() {
     const Taylor    = await users.createUser('Susan',    'Taylor',    'soccerLegend@yahoo.com',   'SusanTaylor',    30, 'beststriker123');
     const Curau     = await users.createUser('Jason',    'Curau',     'liverpoolfan@hotmail.com', 'ChillxFusionz',  21, 'theEgyptianKing');
     const Abell     = await users.createUser('Dani',     'Abell',     'ihatejason@gmail.com',     'Abell1111',      10, 'abell1111');
+
+    const ob1 = await reviews.createReview(Abell._id, oBagel._id, "Really good safety precautions and even better food!", {rating: 5, price: 2, distancedTables: true, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
+    await comments.createComment(ob1._id, Taylor._id, "This person know's what's good");
+
+    const ob2 = await reviews.createReview(Carlito._id, oBagel._id, "Pretty good safety precautions and nice food!", {rating: 4, price: 3, distancedTables: false, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
+    const ob3 = await reviews.createReview(Burkart._id, oBagel._id, "Decent safety precautions and ok food!", {rating: 3, price: 3, distancedTables: false, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
+    
+    const tp1 = await reviews.createReview(Abell._id, turningPoint._id, "Well-done on the safety precautions and even better job on food!", {rating: 5, price: 2, distancedTables: true, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
+    const tp2 = await reviews.createReview(Con._id, turningPoint._id, "Servers were really careful and thoughtful!", {rating: 4, price: 3, distancedTables: true, maskedEmployees: true, noTouchPayment: true, outdoorSeating: false});
+    const tp3 = await reviews.createReview(Smells._id, turningPoint._id, "The waiters were really cautious about how they handled our food. Props to them!", {rating: 4, price: 3, distancedTables: true, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
+
+    const cf1 = await reviews.createReview(Abell._id, chickenFactory._id, "Really good safety precautions and even better food!", {rating: 5, price: 2, distancedTables: true, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
+    await comments.createComment(cf1._id, Maramba._id, "I completely agree with this guy!");
+    await comments.createComment(cf1._id, Nekoui._id, "I don't know about that one sir.");
+    await comments.createComment(cf1._id, Reelaks._id, "Nah I would say they're really safe about the whole situation.");
+    await comments.createComment(cf1._id, Nekoui._id, "If you say so!");
+
+    const cf2 = await reviews.createReview(Smells._id, chickenFactory._id, "Pretty good safety precautions and the food wasn't bad.", {rating: 4, price: 3, distancedTables: false, maskedEmployees: true, noTouchPayment: true, outdoorSeating: false});
+    await comments.createComment(cf2._id, Maramba._id, "I would say so too");
+    await comments.createComment(cf2._id, Patel._id, "Yea it really was!");
+    await comments.createComment(cf2._id, Reelaks._id, "Huh? You're on some good stuff.");
+
+    const cf3 = await reviews.createReview(King._id, chickenFactory._id, "They were generally cautious about the way they handled our food, so wasn't too bad.", {rating: 3, price: 2, distancedTables: false, maskedEmployees: true, noTouchPayment: true, outdoorSeating: true});
+    const cf4 = await reviews.createReview(Con._id, chickenFactory._id, "Questionable safety precautions and ok food.", {rating: 2, price: 3, distancedTables: false, maskedEmployees: false, noTouchPayment: true, outdoorSeating: false});
+    const cf5 = await reviews.createReview(Gheesling._id, chickenFactory._id, "Pretty good food and good precautions!", {rating: 4, price: 3, distancedTables: false, maskedEmployees: true, noTouchPayment: true, outdoorSeating: false});
+    await comments.createComment(cf3._id, Smells._id, "I agree with this person");
+
+    const mcD4 = await reviews.createReview(Taylor._id, mcDonalds._id, "It's alright I guess? Their safety precautions could be a bit better in my opinion.", {rating: 3, price: 1, distancedTables: false, maskedEmployees: true, noTouchPayment: true, outdoorSeating: false});
+    const mcD5 = await reviews.createReview(Curau._id, mcDonalds._id, "Eh, could be a lot better.", {rating: 2, price: 1, distancedTables: false, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
 
     const mcD1 = await reviews.createReview(Smells._id, mcDonalds._id, "Im Lovin It", {rating: 5, price: 1, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
     await comments.createComment(mcD1._id, Taylor._id, "I agree. Felt perfectly safe.");
@@ -75,51 +102,11 @@ async function main() {
     const rail = await reviews.createReview(Burkart._id, brassRail._id, "Not great but not terrible.", {rating: 3, price: 5, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: false});
 
     const repub = await reviews.createReview(Smells._id, pizzaRepublic._id, "Felt safe the entire time", {rating: 5, price: 2, distancedTables: true, maskedEmployees: true, noTouchPayment: false, outdoorSeating: true});
-    await comments.createComment(repub._id, Patel._id, 'Shame they dont have no touch payment.')
+    await comments.createComment(repub._id, Patel._id, 'Shame they dont have no touch payment.');
 
-    await users.toggleFavoriteRestaurant(Smells._id, mcDonalds._id)
-    await users.toggleFavoriteRestaurant(Smells._id, qdoba._id)
-    /* test for case sensitive username and email */
-    // const user11 = await users.createUser('Simon', 'Smells', 'SS20@gMAil.COM', 'stinkyman20', 25, 'stonkystonk');
-    // const user12 = await users.createUser('Simon', 'Smells', 'smmm20@gmail.com', 'stiNkyMan20', 25, 'stonkystonk');
+    await users.toggleFavoriteRestaurant(Smells._id, mcDonalds._id);
+    await users.toggleFavoriteRestaurant(Smells._id, qdoba._id);
 
-    /*
-    //test getUserbyId
-    try{
-        console.log(await users.getUserById(user2._id.toString()));
-    }catch(e){
-        console.log(e);
-    }
-
-    //test updateUser
-    try{
-        const newUser1 = await users.updateUser(user1._id.toString(), {lastName: 'Stinks'});
-        console.log(newUser1);
-    } catch(e){
-        console.log(e);
-    }
-
-    // Test restaurants
-    try {
-        const newR1 = await restaurants.updateRestaurant(restaurant1._id.toString(), {name: 'Changed Name'});
-        console.log(newR1);
-        await restaurants.addReview(restaurant1._id.toString(), 'reviewA');
-        await restaurants.removeReview(restaurant1._id.toString(), 'reviewA');
-    } catch(e) {
-        console.log(e);
-        console.log('Error caught');
-        console.log();
-    }
-
-    // Test Comments
-
-    }
-    console.log(await comments.getCommentById(cAu1._id));
-    console.log(await comments.getAllCommentsOfReview("reviewA"));
-    await comments.deleteComment(cAu1._id);
-
-    console.log(await comments.getAllCommentsOfReview("reviewA"));
-    */
     console.log('Done seeding database');
     await db.serverConfig.close();
 }

@@ -3,7 +3,7 @@
         <div class="col card mt-3 shadow">
             <div class="card-body">
                 <div class="container mb-3">
-                    <h1 class="card-title h3">User Info</h5>
+                    <h1 class="card-title h3">User Info</h1>
                 </div>
                 <div class="row">
                     <div class="col">
@@ -20,7 +20,7 @@
                                 <label for="username" class="mr-3">Username</label>
                             </div>
                             <div class="col">
-                                <input type="text" id="username" class="rounded p-1" placeholder="{{user.username}}"disabled>
+                                <input type="text" id="username" class="rounded p-1" placeholder="{{user.username}}" disabled>
                             </div>
                         </div>
                         <div class="container row mb-3">
@@ -58,7 +58,7 @@
         <div class="col col-6 card shadow mr-4">
             <div class="card-body">
                 <div class="container">
-                    <h1 class="card-title h3">Favorited Restaurants</h5>
+                    <h2 class="card-title h3">Favorited Restaurants</h2>
                 </div>
                 <div class="container">
                     {{#if (checkListLengthZero favRestaurants)}}
@@ -78,7 +78,7 @@
         <div class="col card shadow">
             <div class="card-body">
                 <div class="container">
-                    <h1 class="card-title h3">Your Statistics</h5>
+                    <h2 class="card-title h3">Your Statistics</h2>
                 </div>
                 <div class="container">
                     <div class="container">
@@ -97,7 +97,7 @@
         <div class="col card shadow">
             <div class="card-body">
                 <div class="container">
-                    <h1 class="card-title h3">Your Reviews</h1>
+                    <h2 class="card-title h3">Your Reviews</h2>
                 </div>
                 <div class="container">
                     <ul class="list-group list-group-flush">
@@ -109,15 +109,13 @@
                                         <h2 class="h5">{{this.restaurant}}</h2>
                                     </div>
                                     <div class="btnContainer col">
-                                        <!-- delete button -->
-                                        <button class = "btn btn-danger" type = "button" data-toggle="modal" data-target="#review-{{@index}}" focus="true" aria-hidden = "true">Delete</button>
+                                        <button class = "btn btn-danger" type = "button" data-toggle="modal" data-target="#review-{{@index}}" aria-hidden = "true">Delete</button>
                                     </div>
-                                    <!-- modal -->
-                                    <div class="modal" id = 'review-{{@index}}' role = "dialog" tabindex="-1" aria-labelledby="reviewLabel">
+                                    <div class="modal" id = 'review-{{@index}}' role = "dialog" tabindex="-1">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title text-truncate" id="reviewLabel">"{{this.review.reviewText}}"</h4>
+                                                    <h3 class="modal-title text-truncate">{{this.review.reviewText}}"</h3>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -137,7 +135,7 @@
                                             <div class="container">
                                                 <h3 class="card-title h5">Review</h3>
                                             </div>
-                                            <div class="mb-3 bg-light rounded-pill w-50">
+                                            <div class="mb-3 w-50">
                                                  <div class="container">
                                                     {{#each filledStars}} 
                                                         <span>

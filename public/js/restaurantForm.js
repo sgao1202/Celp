@@ -7,7 +7,16 @@
         }
         return true;
     }
-
+    function validLink(link) {
+        if (!validString(link)) return false;
+        const re = /^https:\/\/www\.yelp\.com\/biz\/((\w+)-)*\w+/;
+        if(re.test(String(link).toLowerCase())){
+            return true;
+        }else{
+            noErrors = false;
+            return false;
+        }
+    }
     // form.removeClass('was-validated');
     let form = $('#restaurant-form');
     let nameInput = $('#restaurant-name-input');
@@ -17,6 +26,7 @@
     let cuisineInputDiv = $('#cuisine-input-div');
     let linkInput = $('#restaurant-link-input');
     let btn = $('#submitButton');
+    let errors = $('.error');
     cuisineInputDiv.hide();
 
     let otherOption = 'Other';
@@ -31,6 +41,9 @@
         noErrors = true;
         event.preventDefault();
         btn.prop('disabled', true);
+
+        errors.hide();
+
 
         nameInput.removeClass('is-invalid is-valid');
         addressInput.removeClass('is-invalid is-valid');
@@ -60,7 +73,7 @@
         if (!validString(info.name)) nameInput.addClass('is-invalid');
         if (!validString(info.address)) addressInput.addClass('is-invalid');
         if (!validString(info.cuisine)) cuisineTypeElem.addClass('is-invalid');
-        // if (!validString(info.link)) linkInput.addClass('is-invalid');
+        if (info.link && !validLink(info.link)) linkInput.addClass('is-invalid');
 
         // Unbind submit event to avoid an infinite loop
         if (noErrors) {

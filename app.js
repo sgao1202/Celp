@@ -47,28 +47,27 @@ app.use(
 
 //if user attempts to access private route without being authenicated, redirect them to the "main" page
 app.use('/private', async(req, res, next) =>{
-    if (!req.session.user){
+    if (!req.session.user) {
       let errors = [];
       errors.push("You cannot access the private route without logging in")
-      res.render('errors/error',{
+      return res.render('errors/error',{
+        title: 'Errors',
         errors: errors,
         partial: 'errors-script'});
-    }
-    else{
-      next();
-    }
+    } 
+    next();
 });
 
 app.use('/restaurants/new', async(req,res, next) =>{
-  if (!req.session.user){
+  if (!req.session.user) {
     req.session.previousRoute = req.originalUrl;
-    res.render("users/login",
-      {error: "You must be logged in to create a restaurant",
-      partial: 'login-script'})
-    }
-  else{
-    next();
-  }
+    return res.render("users/login", {
+        title: 'Log In',
+        error: "You must be logged in to create a restaurant",
+        partial: 'login-script'
+      });
+  } 
+  next();
 })
 
 configRoutes(app);
