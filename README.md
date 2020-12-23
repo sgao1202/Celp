@@ -18,5 +18,8 @@ Then run 'npm run seed' to run the task of seeding the database.
 - Restaurant images from Yelp 
 - Added a dark mode feature
 
+## API Keys
+This web application integrates the Google Maps Javascript API and the Yelp Fusion API. In order to run the application properly, request API keys from the Google Clouds platform and Yelp Fusion. Then insert those keys into the appropriate variables in the 'partials/restaurants-single-script.handlebars' and 'public/js/restaurantIndividual.js'.
+
 ## GitHub Link
 - https://github.com/sgao1202/Celp
